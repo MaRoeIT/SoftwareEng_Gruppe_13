@@ -1,2 +1,4 @@
-package no.hiof.g13;public class main {
+package no.hiof.g13;
+
+public class main {
 }
