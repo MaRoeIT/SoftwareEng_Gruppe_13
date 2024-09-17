@@ -12,8 +12,8 @@ public class IOTHomeDevice extends IOTDevice{
         put("width", 0);
     }};
     //konstruktør
-    public IOTHomeDevice(String name, String deviceID, String producer,int vekt,HashMap<String, Integer> size){
-        super(name,deviceID,producer,vekt);
+    public IOTHomeDevice(String name, String deviceID, String producer, boolean wifi,int vekt,HashMap<String, Integer> size){
+        super(name,deviceID,producer,vekt,wifi);
         this.size = size; //Denne må endres på basert på tilknyttningen til databasen
     }
 }
