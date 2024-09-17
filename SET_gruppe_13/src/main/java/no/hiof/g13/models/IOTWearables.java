@@ -1,4 +1,4 @@
 package no.hiof.g13.models;
 
-public class IOTWearables {
+abstract class IOTWearables {
 }

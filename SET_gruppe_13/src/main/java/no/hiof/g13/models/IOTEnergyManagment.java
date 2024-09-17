@@ -2,7 +2,7 @@ package no.hiof.g13.models;
 
 import java.util.HashMap;
 
-public class IOTEnergyManagment extends IOTDevice {
+abstract class IOTEnergyManagment extends IOTDevice {
     protected int frequencies;
     protected int voltage;
     //Hashmap som inneholder den største mengden watt og ampere som enheten tåler

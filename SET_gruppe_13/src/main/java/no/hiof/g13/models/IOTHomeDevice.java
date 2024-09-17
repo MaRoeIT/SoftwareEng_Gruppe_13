@@ -4,7 +4,7 @@ package no.hiof.g13.models;
 import java.util.HashMap;
 
 //Overklasse for hjemme IOT enheter, inneholder gennerelle egenskaper for IOT enheter
-public class IOTHomeDevice extends IOTDevice{
+abstract class IOTHomeDevice extends IOTDevice{
     //Hashmap for å sette dimensioner for produktet, bredde høyde og vidde.
     protected HashMap<String, Integer> size = new HashMap<String, Integer>() {{
         put("height", 0);
