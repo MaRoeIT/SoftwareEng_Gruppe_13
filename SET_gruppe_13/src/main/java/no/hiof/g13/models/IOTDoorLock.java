@@ -1,8 +1,9 @@
 package no.hiof.g13.models;
 
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
-class IOTDoorLock extends IOTHomeDevice {
+public class IOTDoorLock extends IOTHomeDevice {
     protected boolean lockedStatus;
     protected int userAuthentication;
 
@@ -18,6 +19,12 @@ class IOTDoorLock extends IOTHomeDevice {
     @Override
     public void configureDevice() {
         System.out.println("Configuring " + name + " wait a minute...");
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Configuring " + name + " done");
     }
     @Override
     public void updateSettings() {
