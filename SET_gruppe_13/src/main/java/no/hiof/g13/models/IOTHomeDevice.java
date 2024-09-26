@@ -11,9 +11,14 @@ abstract class IOTHomeDevice extends IOTDevice{
         put("lenght", 0);
         put("width", 0);
     }};
+    //Holder batteri nivået til enheten
+    protected int batteryLevel;
     //konstruktør
-    public IOTHomeDevice(String name, String deviceID, String producer, String modell, boolean wifi,int vekt,HashMap<String, Integer> size){
-        super(name,deviceID,producer,vekt,wifi, modell);
+    public IOTHomeDevice(String name, String deviceID, String producer,
+                         String modell, boolean wifi,int weight,HashMap<String, Integer> size,
+                         int batteryLevel) {
+        super(name,deviceID,producer,weight,wifi, modell);
         this.size = size; //Denne må endres på basert på tilknyttningen til databasen
+        this.batteryLevel = batteryLevel;
     }
 }

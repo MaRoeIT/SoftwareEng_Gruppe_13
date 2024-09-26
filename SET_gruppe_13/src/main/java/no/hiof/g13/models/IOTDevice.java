@@ -6,20 +6,24 @@ abstract class IOTDevice {
     protected String name;
     protected String deviceID;
     protected String producer;
-    protected float vekt;
+    protected float weight;
     //Bruker enheten wifi eller ikke til å koble til.
     protected boolean wifi;
     protected String modell;
 
     //konstruktør
-    public IOTDevice(String name, String deviceID, String producer, int vekt, boolean wifi, String modell){
+    public IOTDevice(String name, String deviceID, String producer, int weight, boolean wifi, String modell){
         this.name = name;
         this.deviceID = deviceID;
         this.producer = producer;
-        this.vekt = vekt;
+        this.weight = weight;
         this.wifi = wifi;
         this.modell = modell;
     }
+
+    public void configureDevice(){}
+
+    public void updateSettings(){}
 
     public String getName() {
         return name;
@@ -45,12 +49,12 @@ abstract class IOTDevice {
         this.producer = producer;
     }
 
-    public float getVekt() {
-        return vekt;
+    public float getWeight() {
+        return weight;
     }
 
-    public void setVekt(float vekt) {
-        this.vekt = vekt;
+    public void setWeight(float weight) {
+        this.weight = weight;
     }
 
     public boolean isWifi() {

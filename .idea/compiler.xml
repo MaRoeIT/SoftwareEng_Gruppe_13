@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="SET_gruppe_13" />
+        <module name="SET_13_to_maven" />
       </profile>
     </annotationProcessing>
   </component>
