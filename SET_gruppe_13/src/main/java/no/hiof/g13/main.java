@@ -4,7 +4,9 @@ import no.hiof.g13.models.*;
 import java.util.HashMap;
 
 public class main {
+
     public static void main(String[] args) {
+        boolean r = true;
         HashMap<String, Integer> yaleSize = new HashMap<>(){{
             put("height", 60);
             put("length", 240);
@@ -16,5 +18,9 @@ public class main {
 
         yaleDoorman.configureDevice();
         yaleDoorman.updateSettings();
+
+        while (r){
+            
+        }
     }
 }
