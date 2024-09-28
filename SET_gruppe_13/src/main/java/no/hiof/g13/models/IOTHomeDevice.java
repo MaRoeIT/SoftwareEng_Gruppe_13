@@ -51,4 +51,13 @@ abstract class IOTHomeDevice extends IOTDevice{
     public void updateBattery (int batteryLevel) {
         this.batteryLevel = batteryLevel;
     }
+
+    //Denne skal etterhvert kobles mot enheten slik at batteriet oppdaterer seg
+    public void updateDeviceBattery(int batteryLevel){
+        this.batteryLevel -= batteryLevel;
+    }
+
+    public int getBattery(){
+        return this.batteryLevel;
+    }
 }

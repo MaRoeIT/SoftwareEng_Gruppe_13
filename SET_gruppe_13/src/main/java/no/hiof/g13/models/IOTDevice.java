@@ -1,7 +1,7 @@
 package no.hiof.g13.models;
 
 //Generell klasse som inneholder all basisinformasjon generelt om IOT enheter.
-abstract class IOTDevice {
+public abstract class IOTDevice {
 
     protected String name;
     protected String deviceID;

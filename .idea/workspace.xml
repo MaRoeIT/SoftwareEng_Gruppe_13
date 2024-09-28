@@ -4,7 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="43f8d6f9-e05a-4cc4-9027-5e97656203ba" name="Changes" comment="" />
+    <list default="true" id="43f8d6f9-e05a-4cc4-9027-5e97656203ba" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/models/IOTDevice.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/models/IOTDevice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/models/IOTHomeDevice.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/models/IOTHomeDevice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/models/MyProducts.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/models/MyProducts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/main$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/main$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/main.class" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/models/IOTDevice.class" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/models/IOTDevice.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/models/IOTDoorLock.class" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/models/IOTDoorLock.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/models/IOTHomeDevice.class" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/models/IOTHomeDevice.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/models/MyProducts.class" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/models/MyProducts.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,9 +51,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2mG9TPNombcFXMOvbWhA0hvg201" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -48,25 +61,27 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.main.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "IOTDevices",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/mariu/Documents/GitKraken/SET_13",
+    "last_opened_file_path": "E:/GameCloneGithub/programmering_2_oblig/programmering_2_oblig",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propCompiler",
+    "settings.editor.selected.configurable": "editor.preferences.inline.completion",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
       </set>
     </attachedChunks>
   </component>
@@ -79,10 +94,16 @@
       <option name="presentableId" value="Default" />
       <updated>1726692052840</updated>
       <workItem from="1726692053872" duration="1336000" />
+      <workItem from="1727524875603" duration="31000" />
+      <workItem from="1727524912326" duration="5918000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
