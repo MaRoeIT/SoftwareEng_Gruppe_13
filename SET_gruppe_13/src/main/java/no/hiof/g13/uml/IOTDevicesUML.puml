@@ -1,0 +1,59 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class IOTDevice{
+    #name: String
+    #deviceID: String
+    #producer: String
+    #weight: float
+    #wifi: boolean
+    #modell: String
+    +configureDevice(): void
+    +updateSettings(): void
+}
+IOTDevice <|-- IOTEnergyManagment
+IOTDevice <|-- IOTEntertainment
+IOTDevice <|-- IOTHomeDevice
+IOTDevice <|-- IOTSensors
+IOTDevice <|-- IOTWearables
+abstract class IOTEnergyManagment{
+    #frequencies: int
+    #voltage: int
+    #maxLoad: HashMap<String, Integer>
+}
+abstract class IOTEntertainment
+abstract class IOTHomeDevice{
+    #size: HashMap<String, Integer>
+    #batteryLevel: int
+    +getSize(dummy: String): int[]
+    +updateBattery(batteryLevel: int): void
+    +updateDeviceBattery(batteryLevel: int): void
+}
+IOTHomeDevice <|-- IOTDoorLock
+abstract class IOTSensors{
+    #accurecy: float
+    #minimumOperationingTemp: int
+    #maximumOperationingTemp: int
+    #size: HashMap<String, Integer>
+}
+abstract class IOTWearables{
+    #display: boolean
+    #useStyle: String
+    #funksjoner: ArrayList<String>
+    #gps: boolean
+    #batteryCapacity: int
+    #size: HashMap<String, Integer>
+}
+class IOTDoorLock{
+    #lockedStatus: boolean
+    #userAuthentication: int
+    +configureDevice(): void
+    +updateSettings(): void
+}
+class MyProducts{
+    -myProducts: ArrayList<IOTDevice>
+    +addproducts(devices: IOTDevice[])
+}
+MyProducts o-- IOTDoorLock
+
+@enduml
