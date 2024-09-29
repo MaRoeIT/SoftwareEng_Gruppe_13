@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="43f8d6f9-e05a-4cc4-9027-5e97656203ba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/uml/IOTDevicesUML.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/test/java/AddMyProductTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/test/java/AddMyProductTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/models/IOTDoorLock.class" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/models/IOTDoorLock.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +113,7 @@
       <workItem from="1726692053872" duration="1336000" />
       <workItem from="1727524875603" duration="31000" />
       <workItem from="1727524912326" duration="8710000" />
-      <workItem from="1727603694772" duration="3579000" />
+      <workItem from="1727603694772" duration="4896000" />
     </task>
     <servers />
   </component>

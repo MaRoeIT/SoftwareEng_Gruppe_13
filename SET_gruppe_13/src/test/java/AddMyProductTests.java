@@ -54,4 +54,18 @@ public class AddMyProductTests {
         ArrayList<IOTDevice> expected = new ArrayList<>();
         Assertions.assertEquals(expected,myProducts.getMyProducts());
     }
+
+    @Test
+    @DisplayName("Add one product to myproduct")
+    public void addOneProduct(){
+
+        //Arrange
+        MyProducts myProducts = new MyProducts();
+        //Act
+        myProducts.addProducts(mockDoorLock);
+        //Assert
+        ArrayList<IOTDevice> expected = new ArrayList<>();
+        expected.add(mockDoorLock);
+        Assertions.assertEquals(expected, myProducts.getMyProducts());
+    }
 }
