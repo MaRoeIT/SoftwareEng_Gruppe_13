@@ -5,7 +5,7 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.HashMap;
 
-public class main {
+public class Main {
 
     public static void main(String[] args) {
         boolean r = true;
