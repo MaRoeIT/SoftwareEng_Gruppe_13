@@ -12,9 +12,9 @@ abstract class IOTEnergyManagment extends IOTDevice {
     }};
 
     public IOTEnergyManagment(
-            String name, String deviceID, String producer, int vekt, boolean wifi, String modell, int frequencies, int voltage, HashMap<String, Integer> maxLoad
+            String name, String deviceID, String producer, int weight, boolean wifi, String modell, int frequencies, int voltage, HashMap<String, Integer> maxLoad
     ) {
-        super(name, deviceID, producer, vekt, wifi, modell);
+        super(name, deviceID, producer, weight, wifi, modell);
         this.frequencies = frequencies;
         this.voltage = voltage;
         this.maxLoad = maxLoad;
