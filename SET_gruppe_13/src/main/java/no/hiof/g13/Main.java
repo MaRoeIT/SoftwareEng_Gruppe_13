@@ -81,8 +81,9 @@ public class Main {
             try {
                 TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {
-            }
                 throw new RuntimeException(e);
+            }
+
 
             if (yaleDoorman.getBattery() <= batteryWarningLevel){
                 System.out.println("The battery of " + yaleDoorman.getName() + "is now " + yaleDoorman.getBattery() +
