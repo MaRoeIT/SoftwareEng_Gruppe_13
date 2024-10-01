@@ -1,4 +1,5 @@
 package no.hiof.g13;
+import no.hiof.g13.GUI.MyProductsSwing;
 import no.hiof.g13.models.*;
 import no.hiof.g13.util.*;
 
@@ -11,6 +12,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.HashMap;
 public class Main {
     public static void main(String[] args) {
+
+        MyProductsSwing myProductWindow = new MyProductsSwing();
 
         List<Bruker> brukere = new ArrayList<>();
 
@@ -64,13 +67,21 @@ public class Main {
         IOTDoorLock smartLockPro = new IOTDoorLock("Yale SmartLock Pro", "SLP123",
                 "Yale", "SmartLock Pro", false, 2800, yaleSize, 100, true,
                 134819);
+        IOTDoorLock smartLockPro1 = new IOTDoorLock("Yale SmartLock Pro", "SLP123",
+                "Yale", "SmartLock Pro", false, 2800, yaleSize, 100, true,
+                134819);
+        IOTDoorLock smartLockPro2 = new IOTDoorLock("Yale SmartLock Pro", "SLP123",
+                "Yale", "SmartLock Pro", false, 2800, yaleSize, 100, true,
+                134819);
 
         MyProducts myProducts = new MyProducts();
 
         yaleDoorman.configureDevice();
         yaleDoorman.updateSettings();
 
-        myProducts.addProducts(yaleDoorman,lockX1,secureDoor,smartLockPro);
+        myProducts.addProducts(yaleDoorman,lockX1,secureDoor,smartLockPro, smartLockPro1, smartLockPro, smartLockPro1, smartLockPro2);
+
+        myProductWindow.runMyProducts(myProducts.getMyProducts());
 
         for (IOTDevice device : myProducts.getMyProducts()){
             System.out.println(device.getName());
