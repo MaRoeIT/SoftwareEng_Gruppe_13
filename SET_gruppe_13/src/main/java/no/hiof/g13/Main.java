@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
 
         MyProductsSwing myProductWindow = new MyProductsSwing();
-
+        /*
         List<Bruker> brukere = new ArrayList<>();
 
         try {
@@ -45,6 +45,7 @@ public class Main {
         for (Bruker bruker : brukere) {
             System.out.println("Bruker id: " +bruker.getBruker_id()+ " Navn: " +bruker.getFornavn());
         }
+        */
 
         boolean r = true;
         Scanner userScanner = new Scanner(System.in);
@@ -75,9 +76,6 @@ public class Main {
                 134819);
 
         MyProducts myProducts = new MyProducts();
-
-        yaleDoorman.configureDevice();
-        yaleDoorman.updateSettings();
 
         myProducts.addProducts(yaleDoorman,lockX1,secureDoor,smartLockPro, smartLockPro1, smartLockPro, smartLockPro1, smartLockPro2);
 
