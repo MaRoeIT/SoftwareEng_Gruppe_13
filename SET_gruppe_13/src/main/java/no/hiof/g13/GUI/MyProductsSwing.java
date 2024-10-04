@@ -45,6 +45,8 @@ public class MyProductsSwing extends JPanel {
 
         deviceLabel.setText(devices.get(i).getName());
 
+        devicePanel.setBackground(Color.GRAY);
+
         devicePanel.add(deviceLabel);
         devicePanel.add(background, BorderLayout.CENTER);
         window.add(devicePanel);

@@ -77,7 +77,7 @@ public class Main {
 
         MyProducts myProducts = new MyProducts();
 
-        myProducts.addProducts(yaleDoorman,lockX1,secureDoor,smartLockPro, smartLockPro1, smartLockPro, smartLockPro1, smartLockPro2);
+        myProducts.addProducts(yaleDoorman,lockX1,secureDoor,smartLockPro, smartLockPro1, smartLockPro);
 
         myProductWindow.runMyProducts(myProducts.getMyProducts());
 

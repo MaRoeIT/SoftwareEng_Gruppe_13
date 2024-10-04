@@ -67,6 +67,6 @@ class MyProducts{
     +addproducts(devices: IOTDevice[])
     +removeproducts(device: IOTDevice)
 }
-MyProducts o-- IOTDoorLock
+MyProducts o-- IOTDevice
 
 @enduml
