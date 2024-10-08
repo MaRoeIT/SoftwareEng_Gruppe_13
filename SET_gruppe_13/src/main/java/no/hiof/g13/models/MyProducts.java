@@ -23,6 +23,10 @@ public class MyProducts {
         }
     }
 
+    public void removeProduct(IOTDevice device){
+        this.myProducts.remove(device);
+    }
+
     public IOTDevice getDevice(String deviceName){
         for(IOTDevice device : myProducts){
             if (device.getName().equals(deviceName)){
