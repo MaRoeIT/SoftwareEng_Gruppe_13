@@ -5,9 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="43f8d6f9-e05a-4cc4-9027-5e97656203ba" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/adapters/GUIOutAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/adapters/MyProductsOutAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/ports/out/GetMyProductsPort.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/test/java/AddMyProductTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/test/java/AddMyProductTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/models/IOTDoorLock.class" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/models/IOTDoorLock.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/adapters/A_MyProducts.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/interfaces/GUIApiPort.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/interfaces/GUISpiPort.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/main$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/main$1.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,8 +46,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="UML Class" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -60,6 +68,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Main.executor": "Run",
     "Application.main.executor": "Run",
     "DefaultPlantUmlFileTemplate": "UML Class",
     "JUnit.AddMyProductTests.executor": "Run",
@@ -67,9 +76,9 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "IOTDevices",
+    "git-widget-placeholder": "portMyProducts",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/GameCloneGithub/programmering_2_oblig/programmering_2_oblig",
+    "last_opened_file_path": "E:/gitkraken/SoftwareEng_Gruppe_13",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -114,6 +123,8 @@
       <workItem from="1727524875603" duration="31000" />
       <workItem from="1727524912326" duration="8710000" />
       <workItem from="1727603694772" duration="4896000" />
+      <workItem from="1728749245027" duration="894000" />
+      <workItem from="1728981740465" duration="3266000" />
     </task>
     <servers />
   </component>
