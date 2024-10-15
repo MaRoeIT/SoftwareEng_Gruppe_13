@@ -1,37 +1,31 @@
 @startuml
-'https://plantuml.com/activity-diagram-beta
+'https://plantuml.com/class-diagram
 
-start
-:ClickServlet.handleRequest();
-:new page;
-if (Page.onSecurityCheck) then (true)
-  :Page.onInit();
-  if (isForward?) then (no)
-    :Process controls;
-    if (continue processing?) then (no)
-      stop
-    endif
+class CompetenceTest {
+    #configID: int
+    #currentUser: UserDummy
+    #trackResult: List<Integer>
+    #questions: ArrayList<Question>
 
-    if (isPost?) then (yes)
-      :Page.onPost();
-    else (no)
-      :Page.onGet();
-    endif
-    :Page.onRender();
-  endif
-else (false)
-endif
+    +checkConfig(): int
+    +runTest(): void
+    +calculateResult(): int
+    +singleChoice(): int
+    +rangeChoice(): int
 
-if (do redirect?) then (yes)
-  :redirect process;
-else
-  if (do forward?) then (yes)
-    :Forward request;
-  else (no)
-    :Render page template;
-  endif
-endif
+}
 
-stop
+class Question {
+    #question: string
+    #textAnswers: HashMap<String, Integer>
+    #numAnswers: HashMap<Integer, Integer>
+}
 
+class UserDummy {
+    #userID: string
+    #configID: int
+}
+
+CompetenceTest o-- Question
+CompetenceTest o-- UserDummy
 @enduml
