@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public class GUIOutAdapter implements GetMyProductsPort {
+    //Bruker denne variabelen for å sende data direkte fra port til gui
     public final MyProductsSwing myProductsSwing = new MyProductsSwing();
 
 
+    //metode som sender med produktlisten til gui
     @Override
     public Optional<ArrayList<IOTDevice>> getMyProductList(MyProducts myProducts) {
         myProductsSwing.runMyProducts(myProducts.getMyProducts());

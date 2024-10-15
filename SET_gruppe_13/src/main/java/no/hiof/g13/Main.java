@@ -81,6 +81,8 @@ public class Main {
 
         myProducts.addProducts(yaleDoorman,lockX1,secureDoor,smartLockPro, smartLockPro1);
 
+        //prøver ut begge adapterne for å skape et gui vindu
+        //orelse returnerer en array list men vis det ikke er noen array list returnerer den en tom liste
         myProductWindow.runMyProducts(a_myProducts.getMyProductList(myProducts).orElse(new ArrayList<>()));
         guiOutAdapter.getMyProductList(myProducts);
 
