@@ -5,12 +5,10 @@ import java.util.List;
 
 public class CompetenceTest {
     private int configId;
-    private UserDummy currentUser;
     private List<Integer> trackResult;
     private ArrayList<Question> questions;
 
     public CompetenceTest() {
-        this.configId = -1;
         this.questions = new ArrayList<Question>();
     }
 
@@ -21,11 +19,15 @@ public class CompetenceTest {
         this.configId = configId;
     }
 
-    public UserDummy getCurrentUser() {
-        return this.currentUser;
-    }
-    public void setCurrentUser(UserDummy currentUser) {
-        this.currentUser = currentUser;
+    // Sjekker om bruker har an aktiv config for UI oppsett
+    public int checkConfig(User currentUser) {
+        if(currentUser.getConfigId() > 0) {
+            return currentUser.getConfigId();
+        }
+        else {
+            System.out.println("No config found, running competence test...");
+            return 0;
+        }
     }
 
 }

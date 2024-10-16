@@ -3,7 +3,6 @@
 
 class CompetenceTest {
     #configID: int
-    #currentUser: UserDummy
     #trackResult: List<Integer>
     #questions: ArrayList<Question>
 
@@ -12,6 +11,7 @@ class CompetenceTest {
     +calculateResult(): int
     +singleChoice(): int
     +rangeChoice(): int
+    +continueInstall(): void
 
 }
 
@@ -21,11 +21,10 @@ class Question {
     #numAnswers: HashMap<Integer, Integer>
 }
 
-class UserDummy {
+class User {
     #userID: string
     #configID: int
 }
 
 CompetenceTest o-- Question
-CompetenceTest o-- UserDummy
 @enduml
