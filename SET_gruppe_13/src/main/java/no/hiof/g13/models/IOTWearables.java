@@ -3,7 +3,7 @@ package no.hiof.g13.models;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-abstract class IOTWearables extends IOTDevice{
+public abstract class IOTWearables extends IOTDevice{
     protected boolean display;
     //om den er for håndledd, finger eller andre bruksmåter
     protected String useStyle;
