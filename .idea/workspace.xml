@@ -6,8 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="43f8d6f9-e05a-4cc4-9027-5e97656203ba" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/test/java/AddMyProductTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/test/java/AddMyProductTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/models/IOTDoorLock.class" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/models/IOTDoorLock.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/IOTDevices/IOTDevices.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/IOTDevices/src/no/hiof/danadh/IOTDevices/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/IOTDevices/src/no/hiof/danadh/IOTDevices/models/IOTDevices.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,9 +68,9 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "IOTDevices",
+    "git-widget-placeholder": "myproducts",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/GameCloneGithub/programmering_2_oblig/programmering_2_oblig",
+    "last_opened_file_path": "C:/Users/andyi/Dropbox/IT_Skole/hiof/IiSE/gruppearbeid/SoftwareEng_Gruppe_13",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -114,6 +115,7 @@
       <workItem from="1727524875603" duration="31000" />
       <workItem from="1727524912326" duration="8710000" />
       <workItem from="1727603694772" duration="4896000" />
+      <workItem from="1729498423190" duration="617000" />
     </task>
     <servers />
   </component>
