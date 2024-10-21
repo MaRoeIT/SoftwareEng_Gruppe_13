@@ -48,6 +48,9 @@ abstract class IOTHomeDevice{
 IOTHomeDevice <|-- IOTDoorLock
 IOTHomeDevice <|-- IOTLawnMower
 IOTHomeDevice <|-- IOTVacuumCleaner
+IOTHomeDevice <|-- IOTSecurityCamera
+IOTHomeDevice <|-- IOTSmartLight
+IOTWearables <|-- IOTSmartWatch
 class IOTDoorLock{
     #lockedStatus: boolean
     #userAuthentication: int
@@ -62,6 +65,21 @@ class IOTVacuumCleaner{
     +configureDevice(): void
     +updateSettings(): void
 }
+class IOTSecurityCamera{
+    +configureDevice(): void
+    +updateSettings(): void
+}
+class IOTSmartLight{
+    +configureDevice(): void
+    +updateSettings(): void
+}
+class IOTSmartWatch{
+    +configureDevice(): void
+    +updateSettings(): void
+    +getStepCount(): int
+}
+
+
 class MyProducts{
     -myProducts: ArrayList<IOTDevice>
     +addproducts(devices: IOTDevice[])
