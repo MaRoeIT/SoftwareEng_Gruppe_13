@@ -14,12 +14,12 @@ abstract class IOTWearables extends IOTDevice{
     protected HashMap<String, Integer> size = new HashMap<>();
 
     public IOTWearables(
-            String name, String deviceID, String producer, int vekt,
+            String name, String deviceID, String producer, int weight,
             boolean wifi, String modell, boolean display, String useStyle,
             ArrayList<String> funksjoner, boolean gps, int batteryCapacity,
             HashMap<String, Integer> size
     ) {
-        super(name, deviceID, producer, vekt, wifi, modell);
+        super(name, deviceID, producer, weight, wifi, modell);
         this.display = display;
         this.useStyle = useStyle;
         this.funksjoner = funksjoner;
