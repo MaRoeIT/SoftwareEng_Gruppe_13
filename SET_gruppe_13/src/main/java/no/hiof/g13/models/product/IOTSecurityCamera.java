@@ -1,4 +1,4 @@
-package no.hiof.danadh.IOTDevices.models;
+package no.hiof.g13.models.product;
 
 abstract class IOTSecurityCamera extends IOTDevices {
     protected boolean faceRegistrationActivated;

@@ -1,4 +1,4 @@
-package no.hiof.danadh.IOTDevices.models;
+package no.hiof.g13.models.product;
 
 public class IOTElVacuumCleaner extends IOTDevices {
 
