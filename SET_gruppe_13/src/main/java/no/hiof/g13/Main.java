@@ -2,6 +2,7 @@ package no.hiof.g13;
 import no.hiof.g13.GUI.MyProductsSwing;
 import no.hiof.g13.adapters.GUIOutAdapter;
 import no.hiof.g13.adapters.MyProductsOutAdapter;
+import no.hiof.g13.adapters.UserAdapter;
 import no.hiof.g13.models.*;
 
 import java.util.ArrayList;
@@ -12,39 +13,18 @@ import java.util.HashMap;
 public class Main {
     public static void main(String[] args) {
 
-        MyProductsSwing myProductWindow = new MyProductsSwing();
+        UserAdapter  userAdapter = new UserAdapter();
+        userAdapter.getUsers();
+        User user = new User();
+        user = userAdapter.getUser(4);
+        System.out.println("SYSTEM: " +user.getPassord());
+        userAdapter.saveUser(user);
+        userAdapter.deleteUser(7);
+
         /*
-        List<Bruker> brukere = new ArrayList<>();
+        MyProductsSwing myProductWindow = new MyProductsSwing();
 
-        try {
-            Connection connection = mysql.getConnection();
 
-            Statement statement = connection.createStatement();
-
-            String selectQuery = "select * from gruppe13.bruker";
-
-            ResultSet rs = statement.executeQuery(selectQuery);
-
-            while (rs.next()) {
-                Bruker bruker = new Bruker();
-                bruker.setBruker_id(rs.getInt("bruker_id"));
-                bruker.setFornavn(rs.getString("fornavn"));
-                bruker.setEtternavn(rs.getString("etternavn"));
-                bruker.setStatus_id(rs.getInt("status_id(FK)"));
-                bruker.setKontakt_id(rs.getInt("kontakt_id(FK)"));
-
-                brukere.add(bruker);
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        for (Bruker bruker : brukere) {
-            System.out.println("Bruker id: " +bruker.getBruker_id()+ " Navn: " +bruker.getFornavn());
-        }
-        */
 
         boolean r = true;
         Scanner userScanner = new Scanner(System.in);
@@ -117,6 +97,6 @@ public class Main {
                 System.out.println(yaleDoorman.getName() + " just went out of power");
                 r = false;
             }
-        }
+        }*/
     }
 }
