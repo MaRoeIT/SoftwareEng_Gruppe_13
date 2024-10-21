@@ -1,0 +1,45 @@
+@startuml
+'https://plantuml.com/deployment-diagram
+allowmixing
+
+class Externals
+database database
+hexagon adapter_layer{
+    class ExternalsAdapters
+    hexagon Core{
+        portout databaseIn
+        portout databaseOut
+        portin GUIOut
+        class CoreClass
+
+        portin GUIIn
+        portout otherExternalsOut
+        portin otherExternalsIn
+    }
+    class DatabaseAdapter{
+
+    }
+    class GUIAdapter{
+
+    }
+}
+CoreClass --> otherExternalsOut
+CoreClass --> otherExternalsIn
+otherExternalsOut -r-> ExternalsAdapters
+otherExternalsIn <-r- ExternalsAdapters
+ExternalsAdapters <-r-> Externals
+
+object GUI
+CoreClass --> databaseOut
+CoreClass <-- databaseIn
+databaseOut -d-> DatabaseAdapter
+databaseIn <-d- DatabaseAdapter
+DatabaseAdapter <-d-> database
+
+CoreClass --> GUIOut
+CoreClass <-- GUIIn
+GUIOut -u-> GUIAdapter
+GUIIn <-r- GUIAdapter
+GUIAdapter <-r-> GUI
+
+@enduml

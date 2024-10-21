@@ -1,12 +1,11 @@
 package no.hiof.g13;
 import no.hiof.g13.GUI.MyProductsSwing;
+import no.hiof.g13.adapters.GUIOutAdapter;
+import no.hiof.g13.adapters.MyProductsOutAdapter;
 import no.hiof.g13.models.*;
-import no.hiof.g13.util.*;
 
-import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
-
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.HashMap;
@@ -76,14 +75,17 @@ public class Main {
                 134819);
 
         MyProducts myProducts = new MyProducts();
+        MyProductsOutAdapter a_myProducts = new MyProductsOutAdapter();
+        GUIOutAdapter guiOutAdapter = new GUIOutAdapter();
 
-        myProducts.addProducts(yaleDoorman,lockX1,secureDoor,smartLockPro, smartLockPro1, smartLockPro);
 
-        myProductWindow.runMyProducts(myProducts.getMyProducts());
+        myProducts.addProducts(yaleDoorman,lockX1,secureDoor,smartLockPro, smartLockPro1);
 
-        for (IOTDevice device : myProducts.getMyProducts()){
-            System.out.println(device.getName());
-        }
+        //prøver ut begge adapterne for å skape et gui vindu
+        //orelse returnerer en array list men vis det ikke er noen array list returnerer den en tom liste
+        myProductWindow.runMyProducts(a_myProducts.getMyProductList(myProducts).orElse(new ArrayList<>()));
+        guiOutAdapter.getMyProductList(myProducts);
+
 
         while (r){
             yaleDoorman.updateDeviceBattery(1);
