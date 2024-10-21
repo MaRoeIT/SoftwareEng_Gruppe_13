@@ -20,7 +20,16 @@ public class IOTSmartWatch extends IOTWearables {
 
         this.stepCount = stepCount;
     }
-        
+
+    @Override
+    public void configureDevice() {
+        System.out.println("Configuring " + name + " wait a minute...");
+    }
+
+    @Override
+    public void updateSettings() {
+        System.out.println("Settings for " + name + " has been successfully updated!");
+    }
 
     public void stepCounter() {
         boolean stepDetected = detectStep();
