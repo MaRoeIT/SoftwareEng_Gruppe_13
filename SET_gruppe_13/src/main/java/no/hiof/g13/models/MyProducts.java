@@ -23,6 +23,11 @@ public class MyProducts {
         }
     }
 
+    //Fjerner valgt IOTDevice fra listen av produkter
+    public void removeProduct(IOTDevice device){
+        this.myProducts.remove(device);
+    }
+
     public IOTDevice getDevice(String deviceName){
         for(IOTDevice device : myProducts){
             if (device.getName().equals(deviceName)){
