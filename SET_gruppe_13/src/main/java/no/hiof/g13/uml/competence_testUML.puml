@@ -4,10 +4,11 @@
 class CompetenceTest {
     #configID: int
     #trackResult: List<Integer>
-    #questions: ArrayList<Question>
+    #questionList: ArrayList<Question>
 
-    +checkConfig(): int
-    +runTest(): void
+    +checkConfig(): bool
+    +runTest(): bool
+    +addQuestions(): ArrayList<Question>
     +calculateResult(): int
     +singleChoice(): int
     +rangeChoice(): int
@@ -16,6 +17,7 @@ class CompetenceTest {
 }
 
 class Question {
+    #type:
     #question: string
     #textAnswers: HashMap<String, Integer>
     #numAnswers: HashMap<Integer, Integer>
