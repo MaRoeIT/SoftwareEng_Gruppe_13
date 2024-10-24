@@ -17,7 +17,7 @@ import no.hiof.g13.models.product.IOTSmartWatch;
 @ExtendWith(MockitoExtension.class)
 public class IOTSmartWatchTests {
 
-    IOTSmartWatch smartWatch;
+    IOTSmartWatch mockSmartWatch;
 
     @BeforeEach
     void setUp() {
@@ -29,7 +29,7 @@ public class IOTSmartWatchTests {
         size.put("width", 40);
         size.put("height", 50);
 
-        smartWatch = new IOTSmartWatch(
+        mockSmartWatch = new IOTSmartWatch(
             "Tesla watch", "12", "MuskBands", 9, true, "X Æ A-12", true, "formal",
             funksjoner, true, 42, size, 0
         );
@@ -38,26 +38,26 @@ public class IOTSmartWatchTests {
     @Test
     @DisplayName("Check initial steps counter is 0")
     void testStepCounterInitialCount() {
-        assertEquals(0, smartWatch.stepCount);
+        assertEquals(0, mockSmartWatch.stepCount);
     }
 
     @Test
     @DisplayName("Step Counter increment check")
     void testStepCounterIncrements() {
-        smartWatch.stepCounter();
+        mockSmartWatch.stepCounter();
 
-        if (smartWatch.stepCount == 1) {
-            assertEquals(1, smartWatch.stepCount);
+        if (mockSmartWatch.stepCount == 1) {
+            assertEquals(1, mockSmartWatch.stepCount);
         }
     }
 
     @Test
     void testMultipleStepIncrements() {
         for (int i = 0; i < 10; i++) {
-            smartWatch.stepCounter();
+            mockSmartWatch.stepCounter();
         }
 
-        assertTrue(smartWatch.stepCount > 0, "Step should increment.");
+        assertTrue(mockSmartWatch.stepCount > 8, "Step should increment.");
     }
 
 }
