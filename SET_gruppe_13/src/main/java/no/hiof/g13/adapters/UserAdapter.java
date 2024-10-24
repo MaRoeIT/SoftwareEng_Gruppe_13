@@ -29,6 +29,8 @@ public class UserAdapter implements UserRepositoryPort {
                 user.setMobil(rs.getString("mobil"));
                 user.setEpost(rs.getString("epost"));
                 user.setPassord(rs.getString("passord"));
+            } else {
+                System.out.println("No user found with id " + userId);
             }
 
         } catch (ClassNotFoundException | SQLException e) {
@@ -94,6 +96,8 @@ public class UserAdapter implements UserRepositoryPort {
             int rowsAffected = preparedStatement.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("User deleted successfully!");
+            } else {
+                System.out.println("No rows affected!");
             }
 
         } catch (SQLException | ClassNotFoundException e) {
