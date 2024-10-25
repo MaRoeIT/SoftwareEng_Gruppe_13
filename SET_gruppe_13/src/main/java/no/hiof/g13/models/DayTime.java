@@ -34,4 +34,10 @@ public class DayTime {
     public void setMinute(int minute) {
         this.minute = minute;
     }
+
+    public void setAllValues(int day, int hour, int minute){
+        this.day = day;
+        this.hour = hour;
+        this.minute = minute;
+    }
 }
