@@ -1,102 +1,42 @@
 package no.hiof.g13;
-import no.hiof.g13.GUI.MyProductsSwing;
-import no.hiof.g13.adapters.GUIOutAdapter;
-import no.hiof.g13.adapters.MyProductsOutAdapter;
-import no.hiof.g13.adapters.UserAdapter;
-import no.hiof.g13.models.*;
 
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
-import java.util.HashMap;
+import io.javalin.Javalin;
+import io.javalin.http.Context;
+import io.javalin.http.Handler;
+import io.javalin.vue.VueComponent;
+import org.jetbrains.annotations.NotNull;
+
 public class Main {
     public static void main(String[] args) {
+        // Hvis vi ønsker å benytte Vue for å lage sider i applikasjonen, må vi tillate Javalin å benytte web-jars.
+        // Vi gjør dette ved å legge til følgende kode (Det i .create() sin parameter).
+        Javalin app = Javalin.create(javalinConfig -> {
+            javalinConfig.staticFiles.enableWebjars();
+            javalinConfig.vue.vueInstanceNameInJs = "app";
+        }).start();
 
-        UserAdapter  userAdapter = new UserAdapter();
-        userAdapter.getUsers();
-        User user = new User();
-        user = userAdapter.getUser(4);
-        System.out.println("SYSTEM: " +user.getPassord());
-        userAdapter.saveUser(user);
-        userAdapter.deleteUser(7);
+
+        // Her sier vi at defalt pathen "/" skal gi en Vue-komponent som resultat. Altså at siden laget med Vue
+        // skal vises. I dette tilfellet er det komponenten "hello-world", som er definert i hello-world.vue under
+        // resources/vue/views som gjelder.
+        // Utenom dette er det ikke en forventning om at dere skal forstå/skrive vue-kode selv, så innholdet av denne
+        // filen vil ikke bli forklart her.
+        app.get("/", new VueComponent("hello-world"));
 
         /*
-        MyProductsSwing myProductWindow = new MyProductsSwing();
-
-
-
-        boolean r = true;
-        Scanner userScanner = new Scanner(System.in);
-        String userInput;
-        int batteryWarningLevel = 10;
-        HashMap<String, Integer> yaleSize = new HashMap<>(){{
-            put("height", 60);
-            put("length", 240);
-            put("width", 340);
-        }};
-        IOTDoorLock yaleDoorman = new IOTDoorLock("Yale Doorman L3 Flex", "YHAR8948293-23",
-                "Yale", "L3 Flex", false, 3730, yaleSize, 100, true,
-                134819);
-        IOTDoorLock lockX1 = new IOTDoorLock("Crono lock X1", "LDX12345",
-                "Crono", "LockX1", true, 2500, yaleSize, 100, true,
-                134819);
-        IOTDoorLock secureDoor = new IOTDoorLock("Senden SecureDoor", "SD00789",
-                "Senden", "SecureDoor", false, 3200, yaleSize, 100, true,
-                134819);
-        IOTDoorLock smartLockPro = new IOTDoorLock("Yale SmartLock Pro", "SLP123",
-                "Yale", "SmartLock Pro", false, 2800, yaleSize, 100, true,
-                134819);
-        IOTDoorLock smartLockPro1 = new IOTDoorLock("Yale SmartLock Pro", "SLP123",
-                "Yale", "SmartLock Pro", false, 2800, yaleSize, 100, true,
-                134819);
-        IOTDoorLock smartLockPro2 = new IOTDoorLock("Yale SmartLock Pro", "SLP123",
-                "Yale", "SmartLock Pro", false, 2800, yaleSize, 100, true,
-                134819);
-
-        MyProducts myProducts = new MyProducts();
-        MyProductsOutAdapter a_myProducts = new MyProductsOutAdapter();
-        GUIOutAdapter guiOutAdapter = new GUIOutAdapter();
-
-
-        myProducts.addProducts(yaleDoorman,lockX1,secureDoor,smartLockPro, smartLockPro1);
-
-        //prøver ut begge adapterne for å skape et gui vindu
-        //orelse returnerer en array list men vis det ikke er noen array list returnerer den en tom liste
-        myProductWindow.runMyProducts(a_myProducts.getMyProductList(myProducts).orElse(new ArrayList<>()));
-        guiOutAdapter.getMyProductList(myProducts);
-
-
-        while (r){
-            yaleDoorman.updateDeviceBattery(1);
-            try {
-                TimeUnit.SECONDS.sleep(2);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+        app.get("/", new Handler() {
+            @Override
+            public void handle(@NotNull Context context) throws Exception {
+                context.result("Hello Javalin!");
             }
+        });
+         */
 
-
-            if (yaleDoorman.getBattery() <= batteryWarningLevel){
-                System.out.println("The battery of " + yaleDoorman.getName() + "is now " + yaleDoorman.getBattery() +
-                        "%\nWe suggest charging the device.");
-                System.out.println("\nDo you wan't to charge the device now ?(y/n) ");
-                userInput = userScanner.nextLine();
-                switch (userInput.toUpperCase()){
-                    case "Y":
-                        yaleDoorman.updateBattery(100);
-                        batteryWarningLevel = 10;
-                        System.out.println("Your device is at 100%");
-                    case "N":
-                        System.out.println("Ok you will get a new notice soon");
-                        batteryWarningLevel -= 2;
-                    default:
-                        System.out.println("That's not a valid input");
-                }
+        app.get("/other-page", new Handler() {
+            @Override
+            public void handle(@NotNull Context context) throws Exception {
+                context.result("Hello from the other page!");
             }
-            if (yaleDoorman.getBattery() <= 0){
-                System.out.println(yaleDoorman.getName() + " just went out of power");
-                r = false;
-            }
-        }*/
+        });
     }
 }
