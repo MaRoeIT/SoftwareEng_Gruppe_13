@@ -3,12 +3,12 @@
     <h2>Login</h2>
     <form @submit.prevent="submitLogin">
       <div class="mb-3">
-        <label for="email" class="form-label">Email:</label>
-        <input type="email" v-model="email" id="email" required class="form-control" />
+        <label for="epost" class="form-label">Email:</label>
+        <input type="email" v-model="epost" id="epost" name="epost" required class="form-control" />
       </div>
       <div class="mb-3">
-        <label for="password" class="form-label">Password:</label>
-        <input type="password" v-model="password" id="password" required class="form-control" />
+        <label for="passord" class="form-label">Password:</label>
+        <input type="password" v-model="passord" id="passord" name="passord" required class="form-control" />
       </div>
       <button type="submit" class="btn btn-primary">Login</button>
     </form>
@@ -21,8 +21,8 @@ app.component("login", {
   template: "#template",
   data() {
     return {
-      email: '',
-      password: '',
+      epost: '',
+      passord: '',
       loginMessage: ''
     };
   },
@@ -34,7 +34,7 @@ app.component("login", {
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ email: this.email, password: this.password })
+          body: JSON.stringify({ epost: this.epost, passord: this.passord })
         });
         const result = await response.json();
 

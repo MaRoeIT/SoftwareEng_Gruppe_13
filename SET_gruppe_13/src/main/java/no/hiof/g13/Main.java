@@ -16,8 +16,7 @@ import java.sql.SQLOutput;
 
 public class Main {
     public static void main(String[] args) {
-        // Hvis vi ønsker å benytte Vue for å lage sider i applikasjonen, må vi tillate Javalin å benytte web-jars.
-        // Vi gjør dette ved å legge til følgende kode (Det i .create() sin parameter).
+
         Javalin app = Javalin.create(javalinConfig -> {
             javalinConfig.staticFiles.enableWebjars();
             javalinConfig.vue.vueInstanceNameInJs = "app";
@@ -33,30 +32,14 @@ public class Main {
             ctx.contentType("application/json");
         });
 
-
-        // Her sier vi at defalt pathen "/" skal gi en Vue-komponent som resultat. Altså at siden laget med Vue
-        // skal vises. I dette tilfellet er det komponenten "hello-world", som er definert i hello-world.vue under
-        // resources/vue/views som gjelder.
-        // Utenom dette er det ikke en forventning om at dere skal forstå/skrive vue-kode selv, så innholdet av denne
-        // filen vil ikke bli forklart her.
         app.get("/", new VueComponent("hello-world"));
         app.get("/login", new VueComponent("login"));
 
-        boolean isAuthenticated = userAdapter.authenticateUser("john.doe@example.com", "password123");
-        System.out.println("True or false?" + isAuthenticated);
-
-        /*
-        app.get("/", new Handler() {
-            @Override
-            public void handle(@NotNull Context context) throws Exception {
-                context.result("Hello Javalin!");
-            }
-        });
 
         app.post("/api/login", ctx -> {
             // Parse the JSON request body to get email and password
-            String email = ctx.formParam("email");
-            String password = ctx.formParam("password");
+            String email = ctx.bodyAsClass(User.class).getEpost();
+            String password = ctx.bodyAsClass(User.class).getPassord();
 
             if (email == null || password == null) {
                 ctx.status(400).json("Invalid input");
@@ -65,7 +48,6 @@ public class Main {
 
             // Use the adapter to authenticate
             boolean isAuthenticated = userAdapter.authenticateUser(email, password);
-
             // Return the result as JSON
             ctx.json(isAuthenticated);
         });
@@ -76,7 +58,7 @@ public class Main {
                 context.result("Hello from the other page!");
             }
         });
-        */
+
 
     }
 }
