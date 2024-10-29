@@ -3,7 +3,10 @@ package no.hiof.g13;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
+import com.google.gson.Gson;
 import io.javalin.vue.VueComponent;
+import no.hiof.g13.adapters.UserAdapter;
+import no.hiof.g13.models.User;
 import org.jetbrains.annotations.NotNull;
 
 public class Main {
@@ -14,6 +17,16 @@ public class Main {
             javalinConfig.staticFiles.enableWebjars();
             javalinConfig.vue.vueInstanceNameInJs = "app";
         }).start();
+
+        Gson gson = new Gson();
+
+        app.get("/api/user", ctx -> {
+            UserAdapter userAdapter = new UserAdapter();
+            User user = userAdapter.getUser(9);
+
+            ctx.result(gson.toJson(user)); // Serialize object to JSON
+            ctx.contentType("application/json");
+        });
 
 
         // Her sier vi at defalt pathen "/" skal gi en Vue-komponent som resultat. Altså at siden laget med Vue
