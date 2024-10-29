@@ -10,7 +10,10 @@ hexagon adapter_layer{
         portout databaseIn
         portout databaseOut
         portin GUIOut
+        class ExternalsDTOs
         class CoreClass
+        class GUIDTOs
+        class DatabaseDTOs
 
         portin GUIIn
         portout otherExternalsOut
@@ -23,23 +26,26 @@ hexagon adapter_layer{
 
     }
 }
-CoreClass --> otherExternalsOut
-CoreClass --> otherExternalsIn
-otherExternalsOut -r-> ExternalsAdapters
-otherExternalsIn <-r- ExternalsAdapters
-ExternalsAdapters <-r-> Externals
+CoreClass --> ExternalsDTOs : Creates dto object
+CoreClass --> otherExternalsOut : Sends dto object
+CoreClass <-- otherExternalsIn : recives dto object
+otherExternalsOut -r-> ExternalsAdapters : recives dto object
+otherExternalsIn <-r- ExternalsAdapters : formating data to fit core
+ExternalsAdapters <-r-> Externals : Handles data out or in
 
 object GUI
-CoreClass --> databaseOut
-CoreClass <-- databaseIn
-databaseOut -d-> DatabaseAdapter
-databaseIn <-d- DatabaseAdapter
-DatabaseAdapter <-d-> database
+CoreClass --> DatabaseDTOs : Creates dto object
+CoreClass --> databaseOut : Sends dto object
+CoreClass <-- databaseIn : recives dto object
+databaseOut -d-> DatabaseAdapter : recives dto object
+databaseIn <-d- DatabaseAdapter : formats data to fit core
+DatabaseAdapter <-d-> database : handles data out or in
 
-CoreClass --> GUIOut
-CoreClass <-- GUIIn
-GUIOut -u-> GUIAdapter
-GUIIn <-r- GUIAdapter
-GUIAdapter <-r-> GUI
+CoreClass --> GUIDTOs : Creates dto object
+CoreClass --> GUIOut : sends dto object
+CoreClass <-- GUIIn : recives dto object
+GUIOut -u-> GUIAdapter : recives dto object
+GUIIn <-r- GUIAdapter : formats data to fit core
+GUIAdapter <-r-> GUI : Handles data out or in
 
 @enduml
