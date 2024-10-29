@@ -1,0 +1,51 @@
+@startuml
+'https://plantuml.com/deployment-diagram
+allowmixing
+
+class Externals
+database database
+hexagon adapter_layer{
+    class ExternalsAdapters
+    hexagon Core{
+        portout databaseIn
+        portout databaseOut
+        portin GUIOut
+        class ExternalsDTOs
+        class CoreClass
+        class GUIDTOs
+        class DatabaseDTOs
+
+        portin GUIIn
+        portout otherExternalsOut
+        portin otherExternalsIn
+    }
+    class DatabaseAdapter{
+
+    }
+    class GUIAdapter{
+
+    }
+}
+CoreClass --> ExternalsDTOs : Creates dto object
+CoreClass --> otherExternalsOut : Sends dto object
+CoreClass <-- otherExternalsIn : recives dto object
+otherExternalsOut -r-> ExternalsAdapters : recives dto object
+otherExternalsIn <-r- ExternalsAdapters : formating data to fit core
+ExternalsAdapters <-r-> Externals : Handles data out or in
+
+object GUI
+CoreClass --> DatabaseDTOs : Creates dto object
+CoreClass --> databaseOut : Sends dto object
+CoreClass <-- databaseIn : recives dto object
+databaseOut -d-> DatabaseAdapter : recives dto object
+databaseIn <-d- DatabaseAdapter : formats data to fit core
+DatabaseAdapter <-d-> database : handles data out or in
+
+CoreClass --> GUIDTOs : Creates dto object
+CoreClass --> GUIOut : sends dto object
+CoreClass <-- GUIIn : recives dto object
+GUIOut -u-> GUIAdapter : recives dto object
+GUIIn <-r- GUIAdapter : formats data to fit core
+GUIAdapter <-r-> GUI : Handles data out or in
+
+@enduml
