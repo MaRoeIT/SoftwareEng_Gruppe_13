@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="43f8d6f9-e05a-4cc4-9027-5e97656203ba" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/IOTDevices/IOTDevices.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/IOTDevices/src/no/hiof/danadh/IOTDevices/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/IOTDevices/src/no/hiof/danadh/IOTDevices/models/IOTDevices.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/adapters/GUIOutAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/adapters/GUIOutAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/adapters/MyProductsOutAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/adapters/MyProductsOutAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/ports/out/GetMyProductsPort.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/ports/out/GetMyProductsPort.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,9 +69,9 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "myproducts",
+    "git-widget-placeholder": "portMyProducts",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/andyi/Dropbox/IT_Skole/hiof/IiSE/gruppearbeid/SoftwareEng_Gruppe_13",
+    "last_opened_file_path": "E:/gitkraken/SoftwareEng_Gruppe_13",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -115,7 +116,8 @@
       <workItem from="1727524875603" duration="31000" />
       <workItem from="1727524912326" duration="8710000" />
       <workItem from="1727603694772" duration="4896000" />
-      <workItem from="1729498423190" duration="617000" />
+      <workItem from="1728749245027" duration="894000" />
+      <workItem from="1728981740465" duration="3598000" />
     </task>
     <servers />
   </component>
