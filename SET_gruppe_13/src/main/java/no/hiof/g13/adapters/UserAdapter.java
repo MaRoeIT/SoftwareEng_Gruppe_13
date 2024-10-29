@@ -1,11 +1,15 @@
 package no.hiof.g13.adapters;
 
+import io.javalin.http.Context;
 import no.hiof.g13.models.User;
 import no.hiof.g13.ports.out.UserRepositoryPort;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class UserAdapter implements UserRepositoryPort {
 
@@ -131,5 +135,29 @@ public class UserAdapter implements UserRepositoryPort {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean authenticateUser(String epost, String passord) {
+        String sql = "SELECT passord FROM bruker WHERE epost = ?";
+
+        try (Connection connection = MySQLAdapter.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, epost);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                String storedPassword = resultSet.getString("passord");
+                System.out.println(storedPassword);
+
+                // Verify password with BCrypt
+                return BCrypt.checkpw(passord, storedPassword);
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

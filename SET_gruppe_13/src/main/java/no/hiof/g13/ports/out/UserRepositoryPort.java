@@ -10,7 +10,7 @@ public interface UserRepositoryPort {
     List<User> getUsers();
     void saveUser(User user);
     void deleteUser(int userId);
-
+    boolean authenticateUser(String email, String password);
 
 
 }
