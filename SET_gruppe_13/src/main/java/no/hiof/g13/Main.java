@@ -12,7 +12,9 @@ import no.hiof.g13.models.User;
 import org.jetbrains.annotations.NotNull;
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.sql.SQLOutput;
+import java.util.UUID;
+
+
 
 public class Main {
     public static void main(String[] args) {
@@ -24,6 +26,7 @@ public class Main {
 
         Gson gson = new Gson();
         UserAdapter userAdapter = new UserAdapter();
+
         app.get("/api/user", ctx -> {
 
             User user = userAdapter.getUser(9);
@@ -32,8 +35,35 @@ public class Main {
             ctx.contentType("application/json");
         });
 
-        app.get("/", new VueComponent("hello-world"));
+        app.get("/api/user/{id}", ctx -> {
+            // Extract the user ID from the path parameter
+            String idParam = ctx.pathParam("id");
+            System.out.println("id: " + idParam);
+
+            try {
+                // Parse the ID to an integer
+                int userId = Integer.parseInt(idParam);
+
+                // Fetch the user using the userAdapter with the provided ID
+                User user = userAdapter.getUser(userId);
+
+                if (user != null) {
+                    // Return the user data as JSON if found
+                    ctx.result(gson.toJson(user));
+                    ctx.contentType("application/json");
+                } else {
+                    // Respond with 404 if user not found
+                    ctx.status(404).result("User not found");
+                }
+            } catch (NumberFormatException e) {
+                // Handle case where ID is not a valid integer
+                ctx.status(400).result("Invalid user ID format");
+            }
+        });
+
+        app.get("/", new VueComponent("frontpage"));
         app.get("/login", new VueComponent("login"));
+        app.get("/user/{id}", new VueComponent("user"));
 
 
         app.post("/api/login", ctx -> {
@@ -48,8 +78,17 @@ public class Main {
 
             // Use the adapter to authenticate
             boolean isAuthenticated = userAdapter.authenticateUser(email, password);
+            if(isAuthenticated){
+                int userId = userAdapter.getUserId(email);
+                String authToken = UUID.randomUUID().toString();
+                ctx.cookie("authToken", authToken, 86400); // Valid for 1 day
+                userAdapter.saveToken(authToken, userId);
+            }
             // Return the result as JSON
             ctx.json(isAuthenticated);
+
+
+
         });
 
         app.get("/other-page", new Handler() {

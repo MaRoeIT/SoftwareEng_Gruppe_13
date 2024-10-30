@@ -47,6 +47,32 @@ public class UserAdapter implements UserRepositoryPort {
     }
 
     @Override
+    public int getUserId(String token) {
+
+        int userId = -1;
+        try (Connection connection = MySQLAdapter.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "SELECT bruker_id FROM gruppe13.bruker WHERE token = ?")) {
+
+            preparedStatement.setString(1, token);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+                userId = rs.getInt("bruker_id");
+            } else {
+                System.out.println("No user found with id " + userId);
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Bruker id: " + userId);
+
+        return userId;
+    }
+
+    @Override
     public List<User> getUsers() {
 
         List<User> users = new ArrayList<>();
@@ -149,7 +175,6 @@ public class UserAdapter implements UserRepositoryPort {
 
             if (resultSet.next()) {
                 String storedPassword = resultSet.getString("passord");
-                System.out.println(storedPassword);
 
                 // Verify password with BCrypt
                 return BCrypt.checkpw(passord, storedPassword);
@@ -159,5 +184,53 @@ public class UserAdapter implements UserRepositoryPort {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public void saveToken(String token, int userId){
+        String insertQuery = "UPDATE gruppe13.bruker SET token = ? WHERE bruker_id = ?";
+
+        try (Connection connection = MySQLAdapter.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+
+            // Setting the parameters for the prepared statement
+
+            preparedStatement.setString(1, token);
+            preparedStatement.setInt(2, userId);
+
+            // Executing the query
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Token saved successfully!");
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String getToken(int userId) {
+
+        String token = "";
+        try (Connection connection = MySQLAdapter.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "SELECT token FROM gruppe13.bruker WHERE bruker_id = ?")) {
+
+            preparedStatement.setInt(1, userId);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+                token = rs.getString("token");
+            } else {
+                System.out.println("No user found with id " + userId);
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("fetched token " + token);
+
+        return token;
     }
 }

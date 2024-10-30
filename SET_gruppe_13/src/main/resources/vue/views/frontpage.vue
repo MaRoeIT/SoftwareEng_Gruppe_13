@@ -1,8 +1,8 @@
 <template id="template">
-  <h1 class="header">Hello, Vue!</h1>
+  <a href="/login">login</a>
 </template>
 <script>
-  app.component("hello-world", {template: "#template"})
+  app.component("frontpage", {template: "#template"})
 </script>
 <style>
 .header {

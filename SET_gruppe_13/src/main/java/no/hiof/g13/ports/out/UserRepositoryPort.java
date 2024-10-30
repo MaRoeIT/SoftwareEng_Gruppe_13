@@ -7,10 +7,11 @@ import java.util.List;
 public interface UserRepositoryPort {
 
     User getUser(int userId);
+    int getUserId(String epost);
     List<User> getUsers();
     void saveUser(User user);
     void deleteUser(int userId);
     boolean authenticateUser(String email, String password);
-
-
+    void saveToken(String token, int userId);
+    String getToken(int userId);
 }

@@ -27,6 +27,9 @@ app.component("login", {
     };
   },
   methods: {
+    redirectToHome() {
+      window.location = '/';
+    },
     async submitLogin() {
       try {
         const response = await fetch('/api/login', {
@@ -39,7 +42,8 @@ app.component("login", {
         const result = await response.json();
 
         if (result) {
-          this.loginMessage = 'Login successful!';
+          this.loginMessage = 'Login successful! Redirecting...';
+          window.setTimeout(this.redirectToHome, 3000);
         } else {
           this.loginMessage = 'Invalid email or password.';
         }
