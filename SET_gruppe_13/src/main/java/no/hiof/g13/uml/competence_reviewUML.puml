@@ -1,32 +1,34 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-class CompetenceTest {
-    #configID: int
-    #trackResult: List<Integer>
+class CompetenceReview {
+    #configId: int
+    #trackScore: ArrayList<Integer>
     #questionList: ArrayList<Question>
 
     +checkConfig(): bool
-    +runTest(): bool
+    +initReview(): bool
+    +runReview(): void
     +addQuestions(): ArrayList<Question>
+    +sumScore(): int
     +calculateResult(): int
     +singleChoice(): int
-    +rangeChoice(): int
+    +numChoice(): int
     +continueInstall(): void
 
 }
 
 class Question {
-    #type:
-    #question: string
+    #questionType: String
+    #questionDescription: String
     #textAnswers: HashMap<String, Integer>
     #numAnswers: HashMap<Integer, Integer>
 }
 
 class User {
-    #userID: string
-    #configID: int
+    #userId: String
+    #configId: int
 }
 
-CompetenceTest o-- Question
+CompetenceReview o-- Question
 @enduml
