@@ -1,4 +1,4 @@
-import no.hiof.g13.models.CompetenceReview;
+import no.hiof.g13.models.CompetenceTest;
 import no.hiof.g13.models.Question;
 import no.hiof.g13.models.User;
 import org.junit.jupiter.api.*;
@@ -11,10 +11,8 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import static org.mockito.Mockito.spy;
-
 @ExtendWith(MockitoExtension.class)
-public class CompetenceReviewTests {
+public class CompetenceTestTests {
 
     private final InputStream orgIn = System.in;
     //CompetenceTest competenceTest = new CompetenceTest();
@@ -44,11 +42,11 @@ public class CompetenceReviewTests {
 
 
     @Test
+    @Order(1)
     @DisplayName("Check if user has an active UI config")
     public void checkConfig() {
 
-        CompetenceReview competenceTest = new CompetenceReview();
-        CompetenceReview spyCompetenceReview = Mockito.spy(competenceTest);
+        CompetenceTest competenceTest = new CompetenceTest();
 
         // Arrange
         Mockito.when(mockUser1.getConfigId()).thenReturn(0);
@@ -68,39 +66,36 @@ public class CompetenceReviewTests {
 
     @Test
     @DisplayName("Init test if input is NOT 'N'")
-    public void initReview() {
+    public void initTest() {
+
+        CompetenceTest competenceTest = new CompetenceTest();
 
         // Arrange
-        CompetenceReview competenceTest = new CompetenceReview();
-        CompetenceReview spyCompetenceReview = Mockito.spy(competenceTest);
-
         String input = "Y\n";
         ByteArrayInputStream inputStream = new ByteArrayInputStream(input.getBytes());
         System.setIn(inputStream);
 
         // Act
-        boolean result = competenceTest.initReview();
-        spyCompetenceReview.runReview();
+        boolean result = competenceTest.runTest();
 
         // Assert
         Assertions.assertTrue(result);
-        Mockito.verify(spyCompetenceReview, Mockito.times(1)).runReview();
 
     }
 
     @Test
     @DisplayName("Skip test when input is 'N'")
-    public void skipReview() {
+    public void skipTest() {
+
+        CompetenceTest competenceTest = new CompetenceTest();
 
         // Arrange
-        CompetenceReview competenceTest = new CompetenceReview();
-
         String input = "N\n";
         InputStream inputStream = new ByteArrayInputStream(input.getBytes());
         System.setIn(inputStream);
 
         // Act
-        boolean result = competenceTest.initReview();
+        boolean result = competenceTest.runTest();
 
         // Assertions
         Assertions.assertFalse(result);
@@ -113,7 +108,7 @@ public class CompetenceReviewTests {
 
 
         // Arrange
-        CompetenceReview competenceTest = new CompetenceReview();
+        CompetenceTest competenceTest = new CompetenceTest();
         ArrayList<Question> expectedObjs = new ArrayList<>();
 
         // Act
