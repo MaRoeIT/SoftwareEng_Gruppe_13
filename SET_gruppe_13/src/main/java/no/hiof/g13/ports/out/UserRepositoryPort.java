@@ -15,4 +15,5 @@ public interface UserRepositoryPort {
     boolean authenticateUser(String email, String password);
     void saveToken(String token, int userId);
     String getToken(int userId);
+    void deleteToken(int userId);
 }

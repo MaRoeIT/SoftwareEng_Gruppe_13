@@ -270,4 +270,25 @@ public class UserAdapter implements UserRepositoryPort {
 
         return token;
     }
+
+    @Override
+    public void deleteToken(int userId) {
+
+        String token = "";
+        try (Connection connection = MySQLAdapter.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "update gruppe13.bruker SET token = NULL WHERE bruker_id = ?")) {
+
+            preparedStatement.setInt(1, userId);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Token deleted successfully!");
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("fetched token " + token);
+    }
 }

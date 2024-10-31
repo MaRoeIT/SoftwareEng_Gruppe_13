@@ -12,10 +12,7 @@ import no.hiof.g13.models.User;
 import org.jetbrains.annotations.NotNull;
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
+import java.util.*;
 
 
 public class Main {
@@ -34,11 +31,12 @@ public class Main {
         userAdapter.getUsers();
         userAdapter.getUser(1);
 
-        app.get("/api/user", ctx -> {
+        app.get("/api/users", ctx -> {
 
-            User user = userAdapter.getUser(9);
+            List<User> users = new ArrayList<>();
+            users = userAdapter.getUsers();
 
-            ctx.result(gson.toJson(user)); // Serialize object to JSON
+            ctx.result(gson.toJson(users)); // Serialize object to JSON
             ctx.contentType("application/json");
         });
 
@@ -72,6 +70,13 @@ public class Main {
         app.get("/login", new VueComponent("login"));
         app.get("/user/{id}", new VueComponent("user"));
 
+        app.get("/logout/{id}", ctx -> {
+            String idParam = ctx.pathParam("id");
+            int userId = Integer.parseInt(idParam);
+            ctx.removeCookie("authToken");
+            userAdapter.deleteToken(userId);
+            ctx.redirect("/login");
+        });
 
         app.post("/api/login", ctx -> {
             // Parse the JSON request body to get email and password

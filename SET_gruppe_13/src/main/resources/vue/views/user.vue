@@ -8,6 +8,7 @@
     <p v-if="user">Postnummer: {{ user.address.postnummer }}</p>
     <p v-if="error">{{ error }}</p>
     <p v-if="loading">Loading user data...</p>
+    <a type="button" class="btn btn-primary" :href="`/logout/${userId}`">Logout</a>
   </div>
 </template>
 
@@ -18,7 +19,8 @@ app.component("user", {
     return {
       user: null,      // Holds the fetched user data
       loading: true,   // Shows loading state
-      error: null      // Shows error message if the fetch fails
+      error: null,     // Shows error message if the fetch fails
+      userId: null
     };
   },
   mounted() {
@@ -27,6 +29,7 @@ app.component("user", {
     console.log(userId);
     if (userId) {
       this.fetchUserData(userId); // Fetch user data with the extracted ID
+      this.userId = userId;
     } else {
       this.error = "User ID not found in URL.";
       this.loading = false;

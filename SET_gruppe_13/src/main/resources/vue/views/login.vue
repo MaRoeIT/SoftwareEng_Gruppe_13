@@ -19,7 +19,7 @@
       <h3>Epost: john.doe@example.com</h3>
       <h3>Passord: password123</h3>
       <h3>Epost: jane.smith@example.com</h3>
-      <h3>Passord: password123</h3>
+      <h3>Passord: password456</h3>
     </div>
   </div>
 </template>
