@@ -8,11 +8,12 @@ public class User {
     public String mobil;
     public String epost;
     public String passord;
+    public Address address;
 
     public User(){
     }
 
-    public User(int bruker_id, String fornavn, String etternavn, int status_id, String mobil, String epost, String passord) {
+    public User(int bruker_id, String fornavn, String etternavn, int status_id, String mobil, String epost, String passord, Address address) {
         this.bruker_id = bruker_id;
         this.fornavn = fornavn;
         this.etternavn = etternavn;
@@ -20,6 +21,7 @@ public class User {
         this.mobil = mobil;
         this.epost = epost;
         this.passord = passord;
+        this.address = address;
     }
 
     public int getBruker_id() {
@@ -76,6 +78,14 @@ public class User {
 
     public void setPassord(String passord) {
         this.passord = passord;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }
 

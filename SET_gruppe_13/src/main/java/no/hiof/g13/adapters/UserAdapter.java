@@ -1,6 +1,7 @@
 package no.hiof.g13.adapters;
 
 import io.javalin.http.Context;
+import no.hiof.g13.models.Address;
 import no.hiof.g13.models.User;
 import no.hiof.g13.ports.out.UserRepositoryPort;
 
@@ -18,9 +19,10 @@ public class UserAdapter implements UserRepositoryPort {
     public User getUser(int userId) {
 
         User user = new User();
+        Address address = new Address();
         try (Connection connection = MySQLAdapter.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
-                     "SELECT * FROM gruppe13.bruker WHERE bruker_id = ?")) {
+                     "select * from bruker join adresse a ON adresse_id = bruker_id WHERE bruker_id = ?")) {
 
             preparedStatement.setInt(1, userId);
             ResultSet rs = preparedStatement.executeQuery();
@@ -33,6 +35,10 @@ public class UserAdapter implements UserRepositoryPort {
                 user.setMobil(rs.getString("mobil"));
                 user.setEpost(rs.getString("epost"));
                 user.setPassord(rs.getString("passord"));
+                address.setAdresse(rs.getString("adresse"));
+                address.setPostnummer(rs.getString("postnummer"));
+                address.setAdresse_id(rs.getInt("adresse_id"));
+                user.setAddress(address);
             } else {
                 System.out.println("No user found with id " + userId);
             }
@@ -41,7 +47,7 @@ public class UserAdapter implements UserRepositoryPort {
             e.printStackTrace();
         }
 
-        System.out.println("Bruker id: " + user.getBruker_id() + " Navn: " + user.getFornavn());
+        System.out.println("ENKELT BRUKER: Bruker id: " + user.getBruker_id() + " Navn: " + user.getFornavn());
 
         return user;
     }
@@ -102,13 +108,14 @@ public class UserAdapter implements UserRepositoryPort {
     public List<User> getUsers() {
 
         List<User> users = new ArrayList<>();
+        Address address = new Address();
         try {
 
             Connection connection = MySQLAdapter.getConnection();
 
             Statement statement = connection.createStatement();
 
-            String selectQuery = "select * from gruppe13.bruker";
+            String selectQuery = "select * from bruker join adresse a ON adresse_id = bruker_id";
 
             ResultSet rs = statement.executeQuery(selectQuery);
 
@@ -121,7 +128,10 @@ public class UserAdapter implements UserRepositoryPort {
                 user.setMobil(rs.getString("mobil"));
                 user.setEpost(rs.getString("epost"));
                 user.setPassord(rs.getString("passord"));
-
+                address.setAdresse(rs.getString("adresse"));
+                address.setPostnummer(rs.getString("postnummer"));
+                address.setAdresse_id(rs.getInt("adresse_id"));
+                user.setAddress(address);
                 users.add(user);
             }
         } catch (ClassNotFoundException e) {
@@ -132,7 +142,9 @@ public class UserAdapter implements UserRepositoryPort {
 
         for (User user : users) {
             System.out.println("Bruker id: " +user.getBruker_id()+ " Navn: " +user.getFornavn());
+
         }
+        System.out.println("Total number of users: " + users.size());
 
         return users;
     }

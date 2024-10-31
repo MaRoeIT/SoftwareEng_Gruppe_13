@@ -26,8 +26,13 @@ public class Main {
             javalinConfig.vue.vueInstanceNameInJs = "app";
         }).start();
 
+
+
         Gson gson = new Gson();
         UserAdapter userAdapter = new UserAdapter();
+
+        userAdapter.getUsers();
+        userAdapter.getUser(1);
 
         app.get("/api/user", ctx -> {
 
