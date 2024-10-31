@@ -12,6 +12,8 @@ import no.hiof.g13.models.User;
 import org.jetbrains.annotations.NotNull;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -78,18 +80,24 @@ public class Main {
 
             // Use the adapter to authenticate
             boolean isAuthenticated = userAdapter.authenticateUser(email, password);
+            int userId = userAdapter.getUserIdByEmail(email);
+            Map<String, Object> response = new HashMap<>();
             if(isAuthenticated){
-                int userId = userAdapter.getUserId(email);
-                String authToken = UUID.randomUUID().toString();
-                ctx.cookie("authToken", authToken, 86400); // Valid for 1 day
-                userAdapter.saveToken(authToken, userId);
+                response.put("isAuthenticated", true);
+                response.put("userId", userId);
+                if(ctx.cookie("authToken") == null){
+                    String authToken = UUID.randomUUID().toString();
+                    ctx.cookie("authToken", authToken, 86400); // Valid for 1 day
+                    userAdapter.saveToken(authToken, userId);
+                }else{
+                    String authToken = userAdapter.getToken(userId);
+                    ctx.cookie("authToken", authToken, 86400); // Valid for 1 day
+                }
+            }else{
+                response.put("isAuthenticated", false);
             }
-            // Return the result as JSON
-            ctx.json(isAuthenticated);
-
-
-
-        });
+            ctx.json(response);
+           });
 
         app.get("/other-page", new Handler() {
             @Override

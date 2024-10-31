@@ -47,7 +47,33 @@ public class UserAdapter implements UserRepositoryPort {
     }
 
     @Override
-    public int getUserId(String token) {
+    public int getUserIdByEmail(String email) {
+
+        int userId = -1;
+        try (Connection connection = MySQLAdapter.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "SELECT bruker_id FROM gruppe13.bruker WHERE epost = ?")) {
+
+            preparedStatement.setString(1, email);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+                userId = rs.getInt("bruker_id");
+            } else {
+                System.out.println("No user found with id " + userId);
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Get ID by Email: Bruker id: " + userId);
+
+        return userId;
+    }
+
+    @Override
+    public int getUserIdByToken(String token) {
 
         int userId = -1;
         try (Connection connection = MySQLAdapter.getConnection();
@@ -175,7 +201,6 @@ public class UserAdapter implements UserRepositoryPort {
 
             if (resultSet.next()) {
                 String storedPassword = resultSet.getString("passord");
-
                 // Verify password with BCrypt
                 return BCrypt.checkpw(passord, storedPassword);
             }

@@ -3,6 +3,7 @@
     <h1>User Profile</h1>
     <p v-if="user">Name: {{ user.fornavn }} {{ user.etternavn}}</p>
     <p v-if="user">Email: {{ user.epost }}</p>
+    <p v-if="user">Mobil: {{ user.mobil }}</p>
     <p v-if="error">{{ error }}</p>
     <p v-if="loading">Loading user data...</p>
   </div>
