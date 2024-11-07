@@ -1,102 +1,89 @@
 package no.hiof.g13.models;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import no.hiof.g13.ports.out.CompetenceInputPort;
 
-public class CompetenceReview {
-    private int configId;
-    private ArrayList<Integer> trackScore = new ArrayList<Integer>();
-    private ArrayList<Question> questionList = new ArrayList<Question>();
+import java.util.*;
+
+public class CompetenceReview{
+    private CompetenceInputPort competenceInputPort;
+    private final List<Integer> trackScore = new ArrayList<Integer>();
+    private final ArrayList<Question> questionsList = new ArrayList<Question>();
 
     public CompetenceReview() {
-
     }
 
-    public int getConfigId() {
-        return this.configId;
-    }
-    public void setConfigId(int configId) {
-        this.configId = configId;
+    public CompetenceReview(CompetenceInputPort competenceInputPort) {
+        this.competenceInputPort = competenceInputPort;
     }
 
-    public ArrayList<Integer> getTrackScore() {
+    public List<Integer> getTrackScore() {
         return this.trackScore;
     }
 
-    public ArrayList<Question> getQuestionList() {
-        return questionList;
+    public ArrayList<Question> getQuestionsList() {
+        return this.questionsList;
     }
 
     // Legger til spørsmål som skal stilles til bruker
-    public void addQuestions(Question... questions) {
-        questionList.addAll(Arrays.asList(questions));
+    public void addQuestions(Question... question) {
+        getQuestionsList().addAll(Arrays.asList(question));
     }
 
-    // Sjekker om bruker har an aktiv config for UI oppsett
-    public boolean checkConfig(User currentUser) {
-        if(currentUser.getConfigId() > 0) {
-            System.out.println("Config found, continue login...");
-            return true;
+    public boolean initReview(String input) {
+        // Start eller skip test basert på brukerinput
+        if(input.equals("skip")) {
+            competenceInputPort.displayMessage("Skipping test");
+            return false;
         }
-        System.out.println("No config found, init test...");
-
-        return false;
-    }
-
-    public boolean initReview() {
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println("We strongly reccommend that you take a test. Press N to skip: ");
-            String answer = scanner.next().toUpperCase();
-
-            // Start eller skip test basert på brukerinput
-            if(answer.equals("N")) {
-                System.out.println("Skipping test");
-                return false;
-            }
-
-            runReview();
-            return true;
-        }
+        runReview();
+        return true;
     }
 
     public void runReview() {
-        System.out.println("Starting test...");
+        competenceInputPort.displayMessage("Starting test");
 
-        for(Question questionX : this.getQuestionList()) {
-            if(questionX.getQuestionType().equals("singleChoice")) {
-                getTrackScore().add(singleChoice());
-            }
-            else if(questionX.getQuestionType().equals("numRange")) {
-                getTrackScore().add(numChoice());
-            }
+        for(Question questionX : getQuestionsList()) {
+            int questionNum = getQuestionsList().indexOf(questionX) + 1;
+
+            competenceInputPort.displayMessage("Question " + questionNum + ": ");
+            getTrackScore().add(competenceInputPort.getAnswer(questionX, competenceInputPort.getUserInput()));
+
         }
     }
 
-    public int sumScore() {
+    public int sumScore(List<Integer> list) {
         int sum = 0;
-        for(int num : this.getTrackScore()) {
+        for(int num : list) {
             sum += num;
         }
         return sum;
     }
 
-    public int calculateResult() {
-        int score = sumScore();
+    public int getBestResult() {
 
-        if(score > 20) {
-            return 1;
+        int maxScore = 0;
+
+        // calculating the best possible result
+        for(Question questionX : getQuestionsList()) {
+            maxScore += Collections.max(questionX.getChoices().values());
+        }
+        return maxScore;
+    }
+
+    public int calculateResult(int userScore, int maxScore, double... thresholds) {
+
+        double userResult = (double) userScore / maxScore * 100;
+        userResult = Math.round(userResult * 100.0) / 100.0;
+
+        if(userResult > thresholds[0]) {
+            return 2;
         }
         else {
-            return 0;
+            return 1;
         }
     }
 
-    public int singleChoice(){
-        return 1;
+    public void setUserConfig(User currentUser, int configId) {
+        currentUser.setConfigId(configId);
     }
-    public int numChoice() {
-        return 2;
-    }
-
 }
