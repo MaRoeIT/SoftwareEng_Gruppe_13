@@ -39,6 +39,7 @@ public class UserAdapter implements UserRepositoryPort {
                 address.setPostnummer(rs.getString("postnummer"));
                 address.setAdresse_id(rs.getInt("adresse_id"));
                 user.setAddress(address);
+                user.setUserLevel(rs.getInt("user_level"));
             } else {
                 System.out.println("No user found with id " + userId);
             }
@@ -132,6 +133,7 @@ public class UserAdapter implements UserRepositoryPort {
                 address.setPostnummer(rs.getString("postnummer"));
                 address.setAdresse_id(rs.getInt("adresse_id"));
                 user.setAddress(address);
+                user.setUserLevel(rs.getInt("user_level"));
                 users.add(user);
             }
         } catch (ClassNotFoundException e) {

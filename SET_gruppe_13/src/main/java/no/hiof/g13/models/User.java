@@ -1,19 +1,21 @@
 package no.hiof.g13.models;
 
 public class User {
-    public int bruker_id;
-    public String fornavn;
-    public String etternavn;
-    public int status_id;
-    public String mobil;
-    public String epost;
-    public String passord;
-    public Address address;
+    private int bruker_id;
+    private String fornavn;
+    private String etternavn;
+    private int status_id;
+    private String mobil;
+    private String epost;
+    private String passord;
+    private Address address;
+    private int userLevel;
+
 
     public User(){
     }
 
-    public User(int bruker_id, String fornavn, String etternavn, int status_id, String mobil, String epost, String passord, Address address) {
+    public User(int bruker_id, String fornavn, String etternavn, int status_id, String mobil, String epost, String passord, Address address, int userLevel) {
         this.bruker_id = bruker_id;
         this.fornavn = fornavn;
         this.etternavn = etternavn;
@@ -22,6 +24,7 @@ public class User {
         this.epost = epost;
         this.passord = passord;
         this.address = address;
+        this.userLevel = userLevel;
     }
 
     public int getBruker_id() {
@@ -86,6 +89,14 @@ public class User {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public int getUserLevel() {
+        return this.userLevel;
+    }
+
+    public void setUserLevel(int userLevel) {
+        this.userLevel = userLevel;
     }
 }
 
