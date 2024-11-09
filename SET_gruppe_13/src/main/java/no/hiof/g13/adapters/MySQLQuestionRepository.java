@@ -14,7 +14,7 @@ public class MySQLQuestionRepository implements QuestionRepositoryPort{
     public Question getQuestionById(int questionId) {
         try(Connection connection = MySQLAdapter.getConnection()) {
             QuestionDTO dto = fetchQuestion(connection, questionId);
-            return dto.QuestionToDomain();
+            return dto.toDomain();
         }
         catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();

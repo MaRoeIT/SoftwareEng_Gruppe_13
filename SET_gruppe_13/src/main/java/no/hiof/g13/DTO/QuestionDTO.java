@@ -23,7 +23,7 @@ public class QuestionDTO {
         this.choicesList = choicesList;
     }
 
-    public Question QuestionToDomain() {
+    public Question toDomain() {
         Question question = new Question(questionDescription, choicesId);
 
         Map<String, Integer> choicesMap = new HashMap<>();
