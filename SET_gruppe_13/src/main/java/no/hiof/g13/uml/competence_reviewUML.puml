@@ -12,7 +12,7 @@ class CompetenceReview {
     +sumScore(list: List<Integer>): int
     +getBestResult(): int
     +calculateResult(userScore: int, maxScore: int, thresholds[]: double): int
-    +setUserConfig(currentUser: User, configId: int): void
+    +setUserLevel(currentUser: User, configId: int): void
 }
 
 class checkUIConfig {
@@ -23,14 +23,16 @@ class checkUIConfig {
 }
 
 class Question {
-    -questionType: String
+    -questionId: int
     -questionDescription: String
     -choices: Map<String, Integer>
+
+    +setChoices(): void
 }
 
 class User {
     -userId: String
-    -configId: int
+    -user_level: int
 }
 
 CompetenceReview o-- Question
