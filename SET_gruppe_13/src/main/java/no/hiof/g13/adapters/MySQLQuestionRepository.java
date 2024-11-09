@@ -19,6 +19,7 @@ public class MySQLQuestionRepository implements QuestionRepositoryPort{
         catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
+        return new Question();
     }
 
     public QuestionDTO fetchQuestion(Connection connection, int questionId) {

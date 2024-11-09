@@ -1,13 +1,10 @@
 import no.hiof.g13.DTO.QuestionDTO;
 import no.hiof.g13.models.*;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.*;
 
 
-@ExtendWith(MockitoExtension.class)
 public class QuestionDTOTests {
 
     @Test
