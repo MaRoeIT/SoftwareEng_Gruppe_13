@@ -1,20 +1,6 @@
 package no.hiof.g13.models;
 
 public class User {
-    private int configId;
-
-    public int getConfigId() {
-        return this.configId;
-    }
-
-    public void setConfigId(int configId) {
-        this.configId = configId;
-    }
-}
-
-package no.hiof.g13.models;
-
-public class User {
     public int bruker_id;
     public String fornavn;
     public String etternavn;
@@ -23,7 +9,7 @@ public class User {
     public String epost;
     public String passord;
     public Address address;
-
+    private int configId;
     public User(){
     }
 
@@ -36,6 +22,14 @@ public class User {
         this.epost = epost;
         this.passord = passord;
         this.address = address;
+    }
+    
+    public int getConfigId() {
+        return this.configId;
+    }
+
+    public void setConfigId(int configId) {
+        this.configId = configId;
     }
 
     public int getBruker_id() {
