@@ -11,7 +11,6 @@ public class User {
     private Address address;
     private int userLevel;
 
-
     public User(){
     }
 
@@ -25,6 +24,14 @@ public class User {
         this.passord = passord;
         this.address = address;
         this.userLevel = userLevel;
+    }
+    
+    public int getConfigId() {
+        return this.configId;
+    }
+
+    public void setConfigId(int configId) {
+        this.configId = configId;
     }
 
     public int getBruker_id() {

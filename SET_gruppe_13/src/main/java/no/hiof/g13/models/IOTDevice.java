@@ -10,6 +10,7 @@ public abstract class IOTDevice {
     //Bruker enheten wifi eller ikke til å koble til.
     protected boolean wifi;
     protected String modell;
+    protected boolean power;
 
     //konstruktør
     public IOTDevice(String name, String deviceID, String producer, int weight, boolean wifi, String modell){

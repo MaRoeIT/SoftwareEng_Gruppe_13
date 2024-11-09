@@ -3,6 +3,7 @@ package no.hiof.g13;
 import io.javalin.Javalin;
 import no.hiof.g13.adapters.ApiAdapter;
 import no.hiof.g13.adapters.UserAdapter;
+
 import no.hiof.g13.ports.out.UserRepositoryPort;
 
 public class Main {

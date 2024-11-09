@@ -1,0 +1,39 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class CompetenceReview {
+    -competenceInputPort: CompetenceInputPort
+    -trackScore: ArrayList<Integer>
+    -questionList: ArrayList<Question>
+
+    +addQuestions(questions: ArrayList<Question>): void
+    +initReview(userInput: String): bool
+    +runReview(): void
+    +sumScore(list: List<Integer>): int
+    +getBestResult(): int
+    +calculateResult(userScore: int, maxScore: int, thresholds[]: double): int
+    +setUserLevel(currentUser: User, configId: int): void
+}
+
+class checkUIConfig {
+    -competenceInputPort: CompetenceInputPort
+
+    +checkConfig(currentUser: User): bool
+
+}
+
+class Question {
+    -questionId: int
+    -questionDescription: String
+    -choices: Map<String, Integer>
+
+    +setChoices(): void
+}
+
+class User {
+    -userId: String
+    -user_level: int
+}
+
+CompetenceReview o-- Question
+@enduml
