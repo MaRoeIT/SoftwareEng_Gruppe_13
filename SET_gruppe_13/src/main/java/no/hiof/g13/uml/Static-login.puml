@@ -1,0 +1,48 @@
+@startuml
+'https://plantuml.com/state-diagram
+
+hide empty description
+
+state "Påloggingsside" as login
+
+[*] --> login
+login --> [*] : Avbryt
+login --> login : Ugyldig pålogging
+
+state brukertype <<choice>>
+login --> brukertype : Suksess
+brukertype --> BrukerSide : Bruker er kunde
+brukertype --> AdminSide : Bruker er admin
+BrukerSide --> [*] : Logg ut
+AdminSide --> [*] : Logg ut
+
+
+AdminSide --> LeggtilEllerEditerProdukt : Klikk for å lage kunngjøring
+LeggtilEllerEditerProdukt --> AdminSide : Ferdig
+state LeggtilEllerEditerProdukt {
+    [*] --> SkrivEndringEllerLeggTil
+    SkrivEndringEllerLeggTil --> PubliserEndring : Klikk for å publisere
+    SkrivEndringEllerLeggTil --> [*] : Avbryt
+
+    PubliserEndring --> SkrivEndringEllerLeggTil : Feilet
+    PubliserEndring --> [*] : Suksess
+}
+
+BrukerSide --> MineProdukter : Klikk for å installere produkt
+MineProdukter --> BrukerSide : Ferdig
+state MineProdukter {
+    [*] --> LeggTilProdukt
+    LeggTilProdukt --> [*] : Avbryt
+    LeggTilProdukt --> LeggTilProdukt : Feilet
+    LeggTilProdukt --> Installasjon : Suksess
+
+
+    Installasjon --> [*] : Avbryt
+    Installasjon --> LeggTilMineProdukter : Suksess
+    Installasjon --> LeggTilProdukt : Feil produkt
+
+
+    LeggTilMineProdukter --> [*] : Suksess
+    LeggTilMineProdukter --> LeggTilProdukt : Feilet
+}
+@enduml
