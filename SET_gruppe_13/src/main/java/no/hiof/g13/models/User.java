@@ -25,14 +25,6 @@ public class User {
         this.address = address;
         this.userLevel = userLevel;
     }
-    
-    public int getConfigId() {
-        return this.configId;
-    }
-
-    public void setConfigId(int configId) {
-        this.configId = configId;
-    }
 
     public int getBruker_id() {
         return bruker_id;

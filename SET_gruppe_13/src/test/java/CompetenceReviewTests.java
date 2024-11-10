@@ -146,7 +146,7 @@ public class CompetenceReviewTests {
 
     @Test
     @DisplayName("Verify that user config is set")
-    public void setUserConfig() {
+    public void setUserLevel() {
         // Arrange
         CompetenceReview competenceReview = new CompetenceReview();
         CompetenceReview spyCompetenceReview = spy(competenceReview);
@@ -155,11 +155,11 @@ public class CompetenceReviewTests {
         int expectedVal2 = 1;
 
         // Act
-        spyCompetenceReview.setUserConfig(mockUser1, expectedVal);
-        spyCompetenceReview.setUserConfig(mockUser2, expectedVal2);
+        spyCompetenceReview.setUserLevel(mockUser1, expectedVal);
+        spyCompetenceReview.setUserLevel(mockUser2, expectedVal2);
 
         // Assert
-        verify(spyCompetenceReview, times(1)).setUserConfig(mockUser1, expectedVal);
-        verify(spyCompetenceReview, times(1)).setUserConfig(mockUser2, expectedVal2);
+        verify(spyCompetenceReview, times(1)).setUserLevel(mockUser1, expectedVal);
+        verify(spyCompetenceReview, times(1)).setUserLevel(mockUser2, expectedVal2);
     }
 }
