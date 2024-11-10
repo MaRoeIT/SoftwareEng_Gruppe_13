@@ -58,18 +58,15 @@ public class UserAdapter implements UserRepositoryPort {
              PreparedStatement preparedStatement = connection.prepareStatement(mySQL_script)) {
 
             preparedStatement.setString(1, email);
-            try(ResultSet rs = preparedStatement.executeQuery()) {
+            ResultSet rs = preparedStatement.executeQuery();
                 if (rs.next()) {
                     userId = rs.getInt("bruker_id");
-                    System.out.println("Get ID by Email: Bruker id: " + userId);
                 }
-
-            } throw new RuntimeException("No user found with id" + userId);
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-
+        System.out.println(userId);
         return userId;
     }
 
