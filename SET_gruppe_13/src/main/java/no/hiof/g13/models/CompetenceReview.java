@@ -83,7 +83,7 @@ public class CompetenceReview{
         }
     }
 
-    public void setUserConfig(User currentUser, int configId) {
-        currentUser.setConfigId(configId);
+    public void setUserLevel(User currentUser, int userLevel) {
+            currentUser.setUserLevel(userLevel);
     }
 }
