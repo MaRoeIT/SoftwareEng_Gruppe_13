@@ -52,24 +52,23 @@ public class UserAdapter implements UserRepositoryPort {
     public int getUserIdByEmail(String email) {
 
         int userId = -1;
+        String mySQL_script = "SELECT bruker_id FROM gruppe13.bruker WHERE epost = ?";
+
         try (Connection connection = MySQLAdapter.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(
-                     "SELECT bruker_id FROM gruppe13.bruker WHERE epost = ?")) {
+             PreparedStatement preparedStatement = connection.prepareStatement(mySQL_script)) {
 
             preparedStatement.setString(1, email);
-            ResultSet rs = preparedStatement.executeQuery();
+            try(ResultSet rs = preparedStatement.executeQuery()) {
+                if (rs.next()) {
+                    userId = rs.getInt("bruker_id");
+                    System.out.println("Get ID by Email: Bruker id: " + userId);
+                }
 
-            if (rs.next()) {
-                userId = rs.getInt("bruker_id");
-            } else {
-                System.out.println("No user found with id " + userId);
-            }
+            } throw new RuntimeException("No user found with id" + userId);
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-
-        System.out.println("Get ID by Email: Bruker id: " + userId);
 
         return userId;
     }
@@ -78,69 +77,56 @@ public class UserAdapter implements UserRepositoryPort {
     public int getUserIdByToken(String token) {
 
         int userId = -1;
+        String mySQL_script = "SELECT bruker_id FROM gruppe13.bruker WHERE token = ?";
         try (Connection connection = MySQLAdapter.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(
-                     "SELECT bruker_id FROM gruppe13.bruker WHERE token = ?")) {
+             PreparedStatement preparedStatement = connection.prepareStatement(mySQL_script)) {
 
             preparedStatement.setString(1, token);
-            ResultSet rs = preparedStatement.executeQuery();
+            try(ResultSet rs = preparedStatement.executeQuery()) {
+                if (rs.next()) {
+                    userId = rs.getInt("bruker_id");
+                    System.out.println("Bruker id: " + userId);
 
-            if (rs.next()) {
-                userId = rs.getInt("bruker_id");
-            } else {
-                System.out.println("No user found with id " + userId);
+                } throw new RuntimeException("No user found with id" + userId);
             }
-
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-
-        System.out.println("Bruker id: " + userId);
-
         return userId;
     }
 
     @Override
     public List<User> getUsers() {
-
         List<User> users = new ArrayList<>();
-        Address address = new Address();
+
         try {
-
             Connection connection = MySQLAdapter.getConnection();
-
             Statement statement = connection.createStatement();
 
             String selectQuery = "select * from bruker join adresse a ON adresse_id = bruker_id";
 
-            ResultSet rs = statement.executeQuery(selectQuery);
+            try(ResultSet rs = statement.executeQuery(selectQuery)) {
+                while (rs.next()) {
+                    Address address = new Address(rs.getInt("adresse_id"), rs.getString("adresse"), rs.getString("postnummer"));
 
-            while (rs.next()) {
-                User user = new User();
-                user.setBruker_id(rs.getInt("bruker_id"));
-                user.setFornavn(rs.getString("fornavn"));
-                user.setEtternavn(rs.getString("etternavn"));
-                user.setStatus_id(rs.getInt("status_id"));
-                user.setMobil(rs.getString("mobil"));
-                user.setEpost(rs.getString("epost"));
-                user.setPassord(rs.getString("passord"));
-                address.setAdresse(rs.getString("adresse"));
-                address.setPostnummer(rs.getString("postnummer"));
-                address.setAdresse_id(rs.getInt("adresse_id"));
-                user.setAddress(address);
-                user.setUserLevel(rs.getInt("user_level"));
-                users.add(user);
-            }
+                    UserDTO dto = new UserDTO(rs.getInt("bruker_id"), rs.getString("fornavn"),
+                            rs.getString("etternavn"), rs.getInt("status_id"), rs.getString("mobil"),
+                            rs.getString("epost"), rs.getString("passord"), address, rs.getInt("user_level"));
+
+
+                    users.add(new User(dto.getBruker_id(), dto.getFornavn(), dto.getEtternavn(), dto.getStatus_id(),
+                            dto.getMobil(), dto.getEpost(), dto.getPassord(), dto.getAddress(), dto.getUserLevel()));
+                }
+            } throw new RuntimeException("No user found");
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        for (User user : users) {
-            System.out.println("Bruker id: " +user.getBruker_id()+ " Navn: " +user.getFornavn());
+        for (User user : users) { System.out.println("Bruker id: " +user.getBruker_id()+ " Navn: " +user.getFornavn()); }
 
-        }
         System.out.println("Total number of users: " + users.size());
 
         return users;
@@ -159,6 +145,7 @@ public class UserAdapter implements UserRepositoryPort {
 
             // Executing the query
             int rowsAffected = preparedStatement.executeUpdate();
+
             if (rowsAffected > 0) {
                 System.out.println("User deleted successfully!");
             } else {
@@ -170,7 +157,6 @@ public class UserAdapter implements UserRepositoryPort {
         }
     }
 
-
     @Override
     public void saveUser(User user) {
         String insertQuery = "INSERT INTO gruppe13.bruker (fornavn, etternavn, status_id, mobil, epost, passord) VALUES (?, ?, ?, ?, ?, ?)";
@@ -180,12 +166,14 @@ public class UserAdapter implements UserRepositoryPort {
 
             // Setting the parameters for the prepared statement
 
-            preparedStatement.setString(1, user.getFornavn());
-            preparedStatement.setString(2, user.getEtternavn());
-            preparedStatement.setInt(3, user.getStatus_id());
-            preparedStatement.setString(4, user.getMobil());
-            preparedStatement.setString(5, user.getEpost());
-            preparedStatement.setString(6, user.getPassord());
+            UserDTO dto = UserDTO.userToDTO(user);
+
+            preparedStatement.setString(1, dto.getFornavn());
+            preparedStatement.setString(2, dto.getEtternavn());
+            preparedStatement.setInt(3, dto.getStatus_id());
+            preparedStatement.setString(4, dto.getMobil());
+            preparedStatement.setString(5, dto.getEpost());
+            preparedStatement.setString(6, dto.getPassord());
 
             // Executing the query
             int rowsAffected = preparedStatement.executeUpdate();
