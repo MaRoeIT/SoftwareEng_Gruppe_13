@@ -1,6 +1,6 @@
 package no.hiof.g13.adapters;
 
-import io.javalin.http.Context;
+import no.hiof.g13.DTO.UserDTO;
 import no.hiof.g13.models.Address;
 import no.hiof.g13.models.User;
 import no.hiof.g13.ports.out.UserRepositoryPort;
@@ -9,48 +9,43 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class UserAdapter implements UserRepositoryPort {
 
-
     @Override
     public User getUser(int userId) {
 
-        User user = new User();
-        Address address = new Address();
+        String mySQL_script= "select * from bruker join adresse a " +
+                "ON adresse_id = bruker_id WHERE bruker_id = ?";
+
         try (Connection connection = MySQLAdapter.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(
-                     "select * from bruker join adresse a ON adresse_id = bruker_id WHERE bruker_id = ?")) {
+             PreparedStatement preparedStatement = connection.prepareStatement(mySQL_script)) {
 
             preparedStatement.setInt(1, userId);
-            ResultSet rs = preparedStatement.executeQuery();
 
-            if (rs.next()) {
-                user.setBruker_id(rs.getInt("bruker_id"));
-                user.setFornavn(rs.getString("fornavn"));
-                user.setEtternavn(rs.getString("etternavn"));
-                user.setStatus_id(rs.getInt("status_id"));
-                user.setMobil(rs.getString("mobil"));
-                user.setEpost(rs.getString("epost"));
-                user.setPassord(rs.getString("passord"));
-                address.setAdresse(rs.getString("adresse"));
-                address.setPostnummer(rs.getString("postnummer"));
-                address.setAdresse_id(rs.getInt("adresse_id"));
-                user.setAddress(address);
-                user.setUserLevel(rs.getInt("user_level"));
-            } else {
-                System.out.println("No user found with id " + userId);
+            try(ResultSet rs = preparedStatement.executeQuery()) {
+                if (rs.next()) {
+                    Address address = new Address(rs.getInt("adresse_id"), rs.getString("adresse"), rs.getString("postnummer"));
+
+                    UserDTO dto = new UserDTO(rs.getInt("bruker_id"), rs.getString("fornavn"),
+                            rs.getString("etternavn"), rs.getInt("status_id"), rs.getString("mobil"),
+                            rs.getString("epost"), rs.getString("passord"), address, rs.getInt("user_level"));
+
+                    System.out.println("ENKELT BRUKER: Bruker id: " + dto.getBruker_id() + " Navn: " + dto.getFornavn());
+
+                    return new User(
+                            dto.getBruker_id(), dto.getFornavn(), dto.getEtternavn(), dto.getStatus_id(),
+                            dto.getMobil(), dto.getEpost(), dto.getPassord(), dto.getAddress(), dto.getUserLevel()
+                    );
+                }
             }
+            throw new RuntimeException("No user found with id" + userId);
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-
-        System.out.println("ENKELT BRUKER: Bruker id: " + user.getBruker_id() + " Navn: " + user.getFornavn());
-
-        return user;
+        return new User();
     }
 
     @Override
