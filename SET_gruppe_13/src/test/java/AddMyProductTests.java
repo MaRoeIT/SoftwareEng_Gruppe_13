@@ -1,5 +1,5 @@
 import no.hiof.g13.models.IOTDevice;
-import no.hiof.g13.models.IOTDoorLock;
+import no.hiof.g13.models.product.IOTDoorLock;
 import no.hiof.g13.models.IOTHomeDevice;
 import no.hiof.g13.models.MyProducts;
 import org.junit.jupiter.api.Assertions;
