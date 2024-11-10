@@ -19,7 +19,7 @@ public class CheckUIConfig {
 
     // Sjekker om bruker har an aktiv config for UI oppsett
     public boolean checkConfig(User currentUser) {
-        if(currentUser.getConfigId() > 0) {
+        if(currentUser.getUserLevel() > 0) {
             System.out.println("Config found, continue login...");
             return true;
         }

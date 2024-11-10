@@ -31,7 +31,7 @@ public class CheckUIConfigTests {
     public void NoConfigFound() {
         // Arrange
         CheckUIConfig checkUIConfig = new CheckUIConfig(mockCompetenceInput);
-        when(mockUser1.getConfigId()).thenReturn(0);
+        when(mockUser1.getUserLevel()).thenReturn(0);
 
         // Act
         boolean configFalse = checkUIConfig.checkConfig(mockUser1);
@@ -45,8 +45,8 @@ public class CheckUIConfigTests {
     public void configFound() {
         // Arrange
         CheckUIConfig checkUIConfig = new CheckUIConfig(mockCompetenceInput);
-        when(mockUser2.getConfigId()).thenReturn(1);
-        when(mockUser3.getConfigId()).thenReturn(2);
+        when(mockUser2.getUserLevel()).thenReturn(1);
+        when(mockUser3.getUserLevel()).thenReturn(2);
 
         // Act
         boolean configTrue = checkUIConfig.checkConfig(mockUser2);
