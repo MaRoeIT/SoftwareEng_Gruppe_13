@@ -1,6 +1,9 @@
-package no.hiof.g13.models;
+package no.hiof.g13.DTO;
 
-public class User {
+import no.hiof.g13.models.Address;
+import no.hiof.g13.models.User;
+
+public class UserDTO {
     private int bruker_id;
     private String fornavn;
     private String etternavn;
@@ -11,10 +14,11 @@ public class User {
     private Address address;
     private int userLevel;
 
-    public User(){
+    public UserDTO() {
+
     }
 
-    public User(int bruker_id, String fornavn, String etternavn, int status_id, String mobil, String epost, String passord, Address address, int userLevel) {
+    public UserDTO(int bruker_id, String fornavn, String etternavn, int status_id, String mobil, String epost, String passord, Address address, int userLevel) {
         this.bruker_id = bruker_id;
         this.fornavn = fornavn;
         this.etternavn = etternavn;
@@ -24,6 +28,17 @@ public class User {
         this.passord = passord;
         this.address = address;
         this.userLevel = userLevel;
+    }
+
+    public User toDomain() {
+        return new User (bruker_id, fornavn, etternavn, status_id, mobil, epost, passord, address, userLevel);
+    }
+
+    public static UserDTO userToDTO(User user) {
+        return new UserDTO(
+           user.getBruker_id(), user.getFornavn(), user.getEtternavn(), user.getStatus_id(), user.getMobil(),
+           user.getEpost(), user.getPassord(), user.getAddress(), user.getUserLevel()
+        );
     }
 
     public int getBruker_id() {
@@ -91,11 +106,10 @@ public class User {
     }
 
     public int getUserLevel() {
-        return this.userLevel;
+        return userLevel;
     }
 
     public void setUserLevel(int userLevel) {
         this.userLevel = userLevel;
     }
 }
-

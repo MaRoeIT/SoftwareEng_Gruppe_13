@@ -5,27 +5,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Question {
-    private String questionType;
     private String questionDescription;
+    private int choicesId;
     private Map<String, Integer> choices = new HashMap<>();
 
     public Question() {
     }
 
-    public Question(String questionType, String questionDescription) {
-        this.questionType = questionType;
+    public Question(String questionDescription, int choicesId) {
         this.questionDescription = questionDescription;
+        this.choicesId = choicesId;
     }
 
-
-    public String getQuestionType() {
-        return this.questionType;
-    }
     public String getQuestionDescription() {
         return this.questionDescription;
     }
     public void setQuestionDescription(String question) {
         this.questionDescription = question;
+    }
+    public int getChoicesId() {
+        return this.choicesId;
+    }
+    public void setChoicesId(int choicesId) {
+        this.choicesId = choicesId;
     }
     public Map<String, Integer> getChoices() {
         return Collections.unmodifiableMap(choices);
