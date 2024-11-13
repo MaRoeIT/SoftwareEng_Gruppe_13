@@ -8,7 +8,7 @@ import no.hiof.g13.DTO.QuestionDTO;
 import no.hiof.g13.models.Question;
 import no.hiof.g13.ports.out.QuestionRepositoryPort;
 
-public class MySQLQuestionRepository implements QuestionRepositoryPort{
+public class QuestionRepositoryMySQL implements QuestionRepositoryPort{
 
     @Override
     public Question getQuestionById(int questionId) {
