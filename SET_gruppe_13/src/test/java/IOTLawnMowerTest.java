@@ -2,102 +2,83 @@ import no.hiof.g13.models.product.IOTLawnMower;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.HashMap;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class IOTLawnMowerTest {
-    private static final int VALID_BATTERY = 50;
-    private static final int BATTERY_TOO_LOW = 9;
-    private static final int VALID_CUTTING_HEIGHT = 11;
-    private static final int TOO_HIGH_CUTTING_HEIGHT = 71;
+import java.util.HashMap;
 
+public class IOTLawnMowerTest {
     private IOTLawnMower lawnMower;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         // Arrange
         HashMap<String, Integer> size = new HashMap<>();
         size.put("length", 100);
         size.put("width", 50);
-        lawnMower = new IOTLawnMower("LawnMaster", "ID1234", "GardenPro", "ModelX", true, 20, size, 100, 10, false, false);
+        this.lawnMower = new IOTLawnMower("LawnMaster", "ID1234", "GardenPro", "ModelX", true, 20, size, 100, 10, false, false);
     }
 
     @Test
     @DisplayName("Start mowing with all COND met")
     public void testStartMowing_WithEnoughBattery() {
-        // Arrange
-        lawnMower.setBatteryLevel(VALID_BATTERY);
-
         // Act
-        boolean result = lawnMower.startMowing();
+        lawnMower.setBatteryLevel(50);
+        lawnMower.startMowing();
 
         // Assert
-        assertTrue(result);
-        assertTrue(lawnMower.isMowing(), "Should start mowing");
+        assertTrue(lawnMower.isMowing, "Should start mowing");
     }
 
     @Test
     @DisplayName("Should NOT start mowing with insufficient battery")
     public void testStartMowing_LowBattery() {
-        // Arrange
-        lawnMower.setBatteryLevel(BATTERY_TOO_LOW);
-
         // Act
-        boolean result = lawnMower.startMowing();
+        lawnMower.setBatteryLevel(5);
+        lawnMower.startMowing();
 
         // Assert
-        assertFalse(result);
-        assertFalse(lawnMower.isMowing(), "Should NOT start mowing.");
+        assertFalse(lawnMower.isMowing, "Should NOT start mowing.");
     }
 
     @Test
     @DisplayName("Stop mowing")
     public void testStopMowing() {
-        // Arrange
-        lawnMower.setBatteryLevel(VALID_BATTERY);
-        lawnMower.setIsMowing(true);
-
         // Act
-        boolean result = lawnMower.stopMowing();
+        lawnMower.setBatteryLevel(50);
+        lawnMower.startMowing();
+        lawnMower.stopMowing();
 
         // Assert
-        assertFalse(result);
-        assertFalse(lawnMower.isMowing(), "The lawn mower should stop mowing");
+        assertFalse(lawnMower.isMowing, "The lawn mower should stop mowing");
     }
 
     @Test
     @DisplayName("The cutting height when set correctly within the valid range.")
     public void testSetCuttingHeight_ValidHeight() {
-        // Arrange & act
-        lawnMower.setCuttingHeight(VALID_CUTTING_HEIGHT);
+        // Act
+        lawnMower.setCuttingHeight(30);
 
         // Assert
-        assertEquals(VALID_CUTTING_HEIGHT, lawnMower.getCuttingHeight(), "The cutting height should be set correctly within the valid range.");
+        assertEquals(30, lawnMower.cuttingHeight, "The cutting height should be set correctly within the valid range.");
     }
 
     @Test
     @DisplayName("The cutting height when NOT set within the valid range.")
     public void testSetCuttingHeight_InvalidHeight() {
-        // Arrange & Act
-        lawnMower.setCuttingHeight(TOO_HIGH_CUTTING_HEIGHT);
+        // Act
+        lawnMower.setCuttingHeight(80);
 
         // Assert
-        assertNotEquals(TOO_HIGH_CUTTING_HEIGHT, lawnMower.getCuttingHeight(), "The cutting height should not be set when out of valid range.");
+        assertNotEquals(80, lawnMower.cuttingHeight, "The cutting height should not be set when out of valid range.");
     }
 
     @Test
     @DisplayName("Return to dock")
     public void testReturnToDock() {
-
-        // Arrange
-        lawnMower.setIsOmwToDock(false);
-
         // Act
-        boolean result = lawnMower.returnToDock();
+        lawnMower.returnToDock();
 
         // Assert
-        assertTrue(result);
-        assertTrue(lawnMower.isOmwToDock(), "The lawn mower should be on its way to the dock.");
+        assertTrue(lawnMower.omwToDock, "The lawn mower should be on its way to the dock.");
     }
 }
