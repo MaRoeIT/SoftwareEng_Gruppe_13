@@ -1,11 +1,14 @@
-import no.hiof.g13.models.product.IOTLawnMower;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.HashMap;
+import no.hiof.g13.models.product.IOTLawnMower;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 public class IOTLawnMowerTest {
     private static final int VALID_BATTERY = 50;
     private static final int BATTERY_TOO_LOW = 9;
@@ -20,7 +23,8 @@ public class IOTLawnMowerTest {
         HashMap<String, Integer> size = new HashMap<>();
         size.put("length", 100);
         size.put("width", 50);
-        this.lawnMower = new IOTLawnMower("LawnMaster", "ID1234", "GardenPro", "ModelX", true, 20, size, 100, 10, false, false);
+        lawnMower = new IOTLawnMower("LawnMaster", "ID1234", "GardenPro", "ModelX",
+                true, 20, size, 100, 10, false, false);
     }
 
     @Test
