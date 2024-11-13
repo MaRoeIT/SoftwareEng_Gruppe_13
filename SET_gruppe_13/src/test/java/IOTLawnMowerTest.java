@@ -12,7 +12,7 @@ public class IOTLawnMowerTest {
     private static final int VALID_CUTTING_HEIGHT = 11;
     private static final int TOO_HIGH_CUTTING_HEIGHT = 71;
 
-    /*private IOTLawnMower lawnMower;
+    IOTLawnMower lawnMower;
 
     @BeforeEach
     void setUp() {
@@ -21,7 +21,7 @@ public class IOTLawnMowerTest {
         size.put("length", 100);
         size.put("width", 50);
         this.lawnMower = new IOTLawnMower("LawnMaster", "ID1234", "GardenPro", "ModelX", true, 20, size, 100, 10, false, false);
-    } */
+    }
 
     @Test
     @DisplayName("Start mowing with all COND met")
@@ -30,7 +30,7 @@ public class IOTLawnMowerTest {
         HashMap<String, Integer> size = new HashMap<>();
         size.put("length", 100);
         size.put("width", 50);
-        IOTLawnMower lawnMower = new IOTLawnMower("LawnMaster", "ID1234", "GardenPro", "ModelX", true, 20, size, 100, 10, false, false);
+        this.lawnMower = new IOTLawnMower("LawnMaster", "ID1234", "GardenPro", "ModelX", true, 20, size, 100, 10, false, false);
 
         lawnMower.setBatteryLevel(VALID_BATTERY);
 
@@ -42,7 +42,7 @@ public class IOTLawnMowerTest {
         assertTrue(lawnMower.isMowing(), "Should start mowing");
     }
 
-   /* @Test
+    @Test
     @DisplayName("Should NOT start mowing with insufficient battery")
     public void testStartMowing_LowBattery() {
         // Arrange
@@ -104,5 +104,5 @@ public class IOTLawnMowerTest {
         // Assert
         assertTrue(result);
         assertTrue(lawnMower.isOmwToDock(), "The lawn mower should be on its way to the dock.");
-    } */
+    }
 }
