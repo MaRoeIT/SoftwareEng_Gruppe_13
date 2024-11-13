@@ -62,7 +62,9 @@
     "Application.main.executor": "Run",
     "DefaultPlantUmlFileTemplate": "UML Class",
     "JUnit.AddMyProductTests.executor": "Run",
+    "JUnit.IOTLawnMowerTest.executor": "Run",
     "JUnit.MyProductsTests.executor": "Run",
+    "JUnit.UserDTOTests.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -81,21 +83,6 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="SET_13_to_maven" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="SET_13_to_maven" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
