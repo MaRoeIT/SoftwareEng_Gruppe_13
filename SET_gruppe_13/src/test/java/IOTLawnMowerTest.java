@@ -50,6 +50,7 @@ public class IOTLawnMowerTest {
     @DisplayName("Should NOT start mowing with insufficient battery")
     public void testStartMowing_LowBattery() {
         // Arrange
+        lawnMower.setIsMowing(false);
         lawnMower.setBatteryLevel(BATTERY_TOO_LOW);
 
         // Act
