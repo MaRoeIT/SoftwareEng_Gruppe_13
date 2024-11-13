@@ -1,10 +1,10 @@
-package no.hiof.g13.util;
+package no.hiof.g13.adapters;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class mysql {
+public class MySQLAdapter {
 
     public static Connection getConnection() throws SQLException,ClassNotFoundException {
 
