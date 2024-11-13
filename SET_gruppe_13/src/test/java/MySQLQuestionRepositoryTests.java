@@ -1,4 +1,4 @@
-import no.hiof.g13.adapters.MySQLQuestionRepository;
+import no.hiof.g13.adapters.QuestionRepositoryMySQL;
 import no.hiof.g13.models.Question;
 import no.hiof.g13.ports.out.QuestionRepositoryPort;
 import org.junit.jupiter.api.Assertions;
@@ -14,7 +14,7 @@ public class MySQLQuestionRepositoryTests {
     public void getValidQuestionById() {
 
         // Arrange
-        QuestionRepositoryPort repositoryPort = new MySQLQuestionRepository();
+        QuestionRepositoryPort repositoryPort = new QuestionRepositoryMySQL();
         int questionId = 1;
 
         // Act
@@ -37,7 +37,7 @@ public class MySQLQuestionRepositoryTests {
     @DisplayName("Non-existing questionId should throw exception")
     public void getQuestionNoValidId() {
         // Arrange
-        QuestionRepositoryPort repositoryPort = new MySQLQuestionRepository();
+        QuestionRepositoryPort repositoryPort = new QuestionRepositoryMySQL();
         int questionId = 9999;
 
         // Act and Assert
