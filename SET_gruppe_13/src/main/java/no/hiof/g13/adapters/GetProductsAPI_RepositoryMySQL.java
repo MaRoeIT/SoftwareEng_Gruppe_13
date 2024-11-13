@@ -16,8 +16,7 @@ public class GetProductsAPI_RepositoryMySQL implements GetProductsAPI_Port {
     public List<GetProductsAPI_DTO> getAllProducts() {
         List<GetProductsAPI_DTO> allProducts = new ArrayList<>();
 
-        String mySQL_script = "SELECT *" +
-                "FROM produkt";
+        String mySQL_script = "SELECT * FROM produkt";
 
         try (Connection connection = MySQLAdapter.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(mySQL_script)) {
@@ -33,5 +32,29 @@ public class GetProductsAPI_RepositoryMySQL implements GetProductsAPI_Port {
             e.printStackTrace();
         }
         return allProducts;
+    }
+
+    @Override
+    public GetProductsAPI_DTO getProductById(int productId) {
+        String mySQL_script = "SELECT * FROM produkt WHERE produkt_id = ?";
+
+        try(Connection connection = MySQLAdapter.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(mySQL_script)) {
+
+            preparedStatement.setInt(1, productId);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if(rs.next()) {
+                return new GetProductsAPI_DTO(
+                  rs.getInt("produkt_id"), rs.getString("navn"), rs.getString("artikkel"),
+                  rs.getString("barcode"), rs.getString("kategori")
+                );
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return new GetProductsAPI_DTO();
     }
 }

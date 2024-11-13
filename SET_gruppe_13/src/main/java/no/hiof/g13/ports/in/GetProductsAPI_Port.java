@@ -7,7 +7,7 @@ import java.util.List;
 public interface GetProductsAPI_Port {
 
     //List<IOTSmartLightDummy> getMyProducts(int userId);
-    // IOTDevice getProductById(int productId);
+    GetProductsAPI_DTO getProductById(int productId);
     List<GetProductsAPI_DTO> getAllProducts();
 
 }

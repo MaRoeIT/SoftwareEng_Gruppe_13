@@ -7,6 +7,10 @@ public class GetProductsAPI_DTO {
     private String barcode;
     private String category;
 
+    public GetProductsAPI_DTO() {
+
+    }
+
     public GetProductsAPI_DTO(int deviceID, String name, String article, String barcode, String category) {
         this.deviceID = deviceID;
         this.name = name;
