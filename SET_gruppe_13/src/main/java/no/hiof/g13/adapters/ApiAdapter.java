@@ -24,9 +24,6 @@ public class ApiAdapter {
         app.get("/api/user/{id}", this::getUser);
         app.get("/logout/{id}", this::logout);
         app.post("/api/login", this::login);
-        app.get("/", new VueComponent("frontpage"));
-        app.get("/login", new VueComponent("login"));
-        app.get("/user/{id}", new VueComponent("user"));
     }
 
     private void getUser(Context ctx) {

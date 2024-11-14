@@ -15,8 +15,18 @@ public class Main {
         Javalin app = Javalin.create(javalinConfig -> {
             javalinConfig.staticFiles.enableWebjars();
             javalinConfig.vue.vueInstanceNameInJs = "app";
+            javalinConfig.bundledPlugins.enableCors(cors -> {
+                cors.addRule(corsRule -> {
+                    corsRule.reflectClientOrigin = true;
+                    corsRule.allowCredentials = true;
+                });
+            });;
+            javalinConfig.staticFiles.add(staticFileConfig -> {
+                staticFileConfig.hostedPath = "/";
+                staticFileConfig.directory = "/static/html";
+                staticFileConfig.location = Location.CLASSPATH;
+            });
         }).start();
-
         UserRepositoryPort userRepositoryPort = new UserAdapter();
         ApiAdapter apiAdapter = new ApiAdapter(userRepositoryPort);
 
