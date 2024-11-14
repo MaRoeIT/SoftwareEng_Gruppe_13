@@ -36,8 +36,16 @@ public class TimeSchedulerTests {
 
         timeScheduler.addScheduledRun(startPoint, endPoint);
 
-        HashMap<DayTime, DayTime> expected = new HashMap<>();
-        expected.put(startPoint, endPoint);
+        ArrayList<ArrayList<DayTime>> expected = new ArrayList<>();
+        ArrayList<DayTime> startPointList = new ArrayList<>();
+        ArrayList<DayTime> endPointList = new ArrayList<>();
+
+        startPointList.add(startPoint);
+        endPointList.add(endPoint);
+
+        expected.add(startPointList);
+        expected.add(endPointList);
+
         Assertions.assertEquals(expected, timeScheduler.getSchedule());
     }
 
