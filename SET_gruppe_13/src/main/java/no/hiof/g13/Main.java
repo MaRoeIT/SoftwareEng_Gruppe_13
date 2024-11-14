@@ -1,6 +1,7 @@
 package no.hiof.g13;
 
 import io.javalin.Javalin;
+import io.javalin.http.staticfiles.Location;
 import no.hiof.g13.API.GetProductsAPI;
 import no.hiof.g13.adapters.ApiAdapter;
 import no.hiof.g13.adapters.GetProductsAPI_RepositoryMySQL;
@@ -13,7 +14,7 @@ import no.hiof.g13.services.GetProductsAPI_Service;
 public class Main {
     public static void main(String[] args) {
         Javalin app = Javalin.create(javalinConfig -> {
-            javalinConfig.staticFiles.enableWebjars();
+            //javalinConfig.staticFiles.enableWebjars();
             javalinConfig.vue.vueInstanceNameInJs = "app";
             javalinConfig.bundledPlugins.enableCors(cors -> {
                 cors.addRule(corsRule -> {
@@ -21,11 +22,11 @@ public class Main {
                     corsRule.allowCredentials = true;
                 });
             });;
-            javalinConfig.staticFiles.add(staticFileConfig -> {
+            /*javalinConfig.staticFiles.add(staticFileConfig -> {
                 staticFileConfig.hostedPath = "/";
                 staticFileConfig.directory = "/static/html";
                 staticFileConfig.location = Location.CLASSPATH;
-            });
+            });*/
         }).start();
         UserRepositoryPort userRepositoryPort = new UserAdapter();
         ApiAdapter apiAdapter = new ApiAdapter(userRepositoryPort);
