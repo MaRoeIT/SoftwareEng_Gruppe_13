@@ -458,7 +458,7 @@ footer a p {
     flex-grow: 2;
 }
 
-.box-two img {
+.box-two a {
     width: 33%;
     height: auto;
 }

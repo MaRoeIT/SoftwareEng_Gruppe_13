@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const productId = params.get('product_id');
 
     if (productId) {
-        fetch(`getProductDetails.php?product_id=${productId}`)
+        fetch(`../getProductDetails.php?product_id=${productId}`)
             .then(response => response.json())
             .then(data => {
                 if (data.error) {
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Insert product dependencies, if any
                 if (data.avhengigav) {
-                    fetch(`getProductDetails.php?product_id=${data.avhengigav}`)
+                    fetch(`../getProductDetails.php?product_id=${data.avhengigav}`)
                         .then(response => response.json())
                         .then(dependency => {
                             if (dependency.error) {

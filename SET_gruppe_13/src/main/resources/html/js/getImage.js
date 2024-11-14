@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (categoryContainers[category]) {
                     // Create anchor tag and set its href attribute to link to article.html with product ID as a query parameter
                     const link = document.createElement('a');
-                    link.href = `article.html?product_id=${image.produkt_id}`;
+                    link.href = `pages/article.html?product_id=${image.produkt_id}`;
 
                     // Create figure and img elements
                     const figure = document.createElement('figure');
