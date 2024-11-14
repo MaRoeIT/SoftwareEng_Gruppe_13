@@ -6,11 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="43f8d6f9-e05a-4cc4-9027-5e97656203ba" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/resources/static/html/prodarticle/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/resources/static/html/prodarticle/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/resources/static/html/prodarticle/js/g_maps.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/resources/static/html/prodarticle/pages/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/resources/static/html/prodarticle/pages/about.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/resources/static/html/prodarticle/pages/portfolio.html" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/resources/static/html/prodarticle/pages/portfolio.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/SET_gruppe_13">
@@ -37,8 +44,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="UML Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -48,10 +55,14 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\php\php.exe" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="2mG9TPNombcFXMOvbWhA0hvg201" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -64,8 +75,13 @@
     "JUnit.AddMyProductTests.executor": "Run",
     "JUnit.CompetenceReviewTests.executor": "Run",
     "JUnit.MyProductsTests.executor": "Run",
+    "JUnit.MySQLProdImageRepositoryTest.executor": "Run",
+    "JavaScript Debug.general.html.executor": "Run",
+    "JavaScript Debug.index.html.executor": "Run",
+    "JavaScript Debug.product.html.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "product__article",
     "ignore.virus.scanning.warn.message": "true",
@@ -83,26 +99,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="SET_13_to_maven" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="SET_13_to_maven" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
       </set>
     </attachedChunks>
   </component>
@@ -121,7 +122,10 @@
       <workItem from="1728749245027" duration="894000" />
       <workItem from="1728981740465" duration="3598000" />
       <workItem from="1731169747398" duration="2480000" />
-      <workItem from="1731409946214" duration="7598000" />
+      <workItem from="1731409946214" duration="8628000" />
+      <workItem from="1731494902494" duration="11192000" />
+      <workItem from="1731508518532" duration="7134000" />
+      <workItem from="1731575069035" duration="3094000" />
     </task>
     <servers />
   </component>

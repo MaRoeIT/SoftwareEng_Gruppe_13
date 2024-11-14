@@ -233,7 +233,7 @@ footer a p {
     margin-top: 2%;
     padding: 1rem;
     background-color: #e6bd43;
-    font-weight: bold;    
+    font-weight: bold;
 }
 
 #headline a:hover {
@@ -248,6 +248,25 @@ footer a p {
     object-fit: cover;
     z-index: -2;
 }
+
+/*--------------Article---------------------*/
+.sub-title-article {
+    width: 100%;
+    padding-bottom: 0.5rem;
+    font-weight: bolder;
+    font-size: xx-large;
+    border-bottom: #e6bd43 solid 3px;
+}
+
+#current-page-article {
+
+}
+
+
+
+
+
+
 
 /*MAIN*/
 #about-forside {
@@ -403,7 +422,7 @@ footer a p {
 .flex-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-evenly;
     gap: 1rem;
 }
 
@@ -412,10 +431,13 @@ footer a p {
 
 }
 
+.flex-container a {
+    max-width: 20%;
+}
+
 .flex-container figure {
    margin: 0;
-   width: 400px;
-   max-width: 50%;
+   max-width: 100%;
 }
 
 .flex-container figure:hover {
@@ -437,7 +459,7 @@ footer a p {
 }
 
 .box-two img {
-    width: 100%;
+    width: 33%;
     height: auto;
 }
 
@@ -616,7 +638,7 @@ footer a p {
         padding: 0 2rem 0 2rem;
     }
 }
-/*
+
 @media only screen and (max-width: 910px) {
     .flex-container figure {
         width: 100%;
@@ -628,7 +650,7 @@ footer a p {
         height: auto;
     }
 }
-*/
+
 
 
 @media only screen and (max-width: 500px) {
