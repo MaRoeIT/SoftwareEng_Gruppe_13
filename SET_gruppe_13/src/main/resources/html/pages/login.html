@@ -68,7 +68,7 @@
           loginMessage.textContent = 'Login successful! Redirecting...';
           userId = result.userId;
           setTimeout(() => {
-            window.location = `/user.html?id=${userId}`;
+            window.location = `/pages/user.html?id=${userId}`;
           }, 3000);
         } else {
           loginMessage.textContent = 'Invalid email or password.';

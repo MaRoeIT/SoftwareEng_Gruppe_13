@@ -46,7 +46,7 @@ public class ApiAdapter {
         int userId = Integer.parseInt(idParam);
         ctx.removeCookie("authToken");
         userRepositoryPort.deleteToken(userId);
-        ctx.redirect("/login");
+        ctx.redirect("/pages/login.html");
     }
 
     private void login(Context ctx) {
