@@ -27,15 +27,14 @@ public class MockIOTSmartLight implements MockIOTDevice {
             connected = true;
             out.println("Device connected.");
 
+            writer.println("Hello, Server");
             while (connected){
                 keepConnectionAlive(writer);
-                writer.println("Hello, Server");
+
                 while ((response = reader.readLine()) != null){
                     out.println("Server response: " + response);
                 }
             }
-
-
         }
         catch (UnknownHostException e){
             out.println("Server not found: " + e.getMessage());
@@ -49,7 +48,7 @@ public class MockIOTSmartLight implements MockIOTDevice {
         new Thread(() -> {
             try {
                 while (true) {
-                    writer.println("200");
+                    writer.println(200);
                     Thread.sleep(5000);
                 }
             }

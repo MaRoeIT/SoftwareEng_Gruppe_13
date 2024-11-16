@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="43f8d6f9-e05a-4cc4-9027-5e97656203ba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockIOTSmartLight.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockIOTSmartLight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/runningTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/runningTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,6 +72,7 @@
     "Application.MockIOTSmartLightTests.executor": "Run",
     "Application.main.executor": "Run",
     "Application.runningTest.executor": "Run",
+    "Application.runningTest2.executor": "Run",
     "DefaultPlantUmlFileTemplate": "UML Class",
     "JUnit.AddMyProductTests.executor": "Run",
     "JUnit.CompetenceReviewTests.executor": "Run",
@@ -102,11 +101,41 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager" selected="Compound.RunTestMockIOT">
+    <configuration name="runningTest" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-21" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="runningTest" />
+      <module name="tests" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="runningTest2" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-21" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="runningTest2" />
+      <module name="tests" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunTestMockIOT" type="CompoundRunConfigurationType">
+      <toRun name="runningTest" type="Application" />
+      <toRun name="runningTest2" type="Application" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.runningTest" />
+      <item itemvalue="Application.runningTest2" />
+      <item itemvalue="Compound.RunTestMockIOT" />
+    </list>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
-        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
       </set>
     </attachedChunks>
   </component>
@@ -129,6 +158,7 @@
       <workItem from="1731494902494" duration="11192000" />
       <workItem from="1731508518532" duration="7134000" />
       <workItem from="1731575069035" duration="3094000" />
+      <workItem from="1731770533184" duration="4571000" />
     </task>
     <servers />
   </component>
