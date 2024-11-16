@@ -13,6 +13,12 @@ public class User {
 
     public User(){
     }
+    
+    public User(int bruker_id, String epost, String passord) {
+        this.bruker_id = bruker_id;
+        this.epost = epost;
+        this.passord = passord;
+    }
 
     public User(int bruker_id, String fornavn, String etternavn, int status_id, String mobil, String epost, String passord, Address address, int userLevel) {
         this.bruker_id = bruker_id;

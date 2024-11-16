@@ -1,0 +1,30 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class GetUsersLoginAPI_RepositoryMySQL {
+    +getAllUsers(): List<User>
+    +getuserById(int: userId): User
+    +getUserByEmail(String: email): User
+}
+
+interface GetUsersLoginAPI_port {
+    getAllUsers(): List<User>
+    getuserById(int: userId): User
+    getUserByEmail(String: epost): User
+}
+
+class GetUsersLoginAPI {
+    +getUsers(Javalin: app): void
+}
+
+class User {
+
+
+}
+
+class GetUsersLoginAPI_Service {
+    +getUsers(Javalin app): void
+}
+
+
+@enduml

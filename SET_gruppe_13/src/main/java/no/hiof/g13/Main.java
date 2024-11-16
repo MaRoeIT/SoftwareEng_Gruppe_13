@@ -9,7 +9,9 @@ import no.hiof.g13.adapters.UserAdapter;
 
 import no.hiof.g13.ports.in.GetProductsAPI_Port;
 import no.hiof.g13.ports.out.UserRepositoryPort;
+import no.hiof.g13.services.AuthenticateUserAPI_Service;
 import no.hiof.g13.services.GetProductsAPI_Service;
+import no.hiof.g13.services.GetUsersLoginAPI_Service;
 
 import java.awt.*;
 import java.net.URI;
@@ -31,17 +33,25 @@ public class Main {
                 staticFileConfig.location = Location.CLASSPATH; // Ensure classpath-based serving
             });
         }).start();
-        UserRepositoryPort userRepositoryPort = new UserAdapter();
-        ApiAdapter apiAdapter = new ApiAdapter(userRepositoryPort);
+       /* UserRepositoryPort userRepositoryPort = new UserAdapter();
+        ApiAdapter apiAdapter = new ApiAdapter(userRepositoryPort); */
 
         // Register all routes via ApiAdapter
-        apiAdapter.registerRoutes(app);
+      //  apiAdapter.registerRoutes(app);
 
         // Get products from database
         GetProductsAPI_Service productsAPIService = new GetProductsAPI_Service();
         productsAPIService.start(app);
 
-        try {
+        // get Users login credentials from database
+        GetUsersLoginAPI_Service usersLoginAPI_service = new GetUsersLoginAPI_Service();
+        usersLoginAPI_service.configureRoute(app);
+
+        // user login authentication
+        AuthenticateUserAPI_Service authenticateUserAPIService = new AuthenticateUserAPI_Service();
+        authenticateUserAPIService.configureRoute(app);
+
+       /* try {
             if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
                 Desktop.getDesktop().browse(new URI("http://localhost:8080"));
             } else {
@@ -49,6 +59,6 @@ public class Main {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        } */
     }
 }
