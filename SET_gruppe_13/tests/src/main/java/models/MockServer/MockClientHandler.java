@@ -1,5 +1,8 @@
-package models;
+package models.MockServer;
 
+import models.DTO.SendSmartLightDTO;
+
+import java.awt.*;
 import java.net.Socket;
 import java.io.*;
 
@@ -13,21 +16,25 @@ public class MockClientHandler extends Thread{
     public void run(){
         try (InputStream input = socket.getInputStream();
              BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-             OutputStream output = socket.getOutputStream();
-             PrintWriter writer = new PrintWriter(output, true)) {
+            ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream())) {
 
+            output.writeObject("DATA_INCOMING");
+
+            SendSmartLightDTO smartLightDTO = new SendSmartLightDTO("Wave", Color.pink, 100);
+
+            output.writeObject(smartLightDTO);
             String message;
             while ((message = reader.readLine()) != null) {
                 System.out.println("Received: " + message);
                 if (message.equals("200")){
-                    writer.println("Connection OK");
+                    output.writeObject("Connection OK");
                 }
                 else {
-                    writer.println("Hello device");
+                    output.writeObject("Hello device");
                 }
             }
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

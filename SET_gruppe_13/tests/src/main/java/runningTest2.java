@@ -1,4 +1,4 @@
-import models.MockIOTSmartLight;
+import models.MockSmartLight.MockIOTSmartLight;
 
 import java.util.Scanner;
 

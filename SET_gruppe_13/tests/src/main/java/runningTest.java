@@ -1,6 +1,4 @@
-import interfaces.MockIOTDevice;
-import models.MockIOTSmartLight;
-import models.MockServer;
+import models.MockServer.MockServer;
 
 public class runningTest {
     public static void main(String[] args) {

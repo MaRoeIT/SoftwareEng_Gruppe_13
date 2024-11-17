@@ -1,15 +1,28 @@
-package models;
+package models.MockSmartLight;
 
+import java.awt.*;
 import java.io.*;
 import java.net.*;
 
 import interfaces.MockIOTDevice;
+import models.DTO.SendSmartLightDTO;
 
 import static java.lang.System.out;
 
 public class MockIOTSmartLight implements MockIOTDevice {
     private boolean connected = false;
     private String lastReceivedData = "";
+
+    private String name = "Govee LED light";
+    private String deviceID = "130410949094";
+    private String producer = "Govee";
+    private String modell = "L28";
+    private boolean wifi = true;
+    private int batteryLevel = 100;
+    private String lightPattern;
+    private Color color;
+    private int lightStrength;
+    private boolean isOn = false;
 
     public MockIOTSmartLight() {
     }
@@ -20,10 +33,8 @@ public class MockIOTSmartLight implements MockIOTDevice {
             OutputStream output = socket.getOutputStream();
             PrintWriter writer = new PrintWriter(output, true);
 
-            InputStream input = socket.getInputStream();
-            BufferedReader reader = new BufferedReader(new BufferedReader(new InputStreamReader(input)));
+            ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
 
-            String response;
             connected = true;
             out.println("Device connected.");
 
@@ -31,9 +42,23 @@ public class MockIOTSmartLight implements MockIOTDevice {
             while (connected){
                 keepConnectionAlive(writer);
 
-                while ((response = reader.readLine()) != null){
-                    out.println("Server response: " + response);
+                try {
+                    String signal = (String) input.readObject();
+                    if ("DATA_INCOMING".equals(signal)){
+                        out.println("Data incoming");
+                        SendSmartLightDTO testClass = (SendSmartLightDTO) input.readObject();
+                        out.println("Received object from server: " + testClass);
+                        this.lightPattern = testClass.getLightPattern();
+                        this.color = testClass.getColor();
+                        this.lightStrength = testClass.getLightStrength();
+                        out.println("Changes done to color = " + this.color + " lightPattern = " + this.lightPattern);
+                    }
                 }
+                catch (ClassNotFoundException e){
+                    out.println("No data yet: " + e.getMessage());
+                }
+
+
             }
         }
         catch (UnknownHostException e){
@@ -42,6 +67,7 @@ public class MockIOTSmartLight implements MockIOTDevice {
         catch (IOException e){
             out.println("I/O error: " + e.getMessage());
         }
+
     }
 
     public void keepConnectionAlive(PrintWriter writer) {
@@ -94,5 +120,10 @@ public class MockIOTSmartLight implements MockIOTDevice {
         else {
             return "Cannot receive data. Device is not connected";
         }
+    }
+
+    @Override
+    public void reciveDataHandler(ObjectInputStream receivedData){
+
     }
 }

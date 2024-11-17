@@ -1,4 +1,4 @@
-package models;
+package models.MockServer;
 
 import java.io.*;
 import java.net.*;
