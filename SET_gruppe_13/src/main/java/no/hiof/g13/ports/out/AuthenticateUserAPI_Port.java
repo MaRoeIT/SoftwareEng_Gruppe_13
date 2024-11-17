@@ -7,4 +7,5 @@ public interface AuthenticateUserAPI_Port {
     int getUserIdByEmail(String email);
     String getToken(int userId);
     void saveToken(String token, int userId);
+    void removeToken(int userId);
 }

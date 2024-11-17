@@ -7,6 +7,9 @@ import no.hiof.g13.services.AuthenticateUserAPI_Service;
 import no.hiof.g13.services.GetProductsAPI_Service;
 import no.hiof.g13.services.GetUsersAPI_Service;
 
+import java.awt.*;
+import java.net.URI;
+
 public class Main {
     public static void main(String[] args) {
         Javalin app = Javalin.create(javalinConfig -> {
@@ -18,7 +21,8 @@ public class Main {
                     corsRule.allowCredentials = true;
                     corsRule.exposeHeader("*");
                 });
-            });;
+            });
+            ;
             javalinConfig.staticFiles.add(staticFileConfig -> {
                 staticFileConfig.hostedPath = "/";
                 staticFileConfig.directory = "/html"; // Point to the 'html' folder in 'resources'
@@ -29,7 +33,7 @@ public class Main {
         ApiAdapter apiAdapter = new ApiAdapter(userRepositoryPort); */
 
         // Register all routes via ApiAdapter
-      //  apiAdapter.registerRoutes(app);
+        //  apiAdapter.registerRoutes(app);
 
         // Get products from database
         GetProductsAPI_Service productsAPIService = new GetProductsAPI_Service();
@@ -43,7 +47,7 @@ public class Main {
         AuthenticateUserAPI_Service authenticateUserAPIService = new AuthenticateUserAPI_Service();
         authenticateUserAPIService.configureRoute(app);
 
-       /* try {
+        try {
             if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
                 Desktop.getDesktop().browse(new URI("http://localhost:8080"));
             } else {
@@ -51,6 +55,6 @@ public class Main {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } */
+        }
     }
 }

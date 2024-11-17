@@ -67,5 +67,27 @@ public class AuthenticateUserAPI {
                 ctx.status(500).result(gson.toJson(errorResponse)).contentType("application/json");
             }
         });
+
+        app.post("/api/authenticate/logout", ctx -> {
+           try {
+               String token = ctx.cookie("authToken");
+               Map<String, Object> response = new HashMap<>();
+
+               if(token != null) {
+                   ctx.removeCookie("authToken");
+                   response.put("success", true);
+                   response.put("message", "Logging out success");
+               }
+               else {
+                   response.put("success", false);
+                   response.put("message", "Logging out failed");
+               }
+
+               ctx.result(gson.toJson(response)).contentType("application/json");
+           }
+           catch (Exception e) {
+               e.printStackTrace();
+           }
+        });
     }
 }

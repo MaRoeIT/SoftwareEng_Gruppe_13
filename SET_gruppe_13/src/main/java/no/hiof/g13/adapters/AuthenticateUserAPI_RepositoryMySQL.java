@@ -52,10 +52,10 @@ public class AuthenticateUserAPI_RepositoryMySQL implements AuthenticateUserAPI_
     @Override
     public int getUserIdByEmail(String email) {
         int userId = -1;
-        String mySQL_script = "SELECT bruker_id FROM gruppe13.bruker WHERE epost = ?";
+        String mySQL_query = "SELECT bruker_id FROM gruppe13.bruker WHERE epost = ?";
 
         try (Connection connection = MySQLAdapter.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(mySQL_script)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(mySQL_query)) {
 
             preparedStatement.setString(1, email);
             ResultSet rs = preparedStatement.executeQuery();
@@ -108,6 +108,21 @@ public class AuthenticateUserAPI_RepositoryMySQL implements AuthenticateUserAPI_
         }
         catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException("Failed to save token", e);
+        }
+    }
+
+    @Override
+    public void removeToken(int userId) {
+        String mySQL_query = "UPDATE bruker SET token = NULL WHERE bruker_id = ?";
+
+        try(Connection connection = MySQLAdapter.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(mySQL_query)) {
+
+            preparedStatement.setInt(1, userId);
+            preparedStatement.executeQuery();
+        }
+        catch(ClassNotFoundException | SQLException e) {
+            throw new RuntimeException("Remove token failed", e);
         }
     }
 }
