@@ -8,8 +8,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/adapters/ApiAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/adapters/ApiAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/resources/html/js/article.js" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/resources/html/js/article.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/resources/html/js/getImage.js" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/resources/html/js/getImage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/target/classes/no/hiof/g13/Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,8 +46,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="UML Class" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -154,12 +155,24 @@
       <workItem from="1731508518532" duration="7134000" />
       <workItem from="1731575069035" duration="3094000" />
       <workItem from="1731841761480" duration="8441000" />
-      <workItem from="1731851302963" duration="3214000" />
+      <workItem from="1731851302963" duration="11343000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/SET_gruppe_13/src/main/resources/html/js/article.js</url>
+          <line>21</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
