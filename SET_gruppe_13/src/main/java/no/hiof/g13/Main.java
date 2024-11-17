@@ -25,6 +25,7 @@ public class Main {
                 cors.addRule(corsRule -> {
                     corsRule.reflectClientOrigin = true;
                     corsRule.allowCredentials = true;
+                    corsRule.exposeHeader("*");
                 });
             });;
             javalinConfig.staticFiles.add(staticFileConfig -> {
@@ -32,7 +33,7 @@ public class Main {
                 staticFileConfig.directory = "/html"; // Point to the 'html' folder in 'resources'
                 staticFileConfig.location = Location.CLASSPATH; // Ensure classpath-based serving
             });
-        }).start();
+        }).start(8080);
        /* UserRepositoryPort userRepositoryPort = new UserAdapter();
         ApiAdapter apiAdapter = new ApiAdapter(userRepositoryPort); */
 

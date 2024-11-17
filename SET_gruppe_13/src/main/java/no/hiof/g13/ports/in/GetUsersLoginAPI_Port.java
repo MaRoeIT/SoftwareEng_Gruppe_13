@@ -8,6 +8,4 @@ public interface GetUsersLoginAPI_Port {
     List<User> getAllUsers();
     User getUserById(int userId);
     User getUserByEmail(String epost);
-    int getUserIdByToken(String token);
-    String getToken(int userId);
 }

@@ -14,6 +14,7 @@ public class AuthenticateUserAPI_RepositoryMySQL implements AuthenticateUserAPI_
     public boolean authenticateUser(String epost, String passord) {
 
         String mySQL_script = "SELECT bruker_id, epost, passord FROM gruppe13.bruker WHERE epost = ?";
+        String updateMySQL_script = "UPDATE bruker SET passord = ? WHERE bruker_id = ?";
 
         try(Connection connection = MySQLAdapter.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(mySQL_script)) {
@@ -22,8 +23,24 @@ public class AuthenticateUserAPI_RepositoryMySQL implements AuthenticateUserAPI_
             ResultSet rs = preparedStatement.executeQuery();
 
             if(rs.next()) {
-                String hashedPassword = rs.getString("passord");
-                return BCrypt.checkpw(passord, hashedPassword);
+                int userId = rs.getInt("bruker_id");
+                String storedPassword = rs.getString("passord");
+
+                if(!storedPassword.startsWith("$2a$")) {
+
+                    if(!passord.equals(storedPassword)) {
+                        return false;
+                    }
+
+                    try(PreparedStatement updateStatement = connection.prepareStatement(updateMySQL_script)) {
+                        String hashedPassword = BCrypt.hashpw(passord, BCrypt.gensalt());
+                        updateStatement.setString(1, hashedPassword);
+                        updateStatement.setInt(2, userId);
+                        updateStatement.executeQuery();
+                    }
+                    return true;
+                }
+                return BCrypt.checkpw(passord, storedPassword);
             }
         }
         catch(ClassNotFoundException | SQLException e) {
@@ -68,7 +85,7 @@ public class AuthenticateUserAPI_RepositoryMySQL implements AuthenticateUserAPI_
             }
         }
         catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+
         }
         return null;
     }
@@ -90,7 +107,7 @@ public class AuthenticateUserAPI_RepositoryMySQL implements AuthenticateUserAPI_
             }
         }
         catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Failed to save token", e);
         }
     }
 }

@@ -1,6 +1,7 @@
 package no.hiof.g13.API;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import io.javalin.Javalin;
 import no.hiof.g13.models.User;
 import no.hiof.g13.ports.out.AuthenticateUserAPI_Port;
@@ -19,7 +20,7 @@ public class AuthenticateUserAPI {
     }
 
     public void configureRoutes(Javalin app) {
-        app.post("api/authenticate/login", ctx -> {
+        app.post("/api/authenticate/login", ctx -> {
             try {
                 String jsonBody = ctx.body();
                 User user = gson.fromJson(jsonBody, User.class);
@@ -29,7 +30,7 @@ public class AuthenticateUserAPI {
                 if(epost == null || passord == null) {
                     Map<String, String> errorMessage = new HashMap<>();
                     errorMessage.put("error", "wrong credentials");
-                    ctx.status(400).result(gson.toJson(errorMessage));
+                    ctx.status(400).result(gson.toJson(errorMessage)).contentType("application/json");
                     return;
                 }
 
@@ -38,31 +39,36 @@ public class AuthenticateUserAPI {
 
                 if(isAuthenticated) {
                     int userId = authenticateUserAPIPort.getUserIdByEmail(epost);
-                    String authToken = ctx.cookie("authToken");
 
-                    if(authToken == null) {
-                        authToken = UUID.randomUUID().toString();
-                    }
-                    else {
-                        authToken = authenticateUserAPIPort.getToken(userId);
-                    }
-
-                    ctx.cookie("authToken", authToken, 86400);
+                    String authToken = UUID.randomUUID().toString();
                     authenticateUserAPIPort.saveToken(authToken, userId);
+                    ctx.cookie("authToken", authToken, 86400);
 
                     response.put("isAuthenticated", true);
                     response.put("userId", userId);
+                    response.put("token", authToken);
                 }
                 else {
                     response.put("isAuthenticated", false);
+                    response.put("error", "wrong credentials");
                 }
 
                 ctx.result(gson.toJson(response)).contentType("application/json");
             }
+            catch (JsonSyntaxException e) {
+                Map<String, String> errorResponse = new HashMap<>();
+                errorResponse.put("error", "Invalid JSON format");
+                ctx.status(400)
+                        .result(gson.toJson(errorResponse))
+                        .contentType("application/json");
+            }
             catch (Exception e) {
-                ctx.status(500).result("Internal server error");
+                Map<String, String> errorResponse = new HashMap<>();
+                errorResponse.put("error", "Internal server error");
+                ctx.status(500)
+                        .result(gson.toJson(errorResponse))
+                        .contentType("application/json");
             }
         });
     }
-
 }
