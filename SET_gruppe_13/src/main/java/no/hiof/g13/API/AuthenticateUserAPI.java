@@ -24,21 +24,22 @@ public class AuthenticateUserAPI {
             try {
                 String jsonBody = ctx.body();
                 User user = gson.fromJson(jsonBody, User.class);
-                String epost = user.getEpost();
-                String passord = user.getPassord();
+                String email = user.getEpost();
+                String password = user.getPassord();
 
-                if(epost == null || passord == null) {
+                if(email == null || password == null) {
                     Map<String, String> errorMessage = new HashMap<>();
-                    errorMessage.put("error", "wrong credentials");
+                    errorMessage.put("error", "wrong login credentials");
                     ctx.status(400).result(gson.toJson(errorMessage)).contentType("application/json");
                     return;
                 }
 
-                boolean isAuthenticated = authenticateUserAPIPort.authenticateUser(epost, passord);
+                boolean isAuthenticated = authenticateUserAPIPort.authenticateUser(email, password);
+
                 Map<String, Object> response = new HashMap<>();
 
                 if(isAuthenticated) {
-                    int userId = authenticateUserAPIPort.getUserIdByEmail(epost);
+                    int userId = authenticateUserAPIPort.getUserIdByEmail(email);
 
                     String authToken = UUID.randomUUID().toString();
                     authenticateUserAPIPort.saveToken(authToken, userId);
@@ -50,7 +51,7 @@ public class AuthenticateUserAPI {
                 }
                 else {
                     response.put("isAuthenticated", false);
-                    response.put("error", "wrong credentials");
+                    response.put("error", "wrong login credentials");
                 }
 
                 ctx.result(gson.toJson(response)).contentType("application/json");
@@ -58,16 +59,12 @@ public class AuthenticateUserAPI {
             catch (JsonSyntaxException e) {
                 Map<String, String> errorResponse = new HashMap<>();
                 errorResponse.put("error", "Invalid JSON format");
-                ctx.status(400)
-                        .result(gson.toJson(errorResponse))
-                        .contentType("application/json");
+                ctx.status(400).result(gson.toJson(errorResponse)).contentType("application/json");
             }
             catch (Exception e) {
                 Map<String, String> errorResponse = new HashMap<>();
                 errorResponse.put("error", "Internal server error");
-                ctx.status(500)
-                        .result(gson.toJson(errorResponse))
-                        .contentType("application/json");
+                ctx.status(500).result(gson.toJson(errorResponse)).contentType("application/json");
             }
         });
     }

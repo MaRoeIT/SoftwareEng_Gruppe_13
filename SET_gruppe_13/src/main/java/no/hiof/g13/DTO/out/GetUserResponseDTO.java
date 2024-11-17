@@ -4,22 +4,22 @@ import no.hiof.g13.models.Address;
 import no.hiof.g13.models.User;
 
 public class GetUserResponseDTO {
-    private int bruker_id;
-    private String fornavn;
-    private String etternavn;
+    private int userId;
+    private String firstName;
+    private String lastName;
     private int status_id;
-    private String mobil;
-    private String epost;
+    private String mobile;
+    private String email;
     private Address address;
     private int userLevel;
 
-    public GetUserResponseDTO(int bruker_id, String fornavn, String etternavn, int status_id, String mobil, String epost, Address address, int userLevel) {
-        this.bruker_id = bruker_id;
-        this.fornavn = fornavn;
-        this.etternavn = etternavn;
+    public GetUserResponseDTO(int userId, String firstName, String lastName, int status_id, String mobile, String email, Address address, int userLevel) {
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.status_id = status_id;
-        this.mobil = mobil;
-        this.epost = epost;
+        this.mobile = mobile;
+        this.email = email;
         this.address = address;
         this.userLevel = userLevel;
     }
@@ -32,28 +32,28 @@ public class GetUserResponseDTO {
         );
     }
 
-    public int getBruker_id() {
-        return bruker_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public String getFornavn() {
-        return fornavn;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public String getEtternavn() {
-        return etternavn;
+    public String getLastName() {
+        return lastName;
     }
 
     public int getStatus_id() {
         return status_id;
     }
 
-    public String getMobil() {
-        return mobil;
+    public String getMobile() {
+        return mobile;
     }
 
-    public String getEpost() {
-        return epost;
+    public String getEmail() {
+        return email;
     }
 
     public Address getAddress() {

@@ -11,15 +11,15 @@ import org.mindrot.jbcrypt.BCrypt;
 public class AuthenticateUserAPI_RepositoryMySQL implements AuthenticateUserAPI_Port {
 
     @Override
-    public boolean authenticateUser(String epost, String passord) {
+    public boolean authenticateUser(String email, String password) {
 
-        String mySQL_script = "SELECT bruker_id, epost, passord FROM gruppe13.bruker WHERE epost = ?";
-        String updateMySQL_script = "UPDATE bruker SET passord = ? WHERE bruker_id = ?";
+        String mySQL_query = "SELECT bruker_id, epost, passord FROM gruppe13.bruker WHERE epost = ?";
+        String updateMySQL_query = "UPDATE bruker SET passord = ? WHERE bruker_id = ?";
 
         try(Connection connection = MySQLAdapter.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(mySQL_script)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(mySQL_query)) {
 
-            preparedStatement.setString(1, epost);
+            preparedStatement.setString(1, email);
             ResultSet rs = preparedStatement.executeQuery();
 
             if(rs.next()) {
@@ -28,19 +28,19 @@ public class AuthenticateUserAPI_RepositoryMySQL implements AuthenticateUserAPI_
 
                 if(!storedPassword.startsWith("$2a$")) {
 
-                    if(!passord.equals(storedPassword)) {
+                    if(!storedPassword.equals(password)) {
                         return false;
                     }
 
-                    try(PreparedStatement updateStatement = connection.prepareStatement(updateMySQL_script)) {
-                        String hashedPassword = BCrypt.hashpw(passord, BCrypt.gensalt());
+                    try(PreparedStatement updateStatement = connection.prepareStatement(updateMySQL_query)) {
+                        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
                         updateStatement.setString(1, hashedPassword);
                         updateStatement.setInt(2, userId);
                         updateStatement.executeQuery();
                     }
                     return true;
                 }
-                return BCrypt.checkpw(passord, storedPassword);
+                return BCrypt.checkpw(password, storedPassword);
             }
         }
         catch(ClassNotFoundException | SQLException e) {
@@ -50,14 +50,14 @@ public class AuthenticateUserAPI_RepositoryMySQL implements AuthenticateUserAPI_
     }
 
     @Override
-    public int getUserIdByEmail(String epost) {
+    public int getUserIdByEmail(String email) {
         int userId = -1;
         String mySQL_script = "SELECT bruker_id FROM gruppe13.bruker WHERE epost = ?";
 
         try (Connection connection = MySQLAdapter.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(mySQL_script)) {
 
-            preparedStatement.setString(1, epost);
+            preparedStatement.setString(1, email);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 userId = rs.getInt("bruker_id");
