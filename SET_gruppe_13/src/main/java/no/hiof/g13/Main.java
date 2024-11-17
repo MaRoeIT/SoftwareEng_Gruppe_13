@@ -6,9 +6,12 @@ import no.hiof.g13.API.GetProductsAPI;
 import no.hiof.g13.adapters.ApiAdapter;
 import no.hiof.g13.adapters.GetProductsAPI_RepositoryMySQL;
 import no.hiof.g13.adapters.UserAdapter;
+import no.hiof.g13.adapters.ProductImageAdapter;
 
 import no.hiof.g13.ports.in.GetProductsAPI_Port;
 import no.hiof.g13.ports.out.UserRepositoryPort;
+import no.hiof.g13.ports.out.ProductImageRepositoryPort;
+
 import no.hiof.g13.services.GetProductsAPI_Service;
 
 import java.awt.*;
@@ -32,7 +35,9 @@ public class Main {
             });
         }).start();
         UserRepositoryPort userRepositoryPort = new UserAdapter();
-        ApiAdapter apiAdapter = new ApiAdapter(userRepositoryPort);
+        ProductImageRepositoryPort productImageRepositoryPort = new ProductImageAdapter();
+
+        ApiAdapter apiAdapter = new ApiAdapter(userRepositoryPort, productImageRepositoryPort);
 
         // Register all routes via ApiAdapter
         apiAdapter.registerRoutes(app);

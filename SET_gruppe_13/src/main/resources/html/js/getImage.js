@@ -1,11 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('getImage.php')
+    // Update the fetch call to point to the Java API endpoint
+    fetch('/api/product-images')
         .then(response => response.json())
         .then(images => {
             const categoryContainers = {};
 
             images.forEach(image => {
-                // Use lowercase kategori values to match HTML id attributes (e.g., `electronics`, `security`)
+                // Use lowercase category values to match HTML id attributes (e.g., `electronics`, `security`)
                 const category = image.kategori.toLowerCase();
                 if (!categoryContainers[category]) {
                     categoryContainers[category] = document.querySelector(`#${category} .flex-container`);

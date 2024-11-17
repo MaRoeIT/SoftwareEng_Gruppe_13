@@ -3,20 +3,24 @@ package no.hiof.g13.adapters;
 import com.google.gson.Gson;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
-import io.javalin.vue.VueComponent;
+import no.hiof.g13.models.ProductImage;
 import no.hiof.g13.models.User;
+import no.hiof.g13.ports.out.ProductImageRepositoryPort;
 import no.hiof.g13.ports.out.UserRepositoryPort;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 public class ApiAdapter {
     private final UserRepositoryPort userRepositoryPort;
+    private final ProductImageRepositoryPort productImageRepositoryPort;
     private final Gson gson;
 
-    public ApiAdapter(UserRepositoryPort userRepositoryPort) {
+    public ApiAdapter(UserRepositoryPort userRepositoryPort, ProductImageRepositoryPort productImageRepositoryPort) {
         this.userRepositoryPort = userRepositoryPort;
+        this.productImageRepositoryPort = productImageRepositoryPort;
         this.gson = new Gson();
     }
 
@@ -24,6 +28,7 @@ public class ApiAdapter {
         app.get("/api/user/{id}", this::getUser);
         app.get("/logout/{id}", this::logout);
         app.post("/api/login", this::login);
+        app.get("/api/product-images", this::getProductImages);
     }
 
     private void getUser(Context ctx) {
@@ -72,4 +77,15 @@ public class ApiAdapter {
         }
         ctx.json(response);
     }
+
+    private void getProductImages(Context ctx) {
+        // Correctly use the instance method call
+        List<ProductImage> productImages = productImageRepositoryPort.getAllProductImages();
+        if (productImages != null && !productImages.isEmpty()) {
+            ctx.json(productImages);
+        } else {
+            ctx.status(404).result("No product images found");
+        }
+    }
+
 }
