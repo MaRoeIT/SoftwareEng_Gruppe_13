@@ -16,3 +16,14 @@ The startup therefore wants to launch a platform that allows people, even withou
 ## Documents/readme convention
 
 ## variable convention
+
+# Project members
+
+| Profile picture                                                                              | Name                 | GitHub username                                      |
+|----------------------------------------------------------------------------------------------|----------------------|------------------------------------------------------|
+| <img src="https://github.com/AndreasIsaksen.png" width="50" height="50" border-radius="50%"> | Andreas Isaksen      | [@AndreasIsaksen](https://github.com/AndreasIsaksen) |
+| <img src="https://github.com/arshabba.png" width="50" height="50" border-radius="50%">       | Arshad Abba          | [@arshabba](https://github.com/arshabba)             |
+| <img src="https://github.com/DanaDiyar.png" width="50" height="50" border-radius="50%">      | Dana Diyar Hafzullah | [@DanaDiyar](https://github.com/DanaDiyar)           |
+| <img src="https://github.com/Sell-Mango.png" width="50" height="50" border-radius="50%">     | Kjell-Magne Larsen   | [@Sell-Mango](https://github.com/Sell-Mango)         |
+| <img src="https://github.com/MaRoeIT.png" width="50" height="50" border-radius="50%">        | Marius Rørmark       | [@MaRoeIT](https://github.com/MaRoeIT)               |
+| <img src="https://github.com/2rawwww.png" width="50" height="50" border-radius="50%">        | Michael Tarvid       | [@2rawwww](https://github.com/2rawwww)               |
