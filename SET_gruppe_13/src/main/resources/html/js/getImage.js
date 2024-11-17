@@ -1,11 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('getImage.php')
+    // Update the fetch call to point to the Java API endpoint
+    fetch('/api/product-images')
         .then(response => response.json())
         .then(images => {
             const categoryContainers = {};
 
             images.forEach(image => {
-                // Use lowercase kategori values to match HTML id attributes (e.g., `electronics`, `security`)
+                // Use lowercase category values to match HTML id attributes (e.g., `electronics`, `security`)
                 const category = image.kategori.toLowerCase();
                 if (!categoryContainers[category]) {
                     categoryContainers[category] = document.querySelector(`#${category} .flex-container`);
@@ -17,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (categoryContainers[category]) {
                     // Create anchor tag and set its href attribute to link to article.html with product ID as a query parameter
                     const link = document.createElement('a');
-                    link.href = `pages/article.html?product_id=${image.produkt_id}`;
+                    link.href = `pages/article.html?product_id=${image.produktId}`;
 
                     // Create figure and img elements
                     const figure = document.createElement('figure');

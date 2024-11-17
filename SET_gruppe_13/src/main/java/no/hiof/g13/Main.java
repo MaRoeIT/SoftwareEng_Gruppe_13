@@ -1,9 +1,14 @@
 package no.hiof.g13;
-
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
-
 import no.hiof.g13.services.AuthenticateUserAPI_Service;
+import no.hiof.g13.API.GetProductsAPI;
+import no.hiof.g13.adapters.*;
+
+import no.hiof.g13.ports.in.GetProductsAPI_Port;
+import no.hiof.g13.ports.out.ProductDetailsRepositoryPort;
+import no.hiof.g13.ports.out.ProductImageRepositoryPort;
+
 import no.hiof.g13.services.GetProductsAPI_Service;
 import no.hiof.g13.services.GetUsersAPI_Service;
 
@@ -29,6 +34,7 @@ public class Main {
                 staticFileConfig.location = Location.CLASSPATH; // Ensure classpath-based serving
             });
         }).start(8080);
+      
        /* UserRepositoryPort userRepositoryPort = new UserAdapter();
         ApiAdapter apiAdapter = new ApiAdapter(userRepositoryPort); */
 
