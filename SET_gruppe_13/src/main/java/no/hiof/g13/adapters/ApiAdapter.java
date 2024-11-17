@@ -3,20 +3,28 @@ package no.hiof.g13.adapters;
 import com.google.gson.Gson;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
-import io.javalin.vue.VueComponent;
+import no.hiof.g13.DTO.in.ProductDetailsDTO;
+import no.hiof.g13.models.ProductImage;
 import no.hiof.g13.models.User;
+import no.hiof.g13.ports.out.ProductDetailsRepositoryPort;
+import no.hiof.g13.ports.out.ProductImageRepositoryPort;
 import no.hiof.g13.ports.out.UserRepositoryPort;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 public class ApiAdapter {
     private final UserRepositoryPort userRepositoryPort;
+    private final ProductImageRepositoryPort productImageRepositoryPort;
+    private final ProductDetailsRepositoryPort productDetailsRepositoryPort;
     private final Gson gson;
 
-    public ApiAdapter(UserRepositoryPort userRepositoryPort) {
+    public ApiAdapter(UserRepositoryPort userRepositoryPort, ProductImageRepositoryPort productImageRepositoryPort, ProductDetailsRepositoryPort productDetailsRepositoryPort) {
         this.userRepositoryPort = userRepositoryPort;
+        this.productImageRepositoryPort = productImageRepositoryPort;
+        this.productDetailsRepositoryPort = productDetailsRepositoryPort;
         this.gson = new Gson();
     }
 
@@ -24,6 +32,8 @@ public class ApiAdapter {
         app.get("/api/user/{id}", this::getUser);
         app.get("/logout/{id}", this::logout);
         app.post("/api/login", this::login);
+        app.get("/api/product-images", this::getProductImages);
+        app.get("/api/product-details", this::getProductDetails);
     }
 
     private void getUser(Context ctx) {
@@ -72,4 +82,34 @@ public class ApiAdapter {
         }
         ctx.json(response);
     }
+
+    private void getProductImages(Context ctx) {
+        // Correctly use the instance method call
+        List<ProductImage> productImages = productImageRepositoryPort.getAllProductImages();
+        if (productImages != null && !productImages.isEmpty()) {
+            ctx.json(productImages);
+        } else {
+            ctx.status(404).result("No product images found");
+        }
+    }
+
+    private void getProductDetails(Context ctx) {
+        String productIdParam = ctx.queryParam("product_id");
+        if (productIdParam != null) {
+            try {
+                int productId = Integer.parseInt(productIdParam);
+                ProductDetailsDTO productDetails = productDetailsRepositoryPort.getProductDetails(productId);
+                if (productDetails != null) {
+                    ctx.json(productDetails);
+                } else {
+                    ctx.status(404).result("Product not found");
+                }
+            } catch (NumberFormatException e) {
+                ctx.status(400).result("Invalid product ID format");
+            }
+        } else {
+            ctx.status(400).result("Product ID is required");
+        }
+    }
+
 }

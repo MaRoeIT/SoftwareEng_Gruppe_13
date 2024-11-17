@@ -1,60 +1,65 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const params = new URLSearchParams(window.location.search);
-    const productId = params.get('product_id');
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the product ID from the URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('product_id');
 
     if (productId) {
-        fetch(`../getProductDetails.php?product_id=${productId}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    console.error(data.error);
-                    return;
+        // Fetch product details from the Java API
+        fetch(`/api/product-details?product_id=${productId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
                 }
+                return response.json();
+            })
+            .then(product => {
 
-                // Update the title tag
-                document.title = data.navn;
+                document.querySelector('h2.sub-title-article').textContent = product.navn;
+                // Populate the article sections with product data
+                document.querySelector('#bilde .box-one').innerHTML = `
+                    <img src="${product.bucketlink}" alt="Product Image">`;
 
-                // Update the product name
-                document.querySelector('.sub-title-article').textContent = data.navn;
-
-                // Insert the product image
-                const imgContainer = document.querySelector('#bilde .flex-container figure');
-                imgContainer.innerHTML = `<img src="${data.bucketlink}" alt="${data.navn}">`;
-
-                // Insert the product description
-                const aboutContainer = document.querySelector('#about .flex-container figure');
-                aboutContainer.innerHTML = `<p>${data.artikkel}</p>`;
-
-                // Insert product specifications
-                const specsContainer = document.querySelector('#specifications .flex-container figure');
-                specsContainer.innerHTML = `
-                    <p>Produktserie: ${data.produktserie}</p>
-                    <p>Modell: ${data.modell}</p>
-                    <p>Garanti (måneder): ${data.garanti_måneder}</p>
-                    <p>EAN: ${data.EAN}</p>
+                document.querySelector('#about .box-one').innerHTML = `
+                    <p>${product.description}</p>
                 `;
 
-                // Insert product dependencies, if any
-                if (data.avhengigav) {
-                    fetch(`../getProductDetails.php?product_id=${data.avhengigav}`)
-                        .then(response => response.json())
-                        .then(dependency => {
-                            if (dependency.error) {
-                                console.error('Dependency not found:', dependency.error);
-                                return;
+                document.querySelector('#specifications .box-one').innerHTML = `
+                    <ul>
+                        <li>Kategori: ${product.kategori}</li>
+                        <li>Modell: ${product.modell}</li>
+                        <li>Warranty: ${product.garantiMåneder} måneder</li>
+                        <li>EAN: ${product.ean}</li>
+                    </ul>
+                `;
+
+                if (product.avhengigAv) {
+                    // Fetch details for the dependent product
+                    fetch(`/api/product-details?product_id=${product.avhengigAv}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! Status: ${response.status}`);
                             }
-                            const dependenciesContainer = document.querySelector('#dependencies .flex-container figure');
-                            dependenciesContainer.innerHTML = `
-                                <a href="article.html?product_id=${dependency.produkt_id}">
-                                    <img src="${dependency.bucketlink}" alt="${dependency.navn}" style="width: 25%;">
-                                    <h4>${dependency.navn}</h4>
-                                </a>
-                            `;
+                            return response.json();
                         })
-                        .catch(error => console.error('Error fetching dependency:', error));
+                        .then(dependentProduct => {
+                            document.querySelector('#dependencies .box-two').innerHTML = `
+                <a href="/pages/article.html?product_id=${dependentProduct.produktId}" class="dependency-link">
+                    <img src="${dependentProduct.bucketlink}" alt="${dependentProduct.navn}" class="dependency-image" style="width: 25%;">
+                    <figcaption>${dependentProduct.navn}</figcaption>
+                </a>
+            `;
+                        })
+                        .catch(error => {
+                            console.error('Error fetching dependent product details:', error);
+                            document.querySelector('#dependencies .box-two').innerHTML = `<p>Dependencies: None</p>`;
+                        });
+                } else {
+                    document.querySelector('#dependencies .box-two').innerHTML = `<p>Dependencies: None</p>`;
                 }
+
+
             })
-            .catch(error => console.error('Error fetching product data:', error));
+            .catch(error => console.error('Error fetching product details:', error));
     } else {
         console.error('No product ID found in the URL');
     }
