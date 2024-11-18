@@ -8,10 +8,10 @@ import java.sql.*;
 public class CreateUserAPI_RepositoryMySQL implements CreateUserAPI_Port {
 
     @Override
-    public int createUser(String firstName, String lastName, int statusId, String mobile, String email, String hashPass, String address, String postnumber) {
+    public int createUser(String firstName, String lastName, int statusId, String mobile, String email, String hashPass, String address, String postnumber, int userLevel) {
 
         String mySQL_query = "BEGIN;" +
-                "INSERT INTO bruker (fornavn, etternavn, status_id, mobil, epost, passord) VALUES(?, ?, ?, ?, ?, ?);" +
+                "INSERT INTO bruker (fornavn, etternavn, status_id, mobil, epost, passord, userLevel) VALUES(?, ?, ?, ?, ?, ?, ?);" +
                 "INSERT INTO adresse (adresse, postnummer) VALUES(?, ?);" +
                 "COMMIT;";
 
@@ -25,6 +25,7 @@ public class CreateUserAPI_RepositoryMySQL implements CreateUserAPI_Port {
             statement.setString(6, hashPass);
             statement.setString(7, address);
             statement.setString(8, postnumber);
+            statement.setInt(9, userLevel);
 
             int affectedRows = statement.executeUpdate();
 
