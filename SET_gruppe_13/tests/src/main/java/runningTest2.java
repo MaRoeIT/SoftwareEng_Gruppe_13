@@ -8,6 +8,9 @@ public class runningTest2 {
         Scanner scanner = new Scanner(System.in);
         String userInput;
 
+        System.out.println("Starting values");
+        System.out.println(device);
+
         while (true){
             System.out.println("Write a command: ");
             userInput = scanner.nextLine();
@@ -18,12 +21,17 @@ public class runningTest2 {
                     break;
                 case "disconnect":
                     device.disconnect();
+                    break;
                 case "status":
+                    System.out.println("Got here!");
                     device.getStatus();
+                    break;
                 case "exit":
+                    device.disconnect();
                     System.exit(0);
                 default:
                     System.out.println("That is not a command");
+                    break;
             }
         }
     }

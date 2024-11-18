@@ -3,6 +3,7 @@ package models.MockSmartLight;
 import java.awt.*;
 import java.io.*;
 import java.net.*;
+import java.util.concurrent.TimeUnit;
 
 import interfaces.MockIOTDevice;
 import models.DTO.SendSmartLightDTO;
@@ -12,6 +13,8 @@ import static java.lang.System.out;
 public class MockIOTSmartLight implements MockIOTDevice {
     private boolean connected = false;
     private String lastReceivedData = "";
+    private Socket socket;
+    private MockSocketHandler socketHandler;
 
     private String name = "Govee LED light";
     private String deviceID = "130410949094";
@@ -29,7 +32,27 @@ public class MockIOTSmartLight implements MockIOTDevice {
 
     @Override
     public void connect() {
-        try(Socket socket = new Socket("localhost", 4444)){
+        this.socketHandler = new MockSocketHandler("localhost", 4444);
+        out.println("Device connected");
+
+        socketHandler.receiveData();
+
+        while (true){
+            if (socketHandler.isNewData()){
+                updateLightSettings();
+                socketHandler.setNewData(false);
+            }
+            //needs a delay to work, the delay can go down to exactly 77 milliseconds before it won't run properly
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            }
+            catch (InterruptedException e){
+                out.println(e.getMessage());
+            }
+        }
+
+        /*
+        try(socket = new Socket("localhost", 4444)){
             OutputStream output = socket.getOutputStream();
             PrintWriter writer = new PrintWriter(output, true);
 
@@ -67,9 +90,10 @@ public class MockIOTSmartLight implements MockIOTDevice {
         catch (IOException e){
             out.println("I/O error: " + e.getMessage());
         }
-
+        */
     }
 
+    /*
     public void keepConnectionAlive(PrintWriter writer) {
         new Thread(() -> {
             try {
@@ -82,22 +106,29 @@ public class MockIOTSmartLight implements MockIOTDevice {
                 Thread.currentThread().interrupt();
             }
         }).start();
-    }
+    }*/
 
     @Override
     public void disconnect() {
-        connected = false;
-        out.println("Device disconnected.");
+        try {
+            socketHandler.closeConnection();
+            out.println("Device disconnected.");
+        }
+        catch (NullPointerException e){
+            out.println("The device haven't been connected and couldn't be disconnected\n" + e.getMessage());
+        }
+        //connected = false;
     }
 
     @Override
-    public String getStatus(){
-        if (connected) {
-            return "Connected";
+    public void getStatus(){
+        if (!socketHandler.getSocket().isClosed()) {
+            out.println("Connected");
         }
         else {
-            return "Disconnected";
+            out.println("Disconnected");
         }
+        out.println("\n" + this);
     }
 
     @Override
@@ -122,8 +153,44 @@ public class MockIOTSmartLight implements MockIOTDevice {
         }
     }
 
-    @Override
-    public void reciveDataHandler(ObjectInputStream receivedData){
+    public void updateLightSettings(){
+        setLightSettings(socketHandler.getLastReceivedDTO().getLightPattern(),
+                socketHandler.getLastReceivedDTO().getColor(),
+                socketHandler.getLastReceivedDTO().getLightStrength());
+        out.println("The light settings are updated");
+    }
 
+    public void sendLightSettings(){
+        socketHandler.sendData(new SendSmartLightDTO(this.lightPattern, this.color, this.lightStrength));
+    }
+
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
+
+    public void setLightSettings(String lightPattern, Color color, int lightStrength){
+        this.lightPattern = lightPattern;
+        this.color = color;
+        this.lightStrength = lightStrength;
+    }
+
+    @Override
+    public String toString() {
+        return "MockIOTSmartLight{" +
+                "\n\tname=          '" + name + '\'' +
+                ", \n\tdeviceID=      '" + deviceID + '\'' +
+                ", \n\tproducer=      '" + producer + '\'' +
+                ", \n\tmodell=        '" + modell + '\'' +
+                ", \n\twifi=          " + wifi +
+                ", \n\tbatteryLevel=  " + batteryLevel +
+                ", \n\tlightPattern=  '" + lightPattern + '\'' +
+                ", \n\tcolor=         " + color +
+                ", \n\tlightStrength= " + lightStrength +
+                ", \n\tisOn=          " + isOn +
+                "\n}";
     }
 }

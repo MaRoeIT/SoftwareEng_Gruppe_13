@@ -7,10 +7,8 @@
     <list default="true" id="43f8d6f9-e05a-4cc4-9027-5e97656203ba" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/interfaces/MockIOTDevice.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/interfaces/MockIOTDevice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockServer/MockClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockIOTSmartLight.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockSmartLight/MockIOTSmartLight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockServer/MockServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/runningTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/runningTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockServer/MockClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockServer/MockClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockSmartLight/MockIOTSmartLight.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockSmartLight/MockIOTSmartLight.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/runningTest2.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/runningTest2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/test/java/MockIOTSmartLightTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/test/java/MockIOTSmartLightTests.java" afterDir="false" />
     </list>
@@ -71,42 +69,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Application.MockIOTSmartLightTests.executor": "Run",
-    "Application.main.executor": "Run",
-    "Application.runningTest.executor": "Run",
-    "Application.runningTest2.executor": "Run",
-    "DefaultPlantUmlFileTemplate": "UML Class",
-    "JUnit.AddMyProductTests.executor": "Run",
-    "JUnit.CompetenceReviewTests.executor": "Run",
-    "JUnit.MyProductsTests.executor": "Run",
-    "JUnit.MySQLProdImageRepositoryTest.executor": "Run",
-    "JavaScript Debug.general.html.executor": "Run",
-    "JavaScript Debug.index.html.executor": "Run",
-    "JavaScript Debug.product.html.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Test__module",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_directory_selection": "E:/gitkraken/SoftwareEng_Gruppe_13/SET_gruppe_13/tests/src/main/java/models",
-    "last_opened_file_path": "E:/gitkraken/SoftwareEng_Gruppe_13/.git",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.MockIOTSmartLightTests.executor&quot;: &quot;Run&quot;,
+    &quot;Application.main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.runningTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.runningTest2.executor&quot;: &quot;Run&quot;,
+    &quot;DefaultPlantUmlFileTemplate&quot;: &quot;UML Class&quot;,
+    &quot;JUnit.AddMyProductTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CompetenceReviewTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MyProductsTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MySQLProdImageRepositoryTest.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.general.html.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.product.html.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Test__module&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_directory_selection&quot;: &quot;E:/gitkraken/SoftwareEng_Gruppe_13/SET_gruppe_13/tests/src/main/java/models&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/gitkraken/SoftwareEng_Gruppe_13/.git&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="models" />
@@ -169,7 +167,8 @@
       <workItem from="1731494902494" duration="11192000" />
       <workItem from="1731508518532" duration="7134000" />
       <workItem from="1731575069035" duration="3094000" />
-      <workItem from="1731770533184" duration="11807000" />
+      <workItem from="1731770533184" duration="17757000" />
+      <workItem from="1731954616981" duration="9351000" />
     </task>
     <servers />
   </component>

@@ -16,9 +16,11 @@ public class MockClientHandler extends Thread{
     public void run(){
         try (InputStream input = socket.getInputStream();
              BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-            ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream())) {
+             ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream())) {
+
 
             output.writeObject("DATA_INCOMING");
+            System.out.println("data incomming");
 
             SendSmartLightDTO smartLightDTO = new SendSmartLightDTO("Wave", Color.pink, 100);
 
