@@ -73,12 +73,12 @@ public class CreateUserAPI {
 
         boolean isFirstNameValid = user.getFornavn() != null && !user.getFornavn().trim().isEmpty();
         boolean isLastNameValid = user.getEtternavn() != null && !user.getEtternavn().trim().isEmpty();
-        boolean isStatusIdValid = user.getStatus_id() != 0;
+        boolean isStatusIdValid = user.getStatus_id() != null;
         boolean isMobileValid = user.getMobil() != null && !user.getMobil().trim().isEmpty();
         boolean isEmailValid = user.getEpost() != null && !user.getEpost().trim().isEmpty();
         boolean isAdressValid = user.getAddress().getAdresse() != null && !user.getAddress().getAdresse().trim().isEmpty();
         boolean isPostNumberValid = user.getAddress().getPostnummer() != null && !user.getAddress().getPostnummer().trim().isEmpty();
-        boolean isUserLevelValid = user.getUserLevel() != 0;
+        boolean isUserLevelValid = user.getUserLevel() != null;
         boolean isPasswordValid = user.getPassord() != null;
 
 

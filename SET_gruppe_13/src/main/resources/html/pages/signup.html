@@ -71,7 +71,7 @@
             const newUserData = {
                 fornavn: document.getElementById('firstName').value,
                 etternavn: document.getElementById('lastName').value,
-                status_id: 1,
+                status_id: 3,
                 mobil: document.getElementById('mobile').value,
                 epost: document.getElementById('email').value,
                 passord: document.getElementById('password').value,
@@ -79,7 +79,7 @@
                     adresse: document.getElementById('address').value,
                     postnummer: document.getElementById('postnumber').value
                 },
-                userLevel: 1
+                userLevel: 0
             };
 
             try {
@@ -96,7 +96,7 @@
 
                 if (!response.ok) {
                     const errorData = await response.json();
-                    createUserMessage.textContent = errorData.error || 'Couldnt create user';
+                    createUserMessage.textContent = errorData.error || 'Could not create user';
                     return;
                 }
 

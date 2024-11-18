@@ -1,6 +1,5 @@
 package no.hiof.g13.adapters;
 
-import no.hiof.g13.models.Address;
 import no.hiof.g13.ports.CreateUserAPI_Port;
 
 import java.sql.*;
@@ -8,33 +7,68 @@ import java.sql.*;
 public class CreateUserAPI_RepositoryMySQL implements CreateUserAPI_Port {
 
     @Override
-    public int createUser(String firstName, String lastName, int statusId, String mobile, String email, String hashPass, String address, String postnumber, int userLevel) {
+    public int createUser(String firstName, String lastName, Integer statusId, String mobile, String email, String hashPass, String address, String postnumber, Integer userLevel) {
+        Connection connection = null;
+        int userId;
+        try {
+            connection = MySQLAdapter.getConnection();
+            connection.setAutoCommit(false);
 
-        String mySQL_query = "INSERT INTO bruker (fornavn, etternavn, status_id, mobil, epost, passord, userLevel) VALUES(?, ?, ?, ?, ?, ?, ?)";
-        String addressQuery = "INSERT INTO adresse (adresse, postnummer) VALUES(?, ?)";
+            String mySQL_query = "INSERT INTO bruker (fornavn, etternavn, status_id, mobil, epost, passord, user_level) VALUES(?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection connection = MySQLAdapter.getConnection();
-             PreparedStatement statement = connection.prepareStatement(mySQL_query, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setString(1, firstName);
-            statement.setString(2, lastName);
-            statement.setInt(3, statusId);
-            statement.setString(4, mobile);
-            statement.setString(5, email);
-            statement.setString(6, hashPass);
-            statement.setInt(7, userLevel);
+            try (PreparedStatement statement = connection.prepareStatement(mySQL_query, Statement.RETURN_GENERATED_KEYS)) {
+                statement.setString(1, firstName);
+                statement.setString(2, lastName);
+                statement.setInt(3, statusId);
+                statement.setString(4, mobile);
+                statement.setString(5, email);
+                statement.setString(6, hashPass);
+                statement.setInt(7, userLevel);
 
-            statement.executeUpdate();
+                int affectedRows = statement.executeUpdate();
 
-            ResultSet rs = statement.getGeneratedKeys();
-            if(rs.next()) {
-                return rs.getInt(1);
+                if(affectedRows == 0) {
+                    throw new RuntimeException("Creating user failed, no rows affected.");
+                }
+
+                ResultSet rs = statement.getGeneratedKeys();
+                if (rs.next()) {
+                    userId = rs.getInt(1);
+                    System.out.println("Generated user ID: " + userId);
+                } else {
+                    throw new RuntimeException("Creating new user failed, could not get ID");
+                }
             }
-            else {
-                throw new RuntimeException("Creating new user failed");
+
+            String addressQuery = "INSERT INTO adresse (adresse_id, adresse, postnummer) VALUES(?, ?, ?)";
+
+            try (PreparedStatement statement = connection.prepareStatement(addressQuery)) {
+                statement.setInt(1, userId);
+                statement.setString(2, address);
+                statement.setString(3, postnumber);
+                statement.executeUpdate();
             }
-        }
-        catch (ClassNotFoundException | SQLException e) {
-            throw new RuntimeException("Creating new user failed", e);
+
+            connection.commit();
+            return userId;
+
+        } catch (Exception e) {
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    System.err.println("Rollback failed: " + ex.getMessage());
+                }
+            }
+            System.err.println("Database error: " + e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("Creating new user failed: " + e.getMessage(), e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                System.err.println("Error closing connection: " + e.getMessage());
+            }
         }
     }
 

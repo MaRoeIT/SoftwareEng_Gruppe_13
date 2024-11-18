@@ -24,7 +24,6 @@ public class Main {
             javalinConfig.bundledPlugins.enableCors(cors -> {
                 cors.addRule(corsRule -> {
                     corsRule.reflectClientOrigin = true;
-                    corsRule.allowCredentials = true;
                     corsRule.exposeHeader("*");
                 });
             });
