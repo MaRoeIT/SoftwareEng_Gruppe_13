@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import io.javalin.Javalin;
 import no.hiof.g13.models.User;
-import no.hiof.g13.ports.out.AuthenticateUserAPI_Port;
+import no.hiof.g13.ports.AuthenticateUserAPI_Port;
 
 import java.util.HashMap;
 import java.util.Map;

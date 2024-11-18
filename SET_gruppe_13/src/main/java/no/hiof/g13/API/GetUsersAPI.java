@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import io.javalin.Javalin;
 import no.hiof.g13.DTO.out.GetUserResponseDTO;
 import no.hiof.g13.models.User;
-import no.hiof.g13.ports.in.GetUsersAPI_Port;
+import no.hiof.g13.ports.GetUsersAPI_Port;
 
 import java.util.List;
 import java.util.Map;

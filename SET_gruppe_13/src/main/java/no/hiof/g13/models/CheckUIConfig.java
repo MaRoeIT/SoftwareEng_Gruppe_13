@@ -1,7 +1,7 @@
 package no.hiof.g13.models;
 
 import no.hiof.g13.adapters.CompetenceInputAdapter;
-import no.hiof.g13.ports.out.CompetenceInputPort;
+import no.hiof.g13.ports.CompetenceInputPort;
 
 public class CheckUIConfig {
     private CompetenceInputPort competenceInputPort;

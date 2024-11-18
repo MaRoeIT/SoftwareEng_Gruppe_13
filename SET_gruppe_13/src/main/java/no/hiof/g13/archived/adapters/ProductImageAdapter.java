@@ -1,7 +1,7 @@
-package no.hiof.g13.archived;
+package no.hiof.g13.archived.adapters;
 
 import no.hiof.g13.models.ProductImage;
-import no.hiof.g13.ports.out.ProductImageRepositoryPort;
+import no.hiof.g13.archived.ports.ProductImageRepositoryPort;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

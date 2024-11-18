@@ -1,6 +1,6 @@
 package no.hiof.g13.models;
 
-import no.hiof.g13.ports.out.CompetenceInputPort;
+import no.hiof.g13.ports.CompetenceInputPort;
 
 import java.util.*;
 

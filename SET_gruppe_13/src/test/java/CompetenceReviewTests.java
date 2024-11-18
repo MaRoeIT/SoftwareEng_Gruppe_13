@@ -1,12 +1,10 @@
-import net.bytebuddy.dynamic.scaffold.MethodGraph;
 import no.hiof.g13.models.*;
-import no.hiof.g13.ports.out.CompetenceInputPort;
+import no.hiof.g13.ports.CompetenceInputPort;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.text.DecimalFormat;
 import java.util.*;
 
 import static org.mockito.Mockito.*;

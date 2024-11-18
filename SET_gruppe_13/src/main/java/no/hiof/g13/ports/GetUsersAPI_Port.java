@@ -1,4 +1,4 @@
-package no.hiof.g13.ports.in;
+package no.hiof.g13.ports;
 
 import no.hiof.g13.models.User;
 

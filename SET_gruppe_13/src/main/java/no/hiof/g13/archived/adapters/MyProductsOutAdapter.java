@@ -1,8 +1,8 @@
-package no.hiof.g13.archived;
+package no.hiof.g13.archived.adapters;
 
 import no.hiof.g13.models.IOTDevice;
 import no.hiof.g13.models.MyProducts;
-import no.hiof.g13.ports.out.GetMyProductsPort;
+import no.hiof.g13.archived.ports.GetMyProductsPort;
 
 import java.util.ArrayList;
 import java.util.Optional;

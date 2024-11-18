@@ -7,7 +7,7 @@ import no.hiof.g13.DTO.out.GetUserResponseDTO;
 import no.hiof.g13.Exceptions.UserNotFoundException;
 import no.hiof.g13.adapters.GetUsersAPI_RepositoryMySQL;
 import no.hiof.g13.models.User;
-import no.hiof.g13.ports.in.GetUsersAPI_Port;
+import no.hiof.g13.ports.GetUsersAPI_Port;
 
 import java.util.List;
 import java.util.stream.Collectors;

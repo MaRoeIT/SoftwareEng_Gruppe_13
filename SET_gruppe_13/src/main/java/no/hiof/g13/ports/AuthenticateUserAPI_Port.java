@@ -1,6 +1,4 @@
-package no.hiof.g13.ports.out;
-
-import no.hiof.g13.models.User;
+package no.hiof.g13.ports;
 
 public interface AuthenticateUserAPI_Port {
     boolean authenticateUser(String epost, String passord);

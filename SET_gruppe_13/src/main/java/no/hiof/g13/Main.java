@@ -2,12 +2,6 @@ package no.hiof.g13;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
 import no.hiof.g13.services.AuthenticateUserAPI_Service;
-import no.hiof.g13.API.GetProductsAPI;
-import no.hiof.g13.adapters.*;
-
-import no.hiof.g13.ports.in.GetProductsAPI_Port;
-import no.hiof.g13.ports.out.ProductDetailsRepositoryPort;
-import no.hiof.g13.ports.out.ProductImageRepositoryPort;
 
 import no.hiof.g13.services.CreateUserAPI_Service;
 import no.hiof.g13.services.GetProductsAPI_Service;
@@ -19,8 +13,6 @@ import java.net.URI;
 public class Main {
     public static void main(String[] args) {
         Javalin app = Javalin.create(javalinConfig -> {
-            //javalinConfig.staticFiles.enableWebjars();
-            //javalinConfig.vue.vueInstanceNameInJs = "app";
             javalinConfig.bundledPlugins.enableCors(cors -> {
                 cors.addRule(corsRule -> {
                     corsRule.reflectClientOrigin = true;
@@ -34,18 +26,12 @@ public class Main {
                 staticFileConfig.location = Location.CLASSPATH; // Ensure classpath-based serving
             });
         }).start(8080);
-      
-       /* UserRepositoryPort userRepositoryPort = new UserAdapter();
-        ApiAdapter apiAdapter = new ApiAdapter(userRepositoryPort); */
-
-        // Register all routes via ApiAdapter
-        //  apiAdapter.registerRoutes(app);
 
         // Get products from database
         GetProductsAPI_Service productsAPIService = new GetProductsAPI_Service();
         productsAPIService.start(app);
 
-        // get Users login credentials from database
+        // get users info from database
         GetUsersAPI_Service usersLoginAPI_service = new GetUsersAPI_Service();
         usersLoginAPI_service.configureRoute(app);
 
@@ -53,7 +39,7 @@ public class Main {
         AuthenticateUserAPI_Service authenticateUserAPIService = new AuthenticateUserAPI_Service();
         authenticateUserAPIService.configureRoute(app);
 
-        // Create User
+        // Create and insert new user to database
         CreateUserAPI_Service createUserAPIService = new CreateUserAPI_Service();
         createUserAPIService.configureRoute(app);
 

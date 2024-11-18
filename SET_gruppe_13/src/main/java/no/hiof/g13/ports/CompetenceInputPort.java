@@ -1,4 +1,4 @@
-package no.hiof.g13.ports.out;
+package no.hiof.g13.ports;
 
 import no.hiof.g13.models.Question;
 

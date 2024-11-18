@@ -1,8 +1,7 @@
-package no.hiof.g13.GUI;
+package no.hiof.g13.archived.GUI;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import no.hiof.g13.models.*;
 

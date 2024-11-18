@@ -3,7 +3,7 @@ package no.hiof.g13.services;
 import io.javalin.Javalin;
 import no.hiof.g13.API.AuthenticateUserAPI;
 import no.hiof.g13.adapters.AuthenticateUserAPI_RepositoryMySQL;
-import no.hiof.g13.ports.out.AuthenticateUserAPI_Port;
+import no.hiof.g13.ports.AuthenticateUserAPI_Port;
 
 public class AuthenticateUserAPI_Service {
     private final AuthenticateUserAPI authenticateUserAPI;

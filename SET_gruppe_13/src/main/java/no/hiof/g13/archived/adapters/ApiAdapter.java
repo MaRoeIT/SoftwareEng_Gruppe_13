@@ -1,4 +1,4 @@
-package no.hiof.g13.archived;
+package no.hiof.g13.archived.adapters;
 
 import com.google.gson.Gson;
 import io.javalin.Javalin;
@@ -6,9 +6,9 @@ import io.javalin.http.Context;
 import no.hiof.g13.DTO.in.ProductDetailsDTO;
 import no.hiof.g13.models.ProductImage;
 import no.hiof.g13.models.User;
-import no.hiof.g13.ports.out.ProductDetailsRepositoryPort;
-import no.hiof.g13.ports.out.ProductImageRepositoryPort;
-import no.hiof.g13.ports.out.UserRepositoryPort;
+import no.hiof.g13.archived.ports.ProductDetailsRepositoryPort;
+import no.hiof.g13.archived.ports.ProductImageRepositoryPort;
+import no.hiof.g13.archived.ports.UserRepositoryPort;
 
 import java.util.HashMap;
 import java.util.List;

@@ -3,7 +3,9 @@ package no.hiof.g13.API;
 import com.google.gson.Gson;
 import io.javalin.Javalin;
 import no.hiof.g13.DTO.in.GetProductsAPI_DTO;
-import no.hiof.g13.ports.in.GetProductsAPI_Port;
+import no.hiof.g13.DTO.in.ProductDetailsDTO;
+import no.hiof.g13.models.ProductImage;
+import no.hiof.g13.ports.GetProductsAPI_Port;
 
 import java.util.List;
 
@@ -17,12 +19,22 @@ public class GetProductsAPI {
     }
 
     public void start(Javalin app) {
-        app.get("/api/devices", ctx -> {
+        app.get("/api/products", ctx -> {
             List<GetProductsAPI_DTO> allProductsDTO = getProductsPort.getAllProducts();
             ctx.result(gson.toJson(allProductsDTO)).contentType("application/json");
         });
 
-        app.get("/api/devices/{id}", ctx -> {
+        app.get("/api/products/images", ctx -> {
+            List<ProductImage> productImages = getProductsPort.getAllProductImages();
+            if(productImages != null && !productImages.isEmpty()) {
+                ctx.json(productImages);
+            }
+            else {
+                ctx.status(404).result("No product images found");
+            }
+        });
+
+        app.get("/api/products/id/{id}", ctx -> {
             String idParam = ctx.pathParam("id");
             try {
                 int productId = Integer.parseInt(idParam);
@@ -36,6 +48,23 @@ public class GetProductsAPI {
                 }
             }
             catch(NumberFormatException e) {
+                ctx.status(400).result("Invalid product ID format");
+            }
+        });
+
+        app.get("/api/products/details/{product_id}", ctx -> {
+            try {
+                int productIdParam = Integer.parseInt(ctx.pathParam("product_id"));
+                ProductDetailsDTO dto = getProductsPort.getProductDetails(productIdParam);
+
+                if(dto != null) {
+                    ctx.json(dto);
+                }
+                else {
+                    ctx.status(404).result("Product not found");
+                }
+            }
+            catch (NumberFormatException e) {
                 ctx.status(400).result("Invalid product ID format");
             }
         });

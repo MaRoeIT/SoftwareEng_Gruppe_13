@@ -1,4 +1,4 @@
-package no.hiof.g13.GUI;
+package no.hiof.g13.archived.GUI;
 
 import java.awt.*;
 
