@@ -1,4 +1,4 @@
-package no.hiof.g13.adapters;
+package no.hiof.g13.archived;
 
 import no.hiof.g13.models.ProductImage;
 import no.hiof.g13.ports.out.ProductImageRepositoryPort;

@@ -1,4 +1,4 @@
-package no.hiof.g13.adapters;
+package no.hiof.g13.archived;
 
 import com.google.gson.Gson;
 import io.javalin.Javalin;
