@@ -46,4 +46,10 @@ public class SendSmartLightDTO implements Serializable {
     public void setLightStrength(int lightStrength) {
         this.lightStrength = lightStrength;
     }
+
+    public void setAllVariables(String lightPattern, Color color, int lightStrength){
+        this.lightPattern = lightPattern;
+        this.color = color;
+        this.lightStrength = lightStrength;
+    }
 }

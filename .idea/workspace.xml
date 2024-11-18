@@ -6,11 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="43f8d6f9-e05a-4cc4-9027-5e97656203ba" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/interfaces/MockIOTDevice.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/interfaces/MockIOTDevice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/DTO/SendSmartLightDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/DTO/SendSmartLightDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockServer/MockClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockServer/MockClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockSmartLight/MockIOTSmartLight.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockSmartLight/MockIOTSmartLight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockServer/MockServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockServer/MockServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/runningTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/runningTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/runningTest2.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/runningTest2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/test/java/MockIOTSmartLightTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/test/java/MockIOTSmartLightTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,7 +168,7 @@
       <workItem from="1731508518532" duration="7134000" />
       <workItem from="1731575069035" duration="3094000" />
       <workItem from="1731770533184" duration="17757000" />
-      <workItem from="1731954616981" duration="9351000" />
+      <workItem from="1731954616981" duration="16324000" />
     </task>
     <servers />
   </component>

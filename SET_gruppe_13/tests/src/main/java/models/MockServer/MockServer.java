@@ -1,9 +1,16 @@
 package models.MockServer;
 
+import models.DTO.SendSmartLightDTO;
+
 import java.io.*;
 import java.net.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MockServer extends Thread {
+    Map<Integer, MockClientHandler> clientList = new HashMap<>();
+    private Integer clientID = 0;
+
     public MockServer() {
     }
 
@@ -19,11 +26,45 @@ public class MockServer extends Thread {
                 Socket socket = serverSocket.accept();
                 System.out.println("New client connected");
 
-                new MockClientHandler(socket).start();
+                MockClientHandler mockClientHandler = new MockClientHandler(socket);
+
+                clientList.put(getClientID(), mockClientHandler);
+                updateClientID();
+                mockClientHandler.start();
             }
         }
         catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void sendDataToClient(SendSmartLightDTO data, Integer clientID){
+        clientList.get(clientID).sendDataToQueue(data);
+    }
+
+    public Integer getClientID() {
+        return clientID;
+    }
+
+    public void setClientID(Integer clientID) {
+        this.clientID = clientID;
+    }
+
+    public void updateClientID(){
+        this.clientID = this.clientID + 1;
+    }
+
+    public Map<Integer, MockClientHandler> getClientList() {
+        return clientList;
+    }
+
+    public void setClientList(Map<Integer, MockClientHandler> clientList) {
+        this.clientList = clientList;
+    }
+
+    public void printClientListID(){
+        for (Integer ID : clientList.keySet()){
+            System.out.println(ID);
         }
     }
 }
