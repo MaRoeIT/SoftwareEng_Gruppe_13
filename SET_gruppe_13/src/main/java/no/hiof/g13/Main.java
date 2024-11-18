@@ -9,6 +9,7 @@ import no.hiof.g13.ports.in.GetProductsAPI_Port;
 import no.hiof.g13.ports.out.ProductDetailsRepositoryPort;
 import no.hiof.g13.ports.out.ProductImageRepositoryPort;
 
+import no.hiof.g13.services.CreateUserAPI_Service;
 import no.hiof.g13.services.GetProductsAPI_Service;
 import no.hiof.g13.services.GetUsersAPI_Service;
 
@@ -23,7 +24,6 @@ public class Main {
             javalinConfig.bundledPlugins.enableCors(cors -> {
                 cors.addRule(corsRule -> {
                     corsRule.reflectClientOrigin = true;
-                    corsRule.allowCredentials = true;
                     corsRule.exposeHeader("*");
                 });
             });
@@ -52,6 +52,10 @@ public class Main {
         // user login authentication
         AuthenticateUserAPI_Service authenticateUserAPIService = new AuthenticateUserAPI_Service();
         authenticateUserAPIService.configureRoute(app);
+
+        // Create User
+        CreateUserAPI_Service createUserAPIService = new CreateUserAPI_Service();
+        createUserAPIService.configureRoute(app);
 
         try {
             if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
