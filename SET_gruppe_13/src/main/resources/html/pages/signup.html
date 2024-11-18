@@ -69,21 +69,21 @@
             event.preventDefault();
 
             const newUserData = {
-                firstName: document.getElementById('firstName').value,
-                lastName: document.getElementById('lastName').value,
+                fornavn: document.getElementById('firstName').value,
+                etternavn: document.getElementById('lastName').value,
                 status_id: 1,
-                mobile: document.getElementById('mobile').value,
-                email: document.getElementById('email').value,
-                password: document.getElementById('password').value,
+                mobil: document.getElementById('mobile').value,
+                epost: document.getElementById('email').value,
+                passord: document.getElementById('password').value,
                 address: {
                     adresse: document.getElementById('address').value,
                     postnummer: document.getElementById('postnumber').value
                 },
-                userLevel: null
+                userLevel: 1
             };
 
             try {
-                const response = await fetch('/api/users/create/', {
+                const response = await fetch('/api/users/create', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

@@ -55,10 +55,12 @@ public class CreateUserAPI {
                 ctx.status(200).result(gson.toJson(response)).contentType("application/json");
             }
             catch (Exception e) {
+                logger.error("Error creating user: ", e); // Add this line
                 Map<String, String> response = new HashMap<>();
                 response.put("success", "false");
-                response.put("message", "Balle");
-                ctx.status(500).result(gson.toJson(response)).contentType("application/json");
+                response.put("message", e.getMessage()); // Change to actual error message
+                ctx.status(500).result(gson.toJson(response));
+               // ctx.status(500).result(gson.toJson(response)).contentType("application/json");
             }
         });
     }
@@ -69,18 +71,6 @@ public class CreateUserAPI {
             return false;
         }
 
-        logger.info("validating user data");
-        logger.info("Fornavn: {}", user.getFornavn());
-        logger.info("Etternavn: {}", user.getEtternavn());
-        logger.info("Status id: {}", user.getStatus_id());
-        logger.info("Mobil: {}", user.getMobil());
-        logger.info("Epost: {}", user.getEpost());
-        logger.info("Adresse: {}", user.getAddress().getAdresse());
-        logger.info("postnummer: {}", user.getAddress().getPostnummer());
-        logger.info("postnummer: {}", user.getUserLevel());
-
-        logger.info("Password length: {}", user.getPassord() != null ? user.getPassord().length() : 0);
-
         boolean isFirstNameValid = user.getFornavn() != null && !user.getFornavn().trim().isEmpty();
         boolean isLastNameValid = user.getEtternavn() != null && !user.getEtternavn().trim().isEmpty();
         boolean isStatusIdValid = user.getStatus_id() != 0;
@@ -89,20 +79,8 @@ public class CreateUserAPI {
         boolean isAdressValid = user.getAddress().getAdresse() != null && !user.getAddress().getAdresse().trim().isEmpty();
         boolean isPostNumberValid = user.getAddress().getPostnummer() != null && !user.getAddress().getPostnummer().trim().isEmpty();
         boolean isUserLevelValid = user.getUserLevel() != 0;
-
-
         boolean isPasswordValid = user.getPassord() != null;
 
-        logger.info("Validation results:");
-        logger.info("Fornavn valid; {}", isFirstNameValid);
-        logger.info("Etternavn valid; {}", isLastNameValid);
-        logger.info("Status id valid; {}", isStatusIdValid);
-        logger.info("Mobil valid; {}", isMobileValid);
-        logger.info("Epost valid; {}", isEmailValid);
-        logger.info("Adresse valid: {}", isAdressValid);
-        logger.info("Postnummer valid: {}", isPostNumberValid);
-        logger.info("Brukerniva valid: {}", isUserLevelValid);
-        logger.info("Passrd valid: {}", isPasswordValid);
 
         return isFirstNameValid && isLastNameValid && isMobileValid && isEmailValid && isAdressValid && isPostNumberValid && isPasswordValid && isUserLevelValid;
     }
