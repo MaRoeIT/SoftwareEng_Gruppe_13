@@ -6,7 +6,7 @@ import java.util.List;
 
 import no.hiof.g13.DTO.QuestionDTO;
 import no.hiof.g13.models.Question;
-import no.hiof.g13.ports.out.QuestionRepositoryPort;
+import no.hiof.g13.ports.QuestionRepositoryPort;
 
 public class QuestionRepositoryMySQL implements QuestionRepositoryPort{
 

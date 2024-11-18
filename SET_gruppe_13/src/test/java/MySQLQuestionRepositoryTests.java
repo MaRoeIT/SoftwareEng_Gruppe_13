@@ -1,6 +1,6 @@
 import no.hiof.g13.adapters.QuestionRepositoryMySQL;
 import no.hiof.g13.models.Question;
-import no.hiof.g13.ports.out.QuestionRepositoryPort;
+import no.hiof.g13.ports.QuestionRepositoryPort;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

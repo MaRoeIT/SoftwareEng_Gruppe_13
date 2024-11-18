@@ -1,7 +1,6 @@
 package no.hiof.g13.adapters;
 
-import no.hiof.g13.models.User;
-import no.hiof.g13.ports.out.AuthenticateUserAPI_Port;
+import no.hiof.g13.ports.AuthenticateUserAPI_Port;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

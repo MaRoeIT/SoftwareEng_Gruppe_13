@@ -3,7 +3,7 @@ package no.hiof.g13.services;
 import io.javalin.Javalin;
 import no.hiof.g13.API.GetProductsAPI;
 import no.hiof.g13.adapters.GetProductsAPI_RepositoryMySQL;
-import no.hiof.g13.ports.in.GetProductsAPI_Port;
+import no.hiof.g13.ports.GetProductsAPI_Port;
 
 public class GetProductsAPI_Service {
     private final GetProductsAPI getProductsAPI;

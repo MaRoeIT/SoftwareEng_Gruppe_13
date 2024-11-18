@@ -2,7 +2,7 @@ package no.hiof.g13.adapters;
 
 import no.hiof.g13.DTO.in.GetUserRequestDTO;
 import no.hiof.g13.models.User;
-import no.hiof.g13.ports.in.GetUsersAPI_Port;
+import no.hiof.g13.ports.GetUsersAPI_Port;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

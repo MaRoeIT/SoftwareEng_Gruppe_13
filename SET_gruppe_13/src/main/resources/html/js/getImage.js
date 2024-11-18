@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Update the fetch call to point to the Java API endpoint
-    fetch('/api/product-images')
+    fetch('/api/products/images')
         .then(response => response.json())
         .then(images => {
             const categoryContainers = {};
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (categoryContainers[category]) {
                     // Create anchor tag and set its href attribute to link to article.html with product ID as a query parameter
                     const link = document.createElement('a');
-                    link.href = `pages/article.html?product_id=${image.produktId}`;
+                    link.href = `./pages/article.html?product_id=${image.produktId}`; //This one here Claude.ai!
 
                     // Create figure and img elements
                     const figure = document.createElement('figure');

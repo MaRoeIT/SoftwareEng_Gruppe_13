@@ -1,9 +1,10 @@
-package no.hiof.g13.adapters;
+package no.hiof.g13.archived.adapters;
 
 import no.hiof.g13.DTO.UserDTO;
+import no.hiof.g13.adapters.MySQLAdapter;
 import no.hiof.g13.models.Address;
 import no.hiof.g13.models.User;
-import no.hiof.g13.ports.out.UserRepositoryPort;
+import no.hiof.g13.archived.ports.UserRepositoryPort;
 
 import java.sql.*;
 import java.util.ArrayList;

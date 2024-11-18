@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (productId) {
         // Fetch product details from the Java API
-        fetch(`/api/product-details?product_id=${productId}`)
+        fetch(`/api/products/details/${productId}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (product.avhengigAv) {
                     // Fetch details for the dependent product
-                    fetch(`/api/product-details?product_id=${product.avhengigAv}`)
+                    fetch(`/api/products/details/${product.avhengigAv}`)
                         .then(response => {
                             if (!response.ok) {
                                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -47,17 +47,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     <img src="${dependentProduct.bucketlink}" alt="${dependentProduct.navn}" class="dependency-image" style="width: 25%;">
                     <figcaption>${dependentProduct.navn}</figcaption>
                 </a>
-            `;
-                        })
-                        .catch(error => {
-                            console.error('Error fetching dependent product details:', error);
-                            document.querySelector('#dependencies .box-two').innerHTML = `<p>Dependencies: None</p>`;
-                        });
+            `;})
+                .catch(error => {
+                    console.error('Error fetching dependent product details:', error);
+                    document.querySelector('#dependencies .box-two').innerHTML = `<p>Dependencies: None</p>`;
+                });
+
                 } else {
                     document.querySelector('#dependencies .box-two').innerHTML = `<p>Dependencies: None</p>`;
                 }
-
-
             })
             .catch(error => console.error('Error fetching product details:', error));
     } else {
