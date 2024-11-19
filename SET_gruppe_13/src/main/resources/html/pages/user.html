@@ -26,8 +26,8 @@
 <div class="mt-5 container">
   <h1>User Profile</h1>
   <p class="name"></p>
-  <p class="epost"></p>
-  <p class="mobil"></p>
+  <p class="email"></p>
+  <p class="mobile"></p>
   <p class="adresse"></p>
   <p class="postnummer"></p>
   <a type="button" class="btn btn-primary logout" onclick="logout()">Logout</a>
@@ -54,7 +54,7 @@
   // Function to fetch user data based on ID
   async function fetchUserData(userId) {
     try {
-      const response = await fetch(`../../api/user/${userId}`); // Use `userId` in the fetch URL
+      const response = await fetch(`../../api/users/id/${userId}`); // Use `userId` in the fetch URL
       console.log(userId);
       if (!response.ok) {
         throw new Error('Failed to fetch user data');
@@ -62,11 +62,11 @@
       let user = await response.json(); // Parse and store the JSON response
       console.log(user);
       let name = document.querySelector(".name");
-      name.innerHTML = `${ user.fornavn}  ${ user.etternavn}`;
-      let epost = document.querySelector(".epost");
-      epost.innerHTML = `${ user.epost} `;
-      let mobil = document.querySelector(".mobil");
-      mobil.innerHTML = `${ user.mobil} `;
+      name.innerHTML = `${ user.firstName}  ${ user.lastName}`;
+      let email = document.querySelector(".email");
+      email.innerHTML = `${ user.email} `;
+      let mobile = document.querySelector(".mobile");
+      mobile.innerHTML = `${ user.mobile} `;
       let adresse = document.querySelector(".adresse");
       adresse.innerHTML = `${  user.address.adresse } `;
       let postnummer = document.querySelector(".postnummer");
