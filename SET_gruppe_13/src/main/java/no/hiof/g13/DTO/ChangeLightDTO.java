@@ -1,7 +1,6 @@
-package main.java.no.hiof.g13.DTO;
+package no.hiof.g13.DTO;
 
-import interfaces.GenericDevice;
-import main.java.no.hiof.g13.interfaces.GenericDeviceDTO;
+import no.hiof.g13.interfaces.GenericDeviceDTO;
 
 import java.awt.*;
 import java.io.Serializable;

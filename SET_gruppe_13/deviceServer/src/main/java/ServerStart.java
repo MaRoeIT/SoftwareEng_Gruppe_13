@@ -1,5 +1,6 @@
 import DTO.ChangeLightDTO;
-import interfaces.GenericDevice;
+import Server.DeviceServer;
+import no.hiof.g13.interfaces.GenericDeviceDTO;
 
 import java.awt.*;
 import java.util.HashMap;

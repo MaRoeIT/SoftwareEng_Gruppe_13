@@ -1,4 +1,7 @@
+package Server;
+
 import interfaces.GenericDevice;
+import no.hiof.g13.interfaces.GenericDeviceDTO;
 
 import java.io.*;
 import java.net.Socket;
@@ -7,7 +10,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class ClientHandler extends Thread {
     private Socket socket;
-    private BlockingQueue<GenericDevice> sendDataQueue = new LinkedBlockingQueue<>();
+    private BlockingQueue<GenericDeviceDTO> sendDataQueue = new LinkedBlockingQueue<>();
 
     public ClientHandler(Socket socket){
         this.socket = socket;
@@ -20,7 +23,7 @@ public class ClientHandler extends Thread {
 
             try{
                 while (true){
-                    GenericDevice data = sendDataQueue.take();
+                    GenericDeviceDTO data = sendDataQueue.take();
                     output.writeObject("DATA_INCOMING");
                     System.out.println("data incomming");
                     output.writeObject(data);
@@ -45,7 +48,7 @@ public class ClientHandler extends Thread {
         }
     }
 
-    public void sendDataToQueue(GenericDevice data){
+    public void sendDataToQueue(GenericDeviceDTO data){
         try {
             sendDataQueue.put(data);
             System.out.println("Data sent to queue");

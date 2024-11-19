@@ -16,5 +16,13 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.inkomplett.smartconnect</groupId>
+            <artifactId>smartconnect</artifactId>
+            <version>1.3.10</version>
+            <scope>main</scope>
+        </dependency>
+    </dependencies>
 
 </project>

@@ -1,4 +1,4 @@
-package main.java.no.hiof.g13.interfaces;
+package no.hiof.g13.interfaces;
 
 public interface GenericDeviceDTO {
 }

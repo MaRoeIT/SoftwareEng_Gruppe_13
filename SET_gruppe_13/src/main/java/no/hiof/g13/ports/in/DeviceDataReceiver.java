@@ -1,6 +1,6 @@
-package main.java.no.hiof.g13.ports.in;
+package no.hiof.g13.ports.in;
 
-import main.java.no.hiof.g13.interfaces.GenericDeviceDTO;
+import no.hiof.g13.interfaces.GenericDeviceDTO;
 
 public interface DeviceDataReceiver {
     GenericDeviceDTO receiveData();

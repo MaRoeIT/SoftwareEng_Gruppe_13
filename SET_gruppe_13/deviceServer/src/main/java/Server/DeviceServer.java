@@ -1,4 +1,8 @@
+package Server;
+
+import adapters.UpdateConnectionIDUseCase;
 import interfaces.GenericDevice;
+import no.hiof.g13.interfaces.GenericDeviceDTO;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -37,7 +41,7 @@ public class DeviceServer extends Thread{
         }
     }
 
-    public void sendDataToClient(GenericDevice data, Integer clientID){
+    public void sendDataToClient(GenericDeviceDTO data, Integer clientID){
         clientList.get(clientID).sendDataToQueue(data);
     }
 
@@ -50,6 +54,8 @@ public class DeviceServer extends Thread{
     }
 
     public void updateClientID(){
+        //Change this so that it Updates core every time the ID's are updated
+        new UpdateConnectionIDUseCase().setConnectionID(this.clientID);
         this.clientID = this.clientID + 1;
     }
 
