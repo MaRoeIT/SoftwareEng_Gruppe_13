@@ -1,17 +1,15 @@
-package models.MockServer;
+import interfaces.GenericDevice;
 
-import DTO.ChangeLightDTO;
-
-import java.net.Socket;
 import java.io.*;
+import java.net.Socket;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class MockClientHandler extends Thread{
+public class ClientHandler extends Thread {
     private Socket socket;
-    private BlockingQueue<ChangeLightDTO> sendDataQueue = new LinkedBlockingQueue<>();
+    private BlockingQueue<GenericDevice> sendDataQueue = new LinkedBlockingQueue<>();
 
-    public MockClientHandler(Socket socket){
+    public ClientHandler(Socket socket){
         this.socket = socket;
     }
 
@@ -22,7 +20,7 @@ public class MockClientHandler extends Thread{
 
             try{
                 while (true){
-                    ChangeLightDTO data = sendDataQueue.take();
+                    GenericDevice data = sendDataQueue.take();
                     output.writeObject("DATA_INCOMING");
                     System.out.println("data incomming");
                     output.writeObject(data);
@@ -47,7 +45,7 @@ public class MockClientHandler extends Thread{
         }
     }
 
-    public void sendDataToQueue(ChangeLightDTO data){
+    public void sendDataToQueue(GenericDevice data){
         try {
             sendDataQueue.put(data);
             System.out.println("Data sent to queue");

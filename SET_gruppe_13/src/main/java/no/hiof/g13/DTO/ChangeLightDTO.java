@@ -1,14 +1,17 @@
-package models.DTO;
+package main.java.no.hiof.g13.DTO;
+
+import interfaces.GenericDevice;
+import main.java.no.hiof.g13.interfaces.GenericDeviceDTO;
 
 import java.awt.*;
 import java.io.Serializable;
 
-public class SendSmartLightDTO implements Serializable {
+public class ChangeLightDTO implements GenericDeviceDTO, Serializable {
     private String lightPattern;
     private Color color;
     private int lightStrength;
 
-    public SendSmartLightDTO(String lightPattern, Color color, int lightStrength) {
+    public ChangeLightDTO(String lightPattern, Color color, int lightStrength) {
         this.lightPattern = lightPattern;
         this.color = color;
         this.lightStrength = lightStrength;

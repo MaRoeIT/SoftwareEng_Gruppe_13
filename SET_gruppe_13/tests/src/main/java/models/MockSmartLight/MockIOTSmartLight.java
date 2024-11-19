@@ -1,12 +1,12 @@
 package models.MockSmartLight;
 
 import java.awt.*;
-import java.io.*;
 import java.net.*;
 import java.util.concurrent.TimeUnit;
 
+import DTO.ChangeLightDTO;
 import interfaces.MockIOTDevice;
-import models.DTO.SendSmartLightDTO;
+import DTO.ChangeLightDTO;
 
 import static java.lang.System.out;
 
@@ -161,7 +161,7 @@ public class MockIOTSmartLight implements MockIOTDevice {
     }
 
     public void sendLightSettings(){
-        socketHandler.sendData(new SendSmartLightDTO(this.lightPattern, this.color, this.lightStrength));
+        socketHandler.sendData(new ChangeLightDTO(this.lightPattern, this.color, this.lightStrength));
     }
 
     public Socket getSocket() {

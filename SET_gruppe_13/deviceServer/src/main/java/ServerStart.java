@@ -1,14 +1,14 @@
 import DTO.ChangeLightDTO;
-import models.MockServer.MockServer;
+import interfaces.GenericDevice;
 
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class runningTest {
+public class ServerStart {
     public static void main(String[] args) {
-        MockServer server = new MockServer();
+        DeviceServer server = new DeviceServer();
         ChangeLightDTO dto = new ChangeLightDTO("wave", Color.pink, 100);
         Scanner scanner = new Scanner(System.in);
         String userInput;
@@ -53,7 +53,5 @@ public class runningTest {
                     System.out.println("Dto changed and ready to send: ");
             }
         }
-
-
     }
 }

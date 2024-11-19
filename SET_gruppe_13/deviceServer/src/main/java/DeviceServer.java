@@ -1,17 +1,16 @@
-package models.MockServer;
+import interfaces.GenericDevice;
 
-import DTO.ChangeLightDTO;
-
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MockServer extends Thread {
-    Map<Integer, MockClientHandler> clientList = new HashMap<>();
+public class DeviceServer extends Thread{
+    Map<Integer, ClientHandler> clientList = new HashMap<>();
     private Integer clientID = 0;
 
-    public MockServer() {
+    public DeviceServer() {
     }
 
     @Override
@@ -26,7 +25,7 @@ public class MockServer extends Thread {
                 Socket socket = serverSocket.accept();
                 System.out.println("New client connected");
 
-                MockClientHandler mockClientHandler = new MockClientHandler(socket);
+                ClientHandler mockClientHandler = new ClientHandler(socket);
 
                 clientList.put(getClientID(), mockClientHandler);
                 updateClientID();
@@ -38,7 +37,7 @@ public class MockServer extends Thread {
         }
     }
 
-    public void sendDataToClient(ChangeLightDTO data, Integer clientID){
+    public void sendDataToClient(GenericDevice data, Integer clientID){
         clientList.get(clientID).sendDataToQueue(data);
     }
 
@@ -54,11 +53,11 @@ public class MockServer extends Thread {
         this.clientID = this.clientID + 1;
     }
 
-    public Map<Integer, MockClientHandler> getClientList() {
+    public Map<Integer, ClientHandler> getClientList() {
         return clientList;
     }
 
-    public void setClientList(Map<Integer, MockClientHandler> clientList) {
+    public void setClientList(Map<Integer, ClientHandler> clientList) {
         this.clientList = clientList;
     }
 

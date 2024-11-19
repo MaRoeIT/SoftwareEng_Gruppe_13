@@ -1,6 +1,6 @@
 package models.MockSmartLight;
 
-import models.DTO.SendSmartLightDTO;
+import DTO.ChangeLightDTO;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -12,7 +12,7 @@ public class MockSocketHandler {
     private ObjectOutputStream output;
     private ObjectInputStream input;
 
-    private SendSmartLightDTO lastReceivedDTO;
+    private ChangeLightDTO lastReceivedDTO;
     private boolean newData = false;
 
     public MockSocketHandler(String host, int port) {
@@ -27,7 +27,7 @@ public class MockSocketHandler {
         }
     }
 
-    public void sendData(SendSmartLightDTO smartLightDTO){
+    public void sendData(ChangeLightDTO smartLightDTO){
         try {
             output.writeObject(smartLightDTO);
         }
@@ -42,7 +42,7 @@ public class MockSocketHandler {
                 String signal = (String) input.readObject();
                 if ("DATA_INCOMING".equals(signal)){
                     System.out.println("data incoming");
-                    this.lastReceivedDTO = (SendSmartLightDTO) input.readObject();
+                    this.lastReceivedDTO = (ChangeLightDTO) input.readObject();
                     this.newData = true;
                 }
             }
@@ -85,11 +85,11 @@ public class MockSocketHandler {
         this.input = input;
     }
 
-    public SendSmartLightDTO getLastReceivedDTO() {
+    public ChangeLightDTO getLastReceivedDTO() {
         return lastReceivedDTO;
     }
 
-    public void setLastReceivedDTO(SendSmartLightDTO lastReceivedDTO) {
+    public void setLastReceivedDTO(ChangeLightDTO lastReceivedDTO) {
         this.lastReceivedDTO = lastReceivedDTO;
     }
 

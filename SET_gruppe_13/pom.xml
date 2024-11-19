@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>tests</module>
+        <module>deviceServer</module>
     </modules>
 
     <dependencies>

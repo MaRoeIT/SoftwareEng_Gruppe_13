@@ -1,5 +1,7 @@
 package no.hiof.g13.models.product;
 
+import main.java.no.hiof.g13.DTO.ChangeLightDTO;
+import main.java.no.hiof.g13.ports.out.DeviceDataSender;
 import no.hiof.g13.models.IOTHomeDevice;
 
 import java.awt.*;
@@ -27,10 +29,12 @@ public class IOTSmartLight extends IOTHomeDevice {
     private String lightPattern;
     private Color color;
     private int lightStrength;
+    private DeviceDataSender deviceDataSender;
 
     public IOTSmartLight(String name, String deviceID, String producer,
                         String modell, boolean wifi, int weight, HashMap<String, Integer> size,
-                        int batteryLevel, int energyUsage, String lightPattern, Color color, int lightStrength) {
+                        int batteryLevel, int energyUsage, String lightPattern, Color color,
+                         int lightStrength, DeviceDataSender deviceDataSender) {
         
         super(name, deviceID, producer, modell, wifi, weight, size, batteryLevel);
         this.energyUsage = energyUsage;
@@ -38,6 +42,7 @@ public class IOTSmartLight extends IOTHomeDevice {
         this.color = color;
         this.power = false;
         this.lightStrength = lightStrength;
+        this.deviceDataSender = deviceDataSender;
     }
 
     /**
@@ -87,5 +92,9 @@ public class IOTSmartLight extends IOTHomeDevice {
 
     public void setLightStrength(int lightStrength) {
         this.lightStrength = lightStrength;
+    }
+
+    public void sendLightSettings(){
+        deviceDataSender.sendData(new ChangeLightDTO(getLightPattern(), getColor(), getLightStrength()));
     }
 }
