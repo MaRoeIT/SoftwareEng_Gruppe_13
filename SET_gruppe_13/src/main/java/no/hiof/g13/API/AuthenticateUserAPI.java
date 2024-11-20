@@ -12,82 +12,58 @@ import java.util.UUID;
 
 public class AuthenticateUserAPI {
     private final AuthenticateUserAPI_Port authenticateUserAPIPort;
-    private final Gson gson;
 
     public AuthenticateUserAPI(AuthenticateUserAPI_Port authenticateUserAPIPort) {
         this.authenticateUserAPIPort = authenticateUserAPIPort;
-        this.gson = new Gson();
     }
 
     public void configureRoutes(Javalin app) {
         app.post("/api/authenticate/login", ctx -> {
-            try {
-                String jsonBody = ctx.body();
-                User user = gson.fromJson(jsonBody, User.class);
-                String email = user.getEpost();
-                String password = user.getPassord();
+            User user = ctx.bodyAsClass(User.class);
+            HashMap<String, Object> response = new HashMap<>();
 
-                if(email == null || password == null) {
-                    Map<String, String> errorMessage = new HashMap<>();
-                    errorMessage.put("error", "wrong login credentials");
-                    ctx.status(400).result(gson.toJson(errorMessage)).contentType("application/json");
-                    return;
-                }
-
-                boolean isAuthenticated = authenticateUserAPIPort.authenticateUser(email, password);
-
-                Map<String, Object> response = new HashMap<>();
-
-                if(isAuthenticated) {
-                    int userId = authenticateUserAPIPort.getUserIdByEmail(email);
-
-                    String authToken = UUID.randomUUID().toString();
-                    authenticateUserAPIPort.saveToken(authToken, userId);
-                    ctx.cookie("authToken", authToken, 86400);
-
-                    response.put("isAuthenticated", true);
-                    response.put("userId", userId);
-                    response.put("token", authToken);
-                }
-                else {
-                    response.put("isAuthenticated", false);
-                    response.put("error", "wrong login credentials");
-                }
-
-                ctx.result(gson.toJson(response)).contentType("application/json");
+            if(user.getEpost() == null || user.getPassord() == null) {
+                ctx.status(400).result("Error, wrong email or password credentials");
+                return;
             }
-            catch (JsonSyntaxException e) {
-                Map<String, String> errorResponse = new HashMap<>();
-                errorResponse.put("error", "Invalid JSON format");
-                ctx.status(400).result(gson.toJson(errorResponse)).contentType("application/json");
+
+            boolean isAuthenticated = authenticateUserAPIPort.authenticateUser(user.getEpost(), user.getPassord());
+
+            if(isAuthenticated) {
+                int userId = authenticateUserAPIPort.getUserIdByEmail(user.getEpost());
+                String cookieToken = UUID.randomUUID().toString();
+                ctx.cookie("authToken", cookieToken, 86400);
+                authenticateUserAPIPort.saveToken(cookieToken, userId);
+
+                response.put("isAuthenticated", true);
+                response.put("userId", userId);
+
             }
-            catch (Exception e) {
-                Map<String, String> errorResponse = new HashMap<>();
-                errorResponse.put("error", "Internal server error");
-                ctx.status(500).result(gson.toJson(errorResponse)).contentType("application/json");
-            }
+            else response.put("isAuthenticated", false);
+
+            ctx.json(response);
         });
 
         app.post("/api/authenticate/logout", ctx -> {
-           try {
-               String token = ctx.cookie("authToken");
-               Map<String, Object> response = new HashMap<>();
+           HashMap<String, Object> response = new HashMap<>();
 
-               if(token != null) {
-                   ctx.removeCookie("authToken");
-                   response.put("success", true);
-                   response.put("message", "Logging out success");
-               }
-               else {
-                   response.put("success", false);
-                   response.put("message", "Logging out failed");
-               }
+           if(ctx.cookie("authToken") != null) {
+               ctx.removeCookie("authToken");
+               response.put("response", true);
+               response.put("message", "Logging out success");
+           }
+           else {
+               response.put("response", false);
+               response.put("message", "Logging out failed");
+           }
+           ctx.json(response);
+        });
 
-               ctx.result(gson.toJson(response)).contentType("application/json");
-           }
-           catch (Exception e) {
-               e.printStackTrace();
-           }
+        app.exception(JsonSyntaxException.class, (e, ctx) -> {
+            ctx.status(400).result("error, wrong JSON format");
+        });
+        app.exception(Exception.class, (e, ctx) -> {
+            ctx.status(500).result("Internal server erro");
         });
     }
 }

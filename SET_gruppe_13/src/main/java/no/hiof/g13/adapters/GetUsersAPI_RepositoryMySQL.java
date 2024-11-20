@@ -17,11 +17,11 @@ public class GetUsersAPI_RepositoryMySQL implements GetUsersAPI_Port {
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
 
-        String mySQL_script = "SELECT bruker_id, fornavn, etternavn, status_id, mobil, epost, user_level, adresse_id, adresse, postnummer FROM bruker JOIN adresse a ON adresse_id = bruker_id";
+        String mySQL_query = "SELECT bruker_id, fornavn, etternavn, status_id, mobil, epost, user_level, adresse_id, adresse, postnummer FROM bruker JOIN adresse a ON adresse_id = bruker_id";
 
         try(Connection connection = MySQLAdapter.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(mySQL_script);
-            ResultSet rs = preparedStatement.executeQuery()) {
+            PreparedStatement statement = connection.prepareStatement(mySQL_query)) {
+            ResultSet rs = statement.executeQuery();
 
                 while(rs.next()) {
                     GetUserRequestDTO dto = GetUserRequestDTO.fromResult(rs);
@@ -37,20 +37,20 @@ public class GetUsersAPI_RepositoryMySQL implements GetUsersAPI_Port {
     @Override
     public User getUserById(int userId) {
 
-        String mySQL_script = "SELECT bruker_id, fornavn, etternavn, status_id, mobil, epost, user_level, adresse_id, adresse, postnummer FROM bruker JOIN adresse a ON adresse_id = bruker_id WHERE bruker_id = ?";
+        String mySQL_query = "SELECT bruker_id, fornavn, etternavn, status_id, mobil, epost, user_level, adresse_id, adresse, postnummer FROM bruker JOIN adresse a ON adresse_id = bruker_id WHERE bruker_id = ?";
 
         try (Connection connection = MySQLAdapter.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(mySQL_script)) {
+             PreparedStatement statement = connection.prepareStatement(mySQL_query)) {
 
-            preparedStatement.setInt(1, userId);
-            ResultSet rs = preparedStatement.executeQuery();
+            statement.setInt(1, userId);
+            ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 GetUserRequestDTO dto = GetUserRequestDTO.fromResult(rs);
                 return dto.toUser();
             }
 
         } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("No user found with ID: " + userId, e);
         }
         return null;
     }
@@ -58,20 +58,20 @@ public class GetUsersAPI_RepositoryMySQL implements GetUsersAPI_Port {
     @Override
     public User getUserByEmail(String email) {
 
-        String mySQL_script = "SELECT bruker_id, fornavn, etternavn, status_id, mobil, epost, user_level, adresse_id, adresse, postnummer FROM bruker JOIN adresse a ON adresse_id = bruker_id WHERE epost = ?";
+        String mySQL_query = "SELECT bruker_id, fornavn, etternavn, status_id, mobil, epost, user_level, adresse_id, adresse, postnummer FROM bruker JOIN adresse a ON adresse_id = bruker_id WHERE epost = ?";
 
         try (Connection connection = MySQLAdapter.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(mySQL_script)) {
+             PreparedStatement statement = connection.prepareStatement(mySQL_query)) {
 
-            preparedStatement.setString(1, email);
-            ResultSet rs = preparedStatement.executeQuery();
+            statement.setString(1, email);
+            ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 GetUserRequestDTO dto = GetUserRequestDTO.fromResult(rs);
                 return dto.toUser();
             }
 
         } catch (ClassNotFoundException | SQLException e) {
-            throw new RuntimeException("No user found", e);
+            throw new RuntimeException("No user found with email: " + email, e);
         }
         return null;
     }

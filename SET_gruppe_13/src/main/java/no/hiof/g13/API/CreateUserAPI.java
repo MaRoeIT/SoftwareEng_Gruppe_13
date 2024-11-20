@@ -13,75 +13,54 @@ import java.util.Map;
 
 public class CreateUserAPI {
     private final CreateUserAPI_Port createUserAPI_Port;
-    private final Gson gson;
-    private static final Logger logger = LoggerFactory.getLogger(CreateUserAPI.class);
 
     public CreateUserAPI(CreateUserAPI_Port createUserAPI_Port) {
         this.createUserAPI_Port = createUserAPI_Port;
-        this.gson = new Gson();
     }
 
     public void configureRoutes(Javalin app) {
         app.post("/api/users/create", ctx -> {
-            try {
-                User user = gson.fromJson(ctx.body(), User.class);
+            User user = ctx.bodyAsClass(User.class);
+            HashMap<String, Object> response = new HashMap<>();
 
-                if(!validateUserData(user)) {
-                    Map<String, String> response = new HashMap<>();
-                    response.put("success", "false");
-                    response.put("error message", "Wrong user data");
-                    ctx.status(400).result(gson.toJson(response)).contentType("application/json");
-                    return;
-                }
-
-                if(createUserAPI_Port.userExists(user.getEpost())) {
-                    Map<String, String> response = new HashMap<>();
-                    response.put("success", "false");
-                    response.put("error message", "User with this email already exists");
-                    ctx.status(400).result(gson.toJson(response)).contentType("application/json");
-                    return;
-                }
-
-                String hashedPassword = BCrypt.hashpw(user.getPassord(), BCrypt.gensalt());
-
-                int userId = createUserAPI_Port.createUser(
-                        user.getFornavn(), user.getEtternavn(), user.getStatus_id(), user.getMobil(), user.getEpost(), hashedPassword, user.getAddress().getAdresse(), user.getAddress().getPostnummer(), user.getUserLevel()
-                );
-
-                Map<String, String> response = new HashMap<>();
-                response.put("success", "true");
-                response.put("success message", "New user created");
-
-                ctx.status(200).result(gson.toJson(response)).contentType("application/json");
+            if(!fieldValidation(user)) {
+                response.put("response", false);
+                response.put("message", "All fields must be filled out");
+                ctx.status(400).json(response);
+                return;
             }
-            catch (Exception e) {
-                logger.error("Error creating user: ", e); // Add this line
-                Map<String, String> response = new HashMap<>();
-                response.put("success", "false");
-                response.put("message", e.getMessage()); // Change to actual error message
-                ctx.status(500).result(gson.toJson(response));
-               // ctx.status(500).result(gson.toJson(response)).contentType("application/json");
+
+            if(createUserAPI_Port.userExists(user.getEpost())) {
+                response.put("success", false);
+                response.put("message", "User already exists");
+                ctx.status(400).json(response);
+                return;
             }
+
+            String hashedPassword = BCrypt.hashpw(user.getPassord(), BCrypt.gensalt());
+            createUserAPI_Port.createUser(
+                    user.getFornavn(), user.getEtternavn(), user.getStatus_id(), user.getMobil(), user.getEpost(), hashedPassword, user.getAddress().getAdresse(), user.getAddress().getPostnummer(), user.getUserLevel()
+            );
+
+            response.put("success", true);
+            response.put("message", "A new user is born");
+            ctx.status(200).json(response);
+        });
+
+        app.exception(Exception.class, (e, ctx) -> {
+            ctx.status(500).result("Internal server error");
         });
     }
 
-    private boolean validateUserData(User user) {
-        if(user == null) {
-            logger.warn("user object is null");
-            return false;
-        }
+    private boolean fieldValidation(User user) {
+        if(user == null) return false;
 
-        boolean isFirstNameValid = user.getFornavn() != null && !user.getFornavn().trim().isEmpty();
-        boolean isLastNameValid = user.getEtternavn() != null && !user.getEtternavn().trim().isEmpty();
-        boolean isStatusIdValid = user.getStatus_id() != null;
-        boolean isMobileValid = user.getMobil() != null && !user.getMobil().trim().isEmpty();
-        boolean isEmailValid = user.getEpost() != null && !user.getEpost().trim().isEmpty();
-        boolean isAdressValid = user.getAddress().getAdresse() != null && !user.getAddress().getAdresse().trim().isEmpty();
-        boolean isPostNumberValid = user.getAddress().getPostnummer() != null && !user.getAddress().getPostnummer().trim().isEmpty();
-        boolean isUserLevelValid = user.getUserLevel() != null;
-        boolean isPasswordValid = user.getPassord() != null;
-
-
-        return isFirstNameValid && isLastNameValid && isMobileValid && isEmailValid && isAdressValid && isPostNumberValid && isPasswordValid && isUserLevelValid;
+        return (user.getFornavn() != null && !user.getFornavn().trim().isEmpty()) &&
+                (user.getEtternavn() != null && !user.getEtternavn().trim().isEmpty() &&
+                        (user.getStatus_id() != null) && (user.getMobil() != null && !user.getMobil().trim().isEmpty()) &&
+                        (user.getEpost() != null && !user.getEpost().trim().isEmpty()) &&
+                        (user.getAddress().getAdresse() != null && !user.getAddress().getAdresse().trim().isEmpty()) &&
+                        (user.getAddress().getPostnummer() != null && !user.getAddress().getPostnummer().trim().isEmpty()) &&
+                        (user.getUserLevel() != null) && (user.getPassord() != null));
     }
 }
