@@ -68,5 +68,22 @@ public class GetProductsAPI {
                 ctx.status(400).result("Invalid product ID format");
             }
         });
+
+        app.get("/api/products/user_id/{bruker_id}", ctx -> {
+           try {
+               int userIdParamm = Integer.parseInt(ctx.pathParam("bruker_id"));
+               List<ProductDetailsDTO> dtoList = getProductsPort.getProductsByUserId(userIdParamm);
+
+               if(dtoList != null) {
+                   ctx.status(200).result(gson.toJson(dtoList)).contentType("application/json");
+               }
+               else {
+                   ctx.status(404).result("No products available");
+               }
+           }
+           catch (NumberFormatException e) {
+               ctx.status(400).result("Invalid user ID format");
+           }
+        });
     }
 }
