@@ -13,4 +13,5 @@ public interface GetProductsAPI_Port {
     List<GetProductsAPI_DTO> getAllProducts();
     ProductDetailsDTO getProductDetails(int produktId);
     List<ProductImage> getAllProductImages();
+    List<ProductDetailsDTO> getProductsByUserId(int userId);
 }
