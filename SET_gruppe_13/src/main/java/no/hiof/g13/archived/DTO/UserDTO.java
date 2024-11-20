@@ -1,4 +1,4 @@
-package no.hiof.g13.DTO;
+package no.hiof.g13.archived.DTO;
 
 import no.hiof.g13.models.Address;
 import no.hiof.g13.models.User;

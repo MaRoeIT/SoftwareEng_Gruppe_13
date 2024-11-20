@@ -7,38 +7,89 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class GetUserRequestDTO {
-    private int userId;
-    private String firstName;
-    private String lastName;
+    private int bruker_id;
+    private String fornavn;
+    private String etternavn;
     private int status_id;
-    private String mobile;
-    private String email;
+    private String mobil;
+    private String epost;
     private Address address;
     private int userLevel;
 
-    public User toUser() {
+    public User toDomain() {
             User user = new User();
-            user.setBruker_id(this.userId);
-            user.setFornavn(this.firstName);
-            user.setEtternavn(this.lastName);
+            user.setBruker_id(this.bruker_id);
+            user.setFornavn(this.fornavn);
+            user.setEtternavn(this.etternavn);
             user.setStatus_id(this.status_id);
-            user.setMobil(this.mobile);
-            user.setEpost(this.email);
+            user.setMobil(this.mobil);
+            user.setEpost(this.epost);
             user.setAddress(new Address(address.getAdresse_id(), address.getAdresse(), address.getPostnummer()));
             user.setUserLevel(this.userLevel);
             return user;
     }
 
-    public static GetUserRequestDTO fromResult(ResultSet rs) throws SQLException {
-        GetUserRequestDTO dto = new GetUserRequestDTO();
-        dto.userId = rs.getInt("bruker_id");
-        dto.firstName = rs.getString("fornavn");
-        dto.lastName = rs.getString("etternavn");
-        dto.status_id = rs.getInt("status_id");
-        dto.mobile = rs.getString("mobil");
-        dto.email = rs.getString("epost");
-        dto.address = new Address(rs.getInt("adresse_id"), rs.getString("adresse"), rs.getString("postnummer"));
-        dto.userLevel = rs.getInt("user_level");
-        return dto;
+    public int getBruker_id() {
+        return bruker_id;
+    }
+
+    public void setBruker_id(int bruker_id) {
+        this.bruker_id = bruker_id;
+    }
+
+    public String getFornavn() {
+        return fornavn;
+    }
+
+    public void setFornavn(String fornavn) {
+        this.fornavn = fornavn;
+    }
+
+    public String getEtternavn() {
+        return etternavn;
+    }
+
+    public void setEtternavn(String etternavn) {
+        this.etternavn = etternavn;
+    }
+
+    public int getStatus_id() {
+        return status_id;
+    }
+
+    public void setStatus_id(int status_id) {
+        this.status_id = status_id;
+    }
+
+    public String getMobil() {
+        return mobil;
+    }
+
+    public void setMobil(String mobil) {
+        this.mobil = mobil;
+    }
+
+    public String getEpost() {
+        return epost;
+    }
+
+    public void setEpost(String epost) {
+        this.epost = epost;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public int getUserLevel() {
+        return userLevel;
+    }
+
+    public void setUserLevel(int userLevel) {
+        this.userLevel = userLevel;
     }
 }

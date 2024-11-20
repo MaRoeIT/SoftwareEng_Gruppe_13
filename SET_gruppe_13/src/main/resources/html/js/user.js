@@ -69,7 +69,7 @@
     })
     .then(response => response.json())
     .then(data => {
-        if (data.success) {
+        if (data.response) {
             localStorage.removeItem('userId');
             window.location.href = '/pages/login.html';
         } else {

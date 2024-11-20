@@ -16,10 +16,10 @@ public class AuthenticateUserAPI_RepositoryMySQL implements AuthenticateUserAPI_
         String updateMySQL_query = "UPDATE bruker SET passord = ? WHERE bruker_id = ?";
 
         try(Connection connection = MySQLAdapter.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(mySQL_query)) {
+            PreparedStatement statement = connection.prepareStatement(mySQL_query)) {
 
-            preparedStatement.setString(1, email);
-            ResultSet rs = preparedStatement.executeQuery();
+            statement.setString(1, email);
+            ResultSet rs = statement.executeQuery();
 
             if(rs.next()) {
                 int userId = rs.getInt("bruker_id");
@@ -27,9 +27,7 @@ public class AuthenticateUserAPI_RepositoryMySQL implements AuthenticateUserAPI_
 
                 if(!storedPassword.startsWith("$2a$")) {
 
-                    if(!storedPassword.equals(password)) {
-                        return false;
-                    }
+                    if(!storedPassword.equals(password)) return false;
 
                     try(PreparedStatement updateStatement = connection.prepareStatement(updateMySQL_query)) {
                         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
@@ -63,7 +61,7 @@ public class AuthenticateUserAPI_RepositoryMySQL implements AuthenticateUserAPI_
             }
 
         } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
         System.out.println(userId);
         return userId;
@@ -84,7 +82,7 @@ public class AuthenticateUserAPI_RepositoryMySQL implements AuthenticateUserAPI_
             }
         }
         catch (ClassNotFoundException | SQLException e) {
-
+            throw new RuntimeException("Failed to get token " + e.getMessage());
         }
         return null;
     }
@@ -99,14 +97,9 @@ public class AuthenticateUserAPI_RepositoryMySQL implements AuthenticateUserAPI_
             preparedStatement.setString(1, token);
             preparedStatement.setInt(2, userId);
 
-            // Executing the query
-            int rowsAffected = preparedStatement.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Token saved successfully!");
-            }
         }
         catch (ClassNotFoundException | SQLException e) {
-            throw new RuntimeException("Failed to save token", e);
+            throw new RuntimeException("Failed to save token: " + e.getMessage());
         }
     }
 
@@ -121,7 +114,7 @@ public class AuthenticateUserAPI_RepositoryMySQL implements AuthenticateUserAPI_
             preparedStatement.executeQuery();
         }
         catch(ClassNotFoundException | SQLException e) {
-            throw new RuntimeException("Remove token failed", e);
+            throw new RuntimeException("Failed to remove token " + e.getMessage());
         }
     }
 }
