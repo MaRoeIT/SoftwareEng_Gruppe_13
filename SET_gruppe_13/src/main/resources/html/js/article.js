@@ -42,16 +42,23 @@ document.addEventListener('DOMContentLoaded', function() {
                             return response.json();
                         })
                         .then(dependentProduct => {
-                            document.querySelector('#dependencies .box-two').innerHTML = `
-                <a href="/pages/article.html?product_id=${dependentProduct.produktId}" class="dependency-link">
-                    <img src="${dependentProduct.bucketlink}" alt="${dependentProduct.navn}" class="dependency-image" style="width: 25%;">
-                    <figcaption>${dependentProduct.navn}</figcaption>
-                </a>
-            `;})
-                .catch(error => {
-                    console.error('Error fetching dependent product details:', error);
-                    document.querySelector('#dependencies .box-two').innerHTML = `<p>Dependencies: None</p>`;
-                });
+                            // Using .map() and .filter() to structure dependency content
+                            const dependencyContent = [dependentProduct]
+                                .filter(dep => dep) // Filter out undefined/null entries
+                                .map(dep => `
+                                    <a href="/pages/article.html?product_id=${dep.produktId}" class="dependency-link">
+                                        <img src="${dep.bucketlink}" alt="${dep.navn}" class="dependency-image" style="width: 25%;">
+                                        <figcaption>${dep.navn}</figcaption>
+                                    </a>
+                                `)
+                                .join(''); // Convert array to a string for HTML
+
+                            document.querySelector('#dependencies .box-two').innerHTML = dependencyContent || `<p>Dependencies: None</p>`;
+                        })
+                        .catch(error => {
+                            console.error('Error fetching dependent product details:', error);
+                            document.querySelector('#dependencies .box-two').innerHTML = `<p>Dependencies: None</p>`;
+                        });
 
                 } else {
                     document.querySelector('#dependencies .box-two').innerHTML = `<p>Dependencies: None</p>`;

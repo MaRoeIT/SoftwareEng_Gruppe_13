@@ -41,7 +41,7 @@ public class ProductDetailsAdapter implements ProductDetailsRepositoryPort {
                     productDetails.setModell(resultSet.getString("modell"));
                     productDetails.setGarantiMåneder(resultSet.getInt("garanti_måneder"));
                     productDetails.setEan(resultSet.getString("EAN"));
-                    productDetails.setAvhengigAv(resultSet.getString("avhengigav"));
+                    //productDetails.setAvhengigAv(resultSet.getString("avhengigav"));
                 }
             }
         } catch (Exception e) {

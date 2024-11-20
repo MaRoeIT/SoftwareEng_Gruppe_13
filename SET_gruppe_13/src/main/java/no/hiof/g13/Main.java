@@ -2,7 +2,6 @@ package no.hiof.g13;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
 import no.hiof.g13.services.AuthenticateUserAPI_Service;
-import no.hiof.g13.archived.ports.ProductDetailsRepositoryPort;
 
 import no.hiof.g13.services.CreateUserAPI_Service;
 import no.hiof.g13.services.GetProductsAPI_Service;

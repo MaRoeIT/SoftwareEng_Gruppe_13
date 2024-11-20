@@ -1,70 +1,54 @@
 package no.hiof.g13.API;
 
-import com.google.gson.Gson;
 import io.javalin.Javalin;
 import no.hiof.g13.DTO.out.GetUserResponseDTO;
 import no.hiof.g13.models.User;
 import no.hiof.g13.ports.GetUsersAPI_Port;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class GetUsersAPI {
     private final GetUsersAPI_Port getUserAPI_Port;
-    private final Gson gson;
 
     public GetUsersAPI(GetUsersAPI_Port getUsersLoginPort) {
         this.getUserAPI_Port = getUsersLoginPort;
-        this.gson = new Gson();
     }
 
     public void getUsers(Javalin app) {
 
         app.get("/api/users/", ctx -> {
-            try {
-                List<User> allUsers = getUserAPI_Port.getAllUsers();
-                List<GetUserResponseDTO> dto = allUsers.stream().map(GetUserResponseDTO::fromDomain).toList();
-                ctx.result(gson.toJson(dto)).contentType("application/json");
+            List<GetUserResponseDTO> dto = new ArrayList<>();
+            for(User userX : getUserAPI_Port.getAllUsers()) {
+                dto.add(GetUserResponseDTO.fromDomain(userX));
             }
-            catch(Exception e) {
-                ctx.status(500).result("Error getting users");
-            }
+            ctx.json(dto);
         });
 
         app.get("/api/users/id/{id}", ctx -> {
-            try {
-                int userId = Integer.parseInt(ctx.pathParam("id"));
-                User user = getUserAPI_Port.getUserById(userId);
-
-                if(user != null) {
-                    GetUserResponseDTO dto = GetUserResponseDTO.fromDomain(user);
-                    ctx.result(gson.toJson(dto)).contentType("application/json");
-                }
-                else {
-                    ctx.status(404).result(gson.toJson(Map.of("error", "User not found with id " + userId))).contentType("application/json");
-                }
-
-            } catch(NumberFormatException e) {
-                ctx.status(400).result(gson.toJson(Map.of("error", "Invalid ID format"))).contentType("application/json");
-            }
+            int url_parameter = Integer.parseInt(ctx.pathParam("id"));
+            User user = getUserAPI_Port.getUserById(url_parameter);
+            GetUserResponseDTO dto = GetUserResponseDTO.fromDomain(user);
+            ctx.json(dto);
         });
 
-       app.get("/api/users/{epost}", ctx -> {
-           try {
-               String epost = ctx.pathParam("epost");
-               User user = getUserAPI_Port.getUserByEmail(epost);
-
-               if(user != null) {
-                   GetUserResponseDTO dto = GetUserResponseDTO.fromDomain(user);
-                   ctx.result(gson.toJson(user)).contentType("application/json");
-               }
-               else {
-                   ctx.status(404).result("No user found");
-               }
-           }
-           catch(Exception e) {
-               ctx.status(500).result("Iternal server err9r");
-           }
+       app.get("/api/users/{id}", ctx -> {
+           String url_parameter = ctx.pathParam("id");
+           User user = getUserAPI_Port.getUserByEmail(url_parameter);
+           GetUserResponseDTO dto = GetUserResponseDTO.fromDomain(user);
+           ctx.json(dto);
        });
+
+       app.exception(NumberFormatException.class, (e, ctx) -> {
+           ctx.status(400).result("Error, invalid ID format");
+       });
+
+        app.exception(NullPointerException.class, (e, ctx) -> {
+            String urlParameter = ctx.pathParam("id");
+            ctx.status(404).result("Error, User with ID " + urlParameter + " not found");
+        });
+        app.exception(Exception.class, (e, ctx) -> {
+            ctx.status(500).result("Error, internal server error");
+        });
     }
 }

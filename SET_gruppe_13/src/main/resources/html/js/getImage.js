@@ -5,20 +5,27 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(images => {
             const categoryContainers = {};
 
-            images.forEach(image => {
-                // Use lowercase category values to match HTML id attributes (e.g., `electronics`, `security`)
-                const category = image.kategori.toLowerCase();
-                if (!categoryContainers[category]) {
+            // Initialize category containers by filtering distinct categories and mapping them to their containers
+            images
+                .map(image => image.kategori.toLowerCase())
+                .filter((category, index, self) => self.indexOf(category) === index)
+                .forEach(category => {
                     categoryContainers[category] = document.querySelector(`#${category} .flex-container`);
                     if (categoryContainers[category]) {
                         categoryContainers[category].innerHTML = ''; // Clear existing content
                     }
-                }
+                });
 
-                if (categoryContainers[category]) {
-                    // Create anchor tag and set its href attribute to link to article.html with product ID as a query parameter
+            // Use .filter() and .map() to process and create elements dynamically
+            images
+                .filter(image => categoryContainers[image.kategori.toLowerCase()])
+                .map(image => {
+                    const category = image.kategori.toLowerCase();
+                    const container = categoryContainers[category];
+
+                    // Create anchor tag and set its href attribute
                     const link = document.createElement('a');
-                    link.href = `./pages/article.html?product_id=${image.produktId}`; //This one here Claude.ai!
+                    link.href = `./pages/article.html?product_id=${image.produktId}`;
 
                     // Create figure and img elements
                     const figure = document.createElement('figure');
@@ -39,10 +46,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Append figure to the link
                     link.appendChild(figure);
 
-                    // Append link to the category container
-                    categoryContainers[category].appendChild(link);
-                }
-            });
+                    return { link, container };
+                })
+                .forEach(({ link, container }) => container.appendChild(link));
         })
         .catch(error => console.error('Error fetching images:', error));
 });

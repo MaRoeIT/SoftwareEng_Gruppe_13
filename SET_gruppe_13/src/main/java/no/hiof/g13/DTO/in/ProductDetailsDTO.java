@@ -1,11 +1,14 @@
 package no.hiof.g13.DTO.in;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProductDetailsDTO {
     private int produktId;
     private String bucketlink;
     private String kategori;
     private String navn;
-    private String description; // Add fields as needed for detailed information
+    private String description;
     private String modell;
     private int garantiMåneder;
     private String ean;

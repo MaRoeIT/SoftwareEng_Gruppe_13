@@ -7,6 +7,7 @@ import no.hiof.g13.ports.GetProductsAPI_Port;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GetProductsAPI_RepositoryMySQL implements GetProductsAPI_Port {
@@ -98,7 +99,7 @@ public class GetProductsAPI_RepositoryMySQL implements GetProductsAPI_Port {
     @Override
     public List<ProductImage> getAllProductImages() {
         List<ProductImage> productImages = new ArrayList<>();
-        String query = "SELECT b.produkt_id, p.navn, p.kategori, b.bucketlink FROM bilde b LEFT JOIN produkt p ON b.produkt_id = p.produkt_id"; // Replace 'product_images' with your actual table name if different
+        String query = "SELECT b.produkt_id, p.navn, p.kategori, b.bucketlink FROM bilde b LEFT JOIN produkt p ON b.produkt_id = p.produkt_id";
 
         try (Connection connection = MySQLAdapter.getConnection();
              PreparedStatement statement = connection.prepareStatement(query);
@@ -115,8 +116,36 @@ public class GetProductsAPI_RepositoryMySQL implements GetProductsAPI_Port {
             }
 
         } catch (Exception e) {
-            e.printStackTrace(); // Consider using a logger for better error handling
+            e.printStackTrace();
         }
         return productImages;
+    }
+
+    @Override
+    public List<ProductDetailsDTO> getProductsByUserId(int userId) {
+        List<ProductDetailsDTO> products = new ArrayList<>();
+
+        String query = "SELECT p.produkt_id, navn, kategori FROM bruker b JOIN mine_produkter mp ON mp.bruker_id = b.bruker_id JOIN produkt p ON p.produkt_id = mp.produkt_id WHERE b.bruker_id = ?";
+
+        try(Connection connection = MySQLAdapter.getConnection();
+            PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, userId);
+            ResultSet rs = statement.executeQuery();
+
+            while(rs.next()) {
+                ProductDetailsDTO dto = new ProductDetailsDTO();
+                dto.setProduktId(rs.getInt("produkt_id"));
+                dto.setNavn(rs.getString("navn"));
+                dto.setKategori(rs.getString("kategori"));
+
+                products.add(dto);
+            }
+            return products;
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
