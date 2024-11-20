@@ -43,6 +43,7 @@ public class User {
         this.userLevel = userLevel;
     }
 
+
     public int getBruker_id() {
         return bruker_id;
     }
@@ -71,7 +72,7 @@ public class User {
         return status_id;
     }
 
-    public void setStatus_id(int status_id) {
+    public void setStatus_id(Integer status_id) {
         this.status_id = status_id;
     }
 
