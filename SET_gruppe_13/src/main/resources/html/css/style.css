@@ -12,6 +12,10 @@ a {
     color: #000;
 }
 
+.user_profile {
+    padding: 0 50px;
+}
+
 /*Tilbake til toppen knapp*/
 .back-to-top {
     position: fixed;
