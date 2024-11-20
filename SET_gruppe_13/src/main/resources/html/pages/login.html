@@ -20,17 +20,17 @@
   </nav>
   </header>
 <div class="container mt-5 justify-content-center">
-  <h2>Login</h2>
+  <h2>Logg inn</h2>
   <form id="loginForm">
     <div class="mb-3">
-      <label for="epost" class="form-label">Email:</label>
+      <label for="epost" class="form-label">Epost:</label>
       <input type="email" id="epost" name="epost" required class="form-control" />
     </div>
     <div class="mb-3">
-      <label for="passord" class="form-label">Password:</label>
+      <label for="passord" class="form-label">Passord:</label>
       <input type="password" id="passord" name="passord" required class="form-control" />
     </div>
-    <button type="submit" class="btn btn-primary">Login</button>
+    <button type="submit" class="btn btn-primary">Logg inn</button>
     <a class="btn btn-primary" href="signup.html">Ny Bruker</a>
   </form>
   <div class="mt-3" id="loginMessage"></div>
@@ -76,17 +76,17 @@
         console.log(result);
 
         if (result.isAuthenticated && result.userId) {
-          loginMessage.textContent = 'Login successful! Redirecting...';
+          loginMessage.textContent = 'Innlogging vellykket! Laster profil...';
           userId = result.userId;
           setTimeout(() => {
             window.location = `/pages/user.html?id=${result.userId}`;
           }, 3000);
         } else {
-          loginMessage.textContent = 'Invalid email or password.';
+          loginMessage.textContent = 'Kunne ikke logge inn. Sjekk at du har skrevet riktig.';
         }
       } catch (error) {
         console.error('Login error:', error);
-        loginMessage.textContent = 'An error occurred. Please try again.';
+        loginMessage.textContent = 'En feil oppstod. Vennligst prøv igjen.';
       }
     });
   });

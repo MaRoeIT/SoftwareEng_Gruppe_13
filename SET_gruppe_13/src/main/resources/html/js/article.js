@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <ul>
                         <li>Kategori: ${product.kategori}</li>
                         <li>Modell: ${product.modell}</li>
-                        <li>Warranty: ${product.garantiMåneder} måneder</li>
+                        <li>Garanti: ${product.garantiMåneder} måneder</li>
                         <li>EAN: ${product.ean}</li>
                     </ul>
                 `;
