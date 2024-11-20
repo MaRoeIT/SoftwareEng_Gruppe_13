@@ -4,9 +4,8 @@ import java.awt.*;
 import java.net.*;
 import java.util.concurrent.TimeUnit;
 
-import DTO.ChangeLightDTO;
+import no.hiof.g13.DTO.ChangeLightDTO;
 import interfaces.MockIOTDevice;
-import DTO.ChangeLightDTO;
 
 import static java.lang.System.out;
 
@@ -17,7 +16,7 @@ public class MockIOTSmartLight implements MockIOTDevice {
     private MockSocketHandler socketHandler;
 
     private String name = "Govee LED light";
-    private String deviceID = "130410949094";
+    private String deviceID;
     private String producer = "Govee";
     private String modell = "L28";
     private boolean wifi = true;
@@ -27,15 +26,22 @@ public class MockIOTSmartLight implements MockIOTDevice {
     private int lightStrength;
     private boolean isOn = false;
 
-    public MockIOTSmartLight() {
+    private int port = 9999;
+
+    public MockIOTSmartLight(String deviceID) {
+        this.deviceID = deviceID;
     }
 
     @Override
     public void connect() {
-        this.socketHandler = new MockSocketHandler("localhost", 4444);
+        this.socketHandler = new MockSocketHandler("localhost", getPort());
         out.println("Device connected");
 
         socketHandler.receiveData();
+
+        out.println("Got here");
+
+        socketHandler.sendDeviceID(getDeviceID());
 
         while (true){
             if (socketHandler.isNewData()){
@@ -192,5 +198,17 @@ public class MockIOTSmartLight implements MockIOTDevice {
                 ", \n\tlightStrength= " + lightStrength +
                 ", \n\tisOn=          " + isOn +
                 "\n}";
+    }
+
+    public String getDeviceID() {
+        return deviceID;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
     }
 }

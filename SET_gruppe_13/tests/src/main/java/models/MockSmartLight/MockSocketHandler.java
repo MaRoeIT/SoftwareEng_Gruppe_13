@@ -1,6 +1,6 @@
 package models.MockSmartLight;
 
-import DTO.ChangeLightDTO;
+import no.hiof.g13.DTO.ChangeLightDTO;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -36,12 +36,26 @@ public class MockSocketHandler {
         }
     }
 
+    public void sendDeviceID(String deviceID){
+        try {
+            output.writeObject("DEVICE_ID");
+            output.writeObject(deviceID);
+            System.out.println("Device sent");
+        }
+        catch (IOException e){
+            System.out.println("I/O exeption: " + e.getMessage());
+        }
+
+    }
+
     public void receiveData(){
         new Thread (() -> {
             try {
+                System.out.println("thread line 1");
                 String signal = (String) input.readObject();
+                System.out.println("thread line 2");
+                System.out.println(signal);
                 if ("DATA_INCOMING".equals(signal)){
-                    System.out.println("data incoming");
                     this.lastReceivedDTO = (ChangeLightDTO) input.readObject();
                     this.newData = true;
                 }
@@ -50,6 +64,7 @@ public class MockSocketHandler {
                 System.out.println("Error receiving data: " + e.getMessage());
             }
         }).start();
+        System.out.println("Done");
     }
 
     public void closeConnection() {

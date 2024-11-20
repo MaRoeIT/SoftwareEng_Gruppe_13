@@ -15,8 +15,8 @@ public class GUIOutAdapter implements GetMyProductsPort {
 
     //metode som sender med produktlisten til gui
     @Override
-    public Optional<ArrayList<IOTDevice>> getMyProductList(MyProducts myProducts) {
+    public ArrayList<IOTDevice> getMyProductList(MyProducts myProducts) {
         myProductsSwing.runMyProducts(myProducts.getMyProducts());
-        return Optional.empty();
+        return myProducts.getMyProducts();
     }
 }

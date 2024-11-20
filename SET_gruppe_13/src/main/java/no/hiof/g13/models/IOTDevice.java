@@ -11,6 +11,7 @@ public abstract class IOTDevice {
     protected boolean wifi;
     protected String modell;
     protected boolean power;
+    protected Integer connectionID;
 
     //konstruktør
     public IOTDevice(String name, String deviceID, String producer, int weight, boolean wifi, String modell){
@@ -72,5 +73,13 @@ public abstract class IOTDevice {
 
     public void setModell(String modell) {
         this.modell = modell;
+    }
+
+    public Integer getConnectionID() {
+        return connectionID;
+    }
+
+    public void setConnectionID(Integer connectionID) {
+        this.connectionID = connectionID;
     }
 }

@@ -32,8 +32,6 @@ public class IOTSmartLight extends IOTHomeDevice {
     private Color color;
     private int lightStrength;
     private final DeviceDataSender deviceDataSender;
-    private final ConnectionIDPort connectionIDPort;
-    private Integer connectionID;
 
     public IOTSmartLight(String name, String deviceID, String producer,
                         String modell, boolean wifi, int weight, HashMap<String, Integer> size,
@@ -47,7 +45,6 @@ public class IOTSmartLight extends IOTHomeDevice {
         this.power = false;
         this.lightStrength = lightStrength;
         this.deviceDataSender = deviceDataSender;
-        this.connectionIDPort = connectionIDPort;
     }
 
     /**
@@ -103,15 +100,4 @@ public class IOTSmartLight extends IOTHomeDevice {
         deviceDataSender.sendData(new ChangeLightDTO(getLightPattern(), getColor(), getLightStrength()), getConnectionID());
     }
 
-    public Integer getConnectionID() {
-        return connectionID;
-    }
-
-    public void setConnectionID(Integer connectionID) {
-        this.connectionID = connectionID;
-    }
-
-    public void updateConnectionID(){
-        this.connectionID = connectionIDPort.receiveConnectionID();
-    }
 }

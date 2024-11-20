@@ -1,5 +1,7 @@
 package Server;
 
+import no.hiof.g13.DTO.ChangeLightDTO;
+import adapters.IsNewDeviceUseCase;
 import adapters.UpdateConnectionIDUseCase;
 import interfaces.GenericDevice;
 import no.hiof.g13.interfaces.GenericDeviceDTO;
@@ -23,17 +25,19 @@ public class DeviceServer extends Thread{
     }
 
     public void listen() {
-        try (ServerSocket serverSocket = new ServerSocket(4444)) {
-            System.out.println("Server is listening on port 4444");
+        try (ServerSocket serverSocket = new ServerSocket(0)) {
+            System.out.println("Server is listening on port: " + serverSocket.getLocalPort());
             while (true) {
                 Socket socket = serverSocket.accept();
                 System.out.println("New client connected");
 
-                ClientHandler mockClientHandler = new ClientHandler(socket);
+                ClientHandler clientHandler = new ClientHandler(socket, this);
 
-                clientList.put(getClientID(), mockClientHandler);
+                //clientHandler.receieveDeviceID();
+
+                clientList.put(getClientID(), clientHandler);
                 updateClientID();
-                mockClientHandler.start();
+                clientHandler.start();
             }
         }
         catch (IOException e) {
@@ -41,7 +45,7 @@ public class DeviceServer extends Thread{
         }
     }
 
-    public void sendDataToClient(GenericDeviceDTO data, Integer clientID){
+    public void sendDataToClient(ChangeLightDTO data, Integer clientID){
         clientList.get(clientID).sendDataToQueue(data);
     }
 
@@ -55,7 +59,6 @@ public class DeviceServer extends Thread{
 
     public void updateClientID(){
         //Change this so that it Updates core every time the ID's are updated
-        new UpdateConnectionIDUseCase().setConnectionID(this.clientID);
         this.clientID = this.clientID + 1;
     }
 

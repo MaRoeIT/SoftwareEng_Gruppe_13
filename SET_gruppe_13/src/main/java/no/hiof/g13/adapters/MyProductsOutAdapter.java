@@ -11,8 +11,8 @@ public class MyProductsOutAdapter implements GetMyProductsPort {
 
     //returnerer en liste over mine produkter
     @Override
-    public Optional<ArrayList<IOTDevice>> getMyProductList(MyProducts myProducts) {
+    public ArrayList<IOTDevice> getMyProductList(MyProducts myProducts) {
         System.out.println("Getting MyProduct list wait just a moment...");
-        return Optional.ofNullable(myProducts.getMyProducts());
+        return myProducts.getMyProducts();
     }
 }

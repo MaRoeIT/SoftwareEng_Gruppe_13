@@ -1,4 +1,4 @@
-import DTO.ChangeLightDTO;
+import no.hiof.g13.DTO.ChangeLightDTO;
 import Server.DeviceServer;
 import no.hiof.g13.interfaces.GenericDeviceDTO;
 
