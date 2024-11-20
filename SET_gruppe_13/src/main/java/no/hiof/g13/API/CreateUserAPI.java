@@ -1,15 +1,12 @@
 package no.hiof.g13.API;
 
-import com.google.gson.Gson;
 import io.javalin.Javalin;
+import no.hiof.g13.DTO.in.CreateUserRequestDTO;
 import no.hiof.g13.models.User;
 import no.hiof.g13.ports.CreateUserAPI_Port;
 import org.mindrot.jbcrypt.BCrypt;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class CreateUserAPI {
     private final CreateUserAPI_Port createUserAPI_Port;
@@ -20,27 +17,27 @@ public class CreateUserAPI {
 
     public void configureRoutes(Javalin app) {
         app.post("/api/users/create", ctx -> {
-            User user = ctx.bodyAsClass(User.class);
+            CreateUserRequestDTO userDto = ctx.bodyAsClass(CreateUserRequestDTO.class);
             HashMap<String, Object> response = new HashMap<>();
 
-            if(!fieldValidation(user)) {
-                response.put("response", false);
+            if(!fieldValidation(userDto)) {
+                response.put("error", false);
                 response.put("message", "All fields must be filled out");
                 ctx.status(400).json(response);
                 return;
             }
 
-            if(createUserAPI_Port.userExists(user.getEpost())) {
-                response.put("success", false);
+            if(createUserAPI_Port.userExists(userDto.getEpost())) {
+                response.put("error", false);
                 response.put("message", "User already exists");
                 ctx.status(400).json(response);
                 return;
             }
 
-            String hashedPassword = BCrypt.hashpw(user.getPassord(), BCrypt.gensalt());
+            String hashedPassword = BCrypt.hashpw(userDto.getPassord(), BCrypt.gensalt());
             createUserAPI_Port.createUser(
-                    user.getFornavn(), user.getEtternavn(), user.getStatus_id(), user.getMobil(), user.getEpost(), hashedPassword, user.getAddress().getAdresse(), user.getAddress().getPostnummer(), user.getUserLevel()
-            );
+                    new User(userDto.getFornavn(), userDto.getEtternavn(), userDto.getStatus_id(), userDto.getMobil(), userDto.getEpost(), hashedPassword, userDto.getAddress(), userDto.getUserLevel()
+            ));
 
             response.put("success", true);
             response.put("message", "A new user is born");
@@ -48,11 +45,14 @@ public class CreateUserAPI {
         });
 
         app.exception(Exception.class, (e, ctx) -> {
-            ctx.status(500).result("Internal server error");
+            HashMap<String, Object> errorJson = new HashMap<>();
+            errorJson.put("error", "Internal server error");
+            errorJson.put("message", e.getMessage());
+            ctx.status(500).json(errorJson);
         });
     }
 
-    private boolean fieldValidation(User user) {
+    private boolean fieldValidation(CreateUserRequestDTO user) {
         if(user == null) return false;
 
         return (user.getFornavn() != null && !user.getFornavn().trim().isEmpty()) &&

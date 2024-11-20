@@ -3,43 +3,57 @@ package no.hiof.g13.DTO.in;
 import no.hiof.g13.models.Address;
 
 public class CreateUserRequestDTO {
-    private final String firstName;
-    private final String lastName;
-    private final String email;
-    private final String mobile;
-    private final Address address;
-    private final int statusId;
+    private String fornavn;
+    private String etternavn;
+    private Integer status_id;
+    private String epost;
+    private String passord;
+    private String mobil;
+    private Address address;
+    private Integer userLevel;
 
-    public CreateUserRequestDTO(String firstName, String lastName, String email, String mobile, Address address, int statusId) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.mobile = mobile;
+    public CreateUserRequestDTO() {
+    }
+
+    public CreateUserRequestDTO(String fornavn, String etternavn, Integer status_id, String mobil, String epost, String passord, Address address) {
+        this.fornavn = fornavn;
+        this.etternavn = etternavn;
+        this.status_id = status_id;
+        this.epost = epost;
+        this.passord = passord;
+        this.mobil = mobil;
         this.address = address;
-        this.statusId = statusId;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFornavn() {
+        return fornavn;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getEtternavn() {
+        return etternavn;
     }
 
-    public String getEmail() {
-        return email;
+    public Integer getStatus_id() {
+        return status_id;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getEpost() {
+        return epost;
+    }
+
+    public String getMobil() {
+        return mobil;
+    }
+
+    public String getPassord() {
+        return this.passord;
     }
 
     public Address getAddress() {
         return address;
     }
 
-    public int getStatusId() {
-        return statusId;
+    public Integer getUserLevel() {
+        return this.userLevel;
     }
 }

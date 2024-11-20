@@ -4,6 +4,8 @@ import io.javalin.Javalin;
 import no.hiof.g13.DTO.out.GetUserResponseDTO;
 import no.hiof.g13.models.User;
 import no.hiof.g13.ports.GetUsersAPI_Port;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class GetUsersAPI {
@@ -16,21 +18,23 @@ public class GetUsersAPI {
     public void getUsers(Javalin app) {
 
         app.get("/api/users/", ctx -> {
-            List<User> allUsers = getUserAPI_Port.getAllUsers();
-            List<GetUserResponseDTO> dto = allUsers.stream().map(GetUserResponseDTO::fromDomain).toList();
+            List<GetUserResponseDTO> dto = new ArrayList<>();
+            for(User userX : getUserAPI_Port.getAllUsers()) {
+                dto.add(GetUserResponseDTO.fromDomain(userX));
+            }
             ctx.json(dto);
         });
 
         app.get("/api/users/id/{id}", ctx -> {
-            int userId = Integer.parseInt(ctx.pathParam("id"));
-            User user = getUserAPI_Port.getUserById(userId);
+            int url_parameter = Integer.parseInt(ctx.pathParam("id"));
+            User user = getUserAPI_Port.getUserById(url_parameter);
             GetUserResponseDTO dto = GetUserResponseDTO.fromDomain(user);
             ctx.json(dto);
         });
 
        app.get("/api/users/{id}", ctx -> {
-           String email = ctx.pathParam("id");
-           User user = getUserAPI_Port.getUserByEmail(email);
+           String url_parameter = ctx.pathParam("id");
+           User user = getUserAPI_Port.getUserByEmail(url_parameter);
            GetUserResponseDTO dto = GetUserResponseDTO.fromDomain(user);
            ctx.json(dto);
        });

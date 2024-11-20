@@ -24,17 +24,12 @@ public class QuestionRepositoryMySQL implements QuestionRepositoryPort{
 
     public QuestionDTO fetchQuestion(Connection connection, int questionId) {
 
-        String mySQL_scripts = """
-                SELECT q.question_id, q.question_description, q.choices_id, qc.choice1, qc.choice2, qc.choice3, qc.choice4
-                FROM question q
-                INNER JOIN question_choices qc ON qc.choicesId = q.choices_id
-                WHERE q.question_id = ?
-                """;
+        String mySQL_scripts = "SELECT q.question_id, q.question_description, q.choices_id, qc.choice1, qc.choice2, qc.choice3, qc.choice4 FROM question q INNER JOIN question_choices qc ON qc.choicesId = q.choices_id WHERE q.question_id = ?";
 
-        try(PreparedStatement preparedStatement = connection.prepareStatement(mySQL_scripts)) {
-            preparedStatement.setInt(1, questionId);
+        try(PreparedStatement statement = connection.prepareStatement(mySQL_scripts)) {
+            statement.setInt(1, questionId);
 
-            try(ResultSet rs = preparedStatement.executeQuery()) {
+            try(ResultSet rs = statement.executeQuery()) {
                 if(rs.next()) {
                     List<String> choices = new ArrayList<>();
                     choices.add(rs.getString("choice1"));
@@ -54,8 +49,6 @@ public class QuestionRepositoryMySQL implements QuestionRepositoryPort{
         catch (SQLException e) {
             e.printStackTrace();
         }
-
         return new QuestionDTO();
     }
-
 }

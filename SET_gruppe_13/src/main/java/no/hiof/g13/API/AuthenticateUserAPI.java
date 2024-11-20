@@ -1,13 +1,12 @@
 package no.hiof.g13.API;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import io.javalin.Javalin;
+import no.hiof.g13.DTO.in.AuthenticateUserDTO;
 import no.hiof.g13.models.User;
 import no.hiof.g13.ports.AuthenticateUserAPI_Port;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 public class AuthenticateUserAPI {
@@ -19,7 +18,8 @@ public class AuthenticateUserAPI {
 
     public void configureRoutes(Javalin app) {
         app.post("/api/authenticate/login", ctx -> {
-            User user = ctx.bodyAsClass(User.class);
+            AuthenticateUserDTO dto = ctx.bodyAsClass(AuthenticateUserDTO.class);
+            User user = dto.toDomain();
             HashMap<String, Object> response = new HashMap<>();
 
             if(user.getEpost() == null || user.getPassord() == null) {

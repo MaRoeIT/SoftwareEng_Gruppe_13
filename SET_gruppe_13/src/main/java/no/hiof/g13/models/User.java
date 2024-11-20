@@ -20,6 +20,17 @@ public class User {
         this.passord = passord;
     }
 
+    public User(String fornavn, String etternavn, Integer status_id, String mobil, String epost, String passord, Address address, Integer userLevel) {
+        this.fornavn = fornavn;
+        this.etternavn = etternavn;
+        this.status_id = status_id;
+        this.mobil = mobil;
+        this.epost = epost;
+        this.passord = passord;
+        this.address = address;
+        this.userLevel = userLevel;
+    }
+
     public User(int bruker_id, String fornavn, String etternavn, Integer status_id, String mobil, String epost, String passord, Address address, Integer userLevel) {
         this.bruker_id = bruker_id;
         this.fornavn = fornavn;

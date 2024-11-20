@@ -1,6 +1,7 @@
 package no.hiof.g13.adapters;
 
 import no.hiof.g13.DTO.in.GetUserRequestDTO;
+import no.hiof.g13.models.Address;
 import no.hiof.g13.models.User;
 import no.hiof.g13.ports.GetUsersAPI_Port;
 
@@ -24,12 +25,23 @@ public class GetUsersAPI_RepositoryMySQL implements GetUsersAPI_Port {
             ResultSet rs = statement.executeQuery();
 
                 while(rs.next()) {
-                    GetUserRequestDTO dto = GetUserRequestDTO.fromResult(rs);
-                    users.add(dto.toUser());
+                    GetUserRequestDTO dto = new GetUserRequestDTO();
+
+                    dto.setBruker_id(rs.getInt("bruker_id"));
+                    dto.setFornavn(rs.getString("fornavn"));
+                    dto.setEtternavn(rs.getString("etternavn"));
+                    dto.setStatus_id(rs.getInt("status_id"));
+                    dto.setEpost(rs.getString("epost"));
+                    dto.setMobil(rs.getString("mobil"));
+                    dto.setAddress(new Address(rs.getInt("adresse_id"), rs.getString("adresse"), rs.getString("postnummer")));
+                    dto.setUserLevel(rs.getInt("user_level"));
+
+                    users.add(dto.toDomain());
                 }
 
         } catch (ClassNotFoundException | SQLException e) {
-            throw new RuntimeException("No users found", e);
+            System.err.println("No users found");
+            e.printStackTrace();
         }
         return users;
     }
@@ -45,12 +57,23 @@ public class GetUsersAPI_RepositoryMySQL implements GetUsersAPI_Port {
             statement.setInt(1, userId);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
-                GetUserRequestDTO dto = GetUserRequestDTO.fromResult(rs);
-                return dto.toUser();
+                GetUserRequestDTO dto = new GetUserRequestDTO();
+
+                dto.setBruker_id(rs.getInt("bruker_id"));
+                dto.setFornavn(rs.getString("fornavn"));
+                dto.setEtternavn(rs.getString("etternavn"));
+                dto.setStatus_id(rs.getInt("status_id"));
+                dto.setEpost(rs.getString("epost"));
+                dto.setMobil(rs.getString("mobil"));
+                dto.setAddress(new Address(rs.getInt("adresse_id"), rs.getString("adresse"), rs.getString("postnummer")));
+                dto.setUserLevel(rs.getInt("user_level"));
+
+                return dto.toDomain();
             }
 
         } catch (ClassNotFoundException | SQLException e) {
-            throw new RuntimeException("No user found with ID: " + userId, e);
+            System.err.println("No user found with ID: " + userId);
+            e.printStackTrace();
         }
         return null;
     }
@@ -66,12 +89,23 @@ public class GetUsersAPI_RepositoryMySQL implements GetUsersAPI_Port {
             statement.setString(1, email);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
-                GetUserRequestDTO dto = GetUserRequestDTO.fromResult(rs);
-                return dto.toUser();
+                GetUserRequestDTO dto = new GetUserRequestDTO();
+
+                dto.setBruker_id(rs.getInt("bruker_id"));
+                dto.setFornavn(rs.getString("fornavn"));
+                dto.setEtternavn(rs.getString("etternavn"));
+                dto.setStatus_id(rs.getInt("status_id"));
+                dto.setEpost(rs.getString("epost"));
+                dto.setMobil(rs.getString("mobil"));
+                dto.setAddress(new Address(rs.getInt("adresse_id"), rs.getString("adresse"), rs.getString("postnummer")));
+                dto.setUserLevel(rs.getInt("user_level"));
+
+                return dto.toDomain();
             }
 
         } catch (ClassNotFoundException | SQLException e) {
-            throw new RuntimeException("No user found with email: " + email, e);
+            System.err.println("No user found with email: " + email);
+            e.printStackTrace();
         }
         return null;
     }
