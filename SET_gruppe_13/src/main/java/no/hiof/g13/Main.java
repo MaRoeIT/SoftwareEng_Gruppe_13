@@ -25,6 +25,7 @@ public class Main {
                 staticFileConfig.location = Location.CLASSPATH; // Ensure classpath-based serving
             });
         }).start(8080);
+        System.out.println("Main application started on port: " + app.port());
 
         // Get products from database
         GetProductsAPI_Service productsAPIService = new GetProductsAPI_Service();
