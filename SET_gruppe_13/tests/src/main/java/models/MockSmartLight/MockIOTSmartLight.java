@@ -36,7 +36,7 @@ public class MockIOTSmartLight implements MockIOTDevice {
     @Override
     public void connect() throws IOException {
         this.socket = new Socket("localHost", port);
-        this.socketHandler = new MockSocketHandler(socket, deviceID);
+        this.socketHandler = new MockSocketHandler(socket, deviceID, this);
         out.println("Device connected");
 
         socketHandler.sendData("I am connected");
@@ -215,5 +215,13 @@ public class MockIOTSmartLight implements MockIOTDevice {
 
     public void setPort(int port) {
         this.port = port;
+    }
+
+    public boolean isOn() {
+        return isOn;
+    }
+
+    public void setOn(boolean on) {
+        isOn = on;
     }
 }

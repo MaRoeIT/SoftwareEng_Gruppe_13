@@ -43,7 +43,6 @@ public class runningTest2 {
                     catch (NumberFormatException e){
                         System.out.println("That is not a number!");
                     }
-
                     break;
                 default:
                     System.out.println("That is not a command");

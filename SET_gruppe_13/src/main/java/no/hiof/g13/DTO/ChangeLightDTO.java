@@ -3,7 +3,6 @@ package no.hiof.g13.DTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import no.hiof.g13.interfaces.GenericDeviceDTO;
 
-import java.awt.*;
 import java.io.Serializable;
 
 public class ChangeLightDTO implements GenericDeviceDTO, Serializable {

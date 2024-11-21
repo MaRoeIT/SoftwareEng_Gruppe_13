@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import netscape.javascript.JSObject;
 import DTO.ChangeLightDTO;
 
+import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 
@@ -12,11 +13,12 @@ public class MockSocketHandler {
     private BufferedWriter output;
     private BufferedReader input;
     private String deviceID;
+    private final MockIOTSmartLight mockIOTSmartLight;
 
     private ChangeLightDTO lastReceivedDTO;
     private boolean newData = false;
 
-    public MockSocketHandler(Socket socket, String deviceID) {
+    public MockSocketHandler(Socket socket, String deviceID, MockIOTSmartLight mockIOTSmartLight) {
         try {
             this.socket = socket;
             this.output = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -26,7 +28,9 @@ public class MockSocketHandler {
         catch (IOException e){
             closeConnection();
         }
+        this.mockIOTSmartLight = mockIOTSmartLight;
     }
+
 
     public void sendData(String data){
         try{
@@ -68,11 +72,15 @@ public class MockSocketHandler {
                             try {
 
                                 ChangeLightDTO changeLightDTO = objectMapper.readValue(content,ChangeLightDTO.class);
-                                System.out.println(changeLightDTO);
+                                updateLightSettings(changeLightDTO.getLightPattern(), changeLightDTO.getRgb(), changeLightDTO.getLightStrength());
                             }catch (IOException e){
                                 System.out.println("Something went wrong");
                                 e.printStackTrace();
                             }
+                        } else if (dataFromServer.equals("1")) {
+                            getMockIOTSmartLight().setOn(true);
+                        } else if (dataFromServer.equals("2")) {
+                            getMockIOTSmartLight().setOn(false);
                         }
                         System.out.println("Data recieved: " + dataFromServer);
                     } catch (IOException e) {
@@ -98,6 +106,10 @@ public class MockSocketHandler {
         catch (IOException e){
             System.out.println("Something went wrong closing connection: " + e.getMessage());
         }
+    }
+
+    public void updateLightSettings(String lightPattern, int rgb, int lightStrength){
+        getMockIOTSmartLight().setLightSettings(lightPattern, new Color(rgb), lightStrength);
     }
     /*
     public void sendData(ChangeLightDTO smartLightDTO){
@@ -187,5 +199,9 @@ public class MockSocketHandler {
 
     public void setNewData(boolean newData) {
         this.newData = newData;
+    }
+
+    public MockIOTSmartLight getMockIOTSmartLight() {
+        return mockIOTSmartLight;
     }
 }

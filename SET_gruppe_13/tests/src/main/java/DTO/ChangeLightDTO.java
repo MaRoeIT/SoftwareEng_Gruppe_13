@@ -3,7 +3,6 @@ package DTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import interfaces.GenericDevice;
 
-import java.awt.*;
 import java.io.Serializable;
 
 public class ChangeLightDTO implements GenericDevice, Serializable {
@@ -17,7 +16,7 @@ public class ChangeLightDTO implements GenericDevice, Serializable {
 
     public ChangeLightDTO(
             @JsonProperty("lightPattern") String lightPattern,
-            @JsonProperty("rgb") int rgb,
+            @JsonProperty("color") int rgb,
             @JsonProperty("lightStrength") int lightStrength) {
         this.lightPattern = lightPattern;
         this.rgb = rgb;

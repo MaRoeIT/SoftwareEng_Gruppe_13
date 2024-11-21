@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
 import java.awt.*;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -62,10 +61,10 @@ public class TerminalCommandsHandler implements Runnable {
                     System.out.println("Choose Light pattern (Solid, wave, pulse, rain): ");
                     String lightPattern = scanner.nextLine();
                     System.out.println("Choose a color (red, green, blue, yellow, white): ");
-                    Color color = getColorMap().get(scanner.nextLine());
+                    int rgb = getColorMap().get(scanner.nextLine()).getRGB();
                     System.out.println("Choose a light strength %: ");
                     int lightStrength = scanner.nextInt();
-                    ChangeLightDTO changeLightDTO =  new ChangeLightDTO(lightPattern, color.getRGB(), lightStrength);
+                    ChangeLightDTO changeLightDTO =  new ChangeLightDTO(lightPattern, rgb, lightStrength);
                     for (ClientHandler handler: ClientHandler.getClientHandlers()){
                         if (handler.getDeviceID().equals(userInput)){
                             ObjectWriter objectMapper = new ObjectMapper().writer().withDefaultPrettyPrinter();
@@ -82,6 +81,32 @@ public class TerminalCommandsHandler implements Runnable {
                         else {
                             System.out.println("That is not a valid deviceID");
                         }
+                    }
+                    break;
+                case "on":
+                case "turnOn":
+                    System.out.println("What device do you wan't to turn on (deviceID): ");
+                    userInput = scanner.nextLine();
+                    for (ClientHandler handler: ClientHandler.getClientHandlers()){
+                        if (handler.getDeviceID().equals(userInput)){
+                            handler.sendData("1");
+                            System.out.println("Data sent");
+                            break;
+                        }
+                        System.out.println("That is not a valid deviceID");
+                    }
+                    break;
+                case "off":
+                case "turnOff":
+                    System.out.println("What device do you wan't to turn off (deviceID): ");
+                    userInput = scanner.nextLine();
+                    for (ClientHandler handler: ClientHandler.getClientHandlers()){
+                        if (handler.getDeviceID().equals(userInput)){
+                            handler.sendData("2");
+                            System.out.println("Data sent");
+                            break;
+                        }
+                        System.out.println("That is not a valid deviceID");
                     }
                     break;
                 default:
