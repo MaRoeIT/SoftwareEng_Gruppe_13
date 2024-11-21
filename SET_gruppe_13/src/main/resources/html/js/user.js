@@ -24,9 +24,9 @@
       let user = await response.json(); // Parse and store the JSON response
       console.log(user);
 
-      document.getElementById("name").innerHTML += `${ user.firstName}  ${ user.lastName}`;
-      document.getElementById("email").innerHTML += `${ user.email} `;
-      document.getElementById("mobile").innerHTML += `${ user.mobile} `;
+      document.getElementById("name").innerHTML += `${ user.fornavn}  ${ user.etternavn}`;
+      document.getElementById("email").innerHTML += `${ user.epost} `;
+      document.getElementById("mobile").innerHTML += `${ user.mobil} `;
       document.getElementById("adresse").innerHTML += `${  user.address.adresse } `;
       document.getElementById("postnummer").innerHTML += `${  user.address.postnummer } `;
 
@@ -48,12 +48,17 @@
       let userProducts = await response.json();
       console.log(userProducts);
 
-      document.getElementById("myProducts").innerHTML =  userProducts.map(e => {
-        return `<div class="row">
-          <div class="col-md-6">Produkt: <span>${e.navn}</span></div>
-          <div class="col-md-6">Kategori: <span>${e.kategori}</span></div>
-          </div>`;
-      }).join("");
+      setTimeout(() => {
+            document.getElementById("loadingProd").remove();
+            document.getElementById("myProducts").innerHTML =  userProducts.map(e => {
+              return `<div class="row">
+                <div class="col-md-6">Produkt: <span>${e.navn}</span></div>
+                <div class="col-md-6">Kategori: <span>${e.kategori}</span></div>
+                </div>`;
+            }).join("");
+      }, 3000);
+
+
 
     } catch (error) {
       this.error = error.message; // Set error message if something goes wrong
