@@ -73,6 +73,8 @@ public class MockSocketHandler {
 
                                 ChangeLightDTO changeLightDTO = objectMapper.readValue(content,ChangeLightDTO.class);
                                 updateLightSettings(changeLightDTO.getLightPattern(), changeLightDTO.getRgb(), changeLightDTO.getLightStrength());
+                                System.out.println("This device light settings have been updated to:");
+                                System.out.println(mockIOTSmartLight.lightSettingsToString());
                             }catch (IOException e){
                                 System.out.println("Something went wrong");
                                 e.printStackTrace();

@@ -45,6 +45,20 @@ public class MockIOTSmartLight implements MockIOTDevice {
 
         socketHandler.listenForData();
 
+        while(this.batteryLevel >= 0){
+            this.batteryLevel--;
+            try {
+                TimeUnit.MILLISECONDS.sleep(300);
+            }catch (InterruptedException e){
+                out.println("Sleep was interupted: " + e.getMessage());
+            }
+            if (this.batteryLevel == 5){
+                socketHandler.sendData("Device only have 5% power left, Charge it now");
+            } else if (this.batteryLevel == 15) {
+                socketHandler.sendData("Device only have 15% power left, we recommend charging");
+            }
+        }
+
         /*
 
         while (true){
@@ -200,6 +214,14 @@ public class MockIOTSmartLight implements MockIOTDevice {
                 ", \n\tbatteryLevel=  " + batteryLevel +
                 ", \n\tlightPattern=  '" + lightPattern + '\'' +
                 ", \n\tcolor=         " + color +
+                ", \n\tlightStrength= " + lightStrength +
+                ", \n\tisOn=          " + isOn +
+                "\n}";
+    }
+
+    public String lightSettingsToString(){
+        return "MockIOTSmartLight{" +
+                "\n\tcolor=         " + color +
                 ", \n\tlightStrength= " + lightStrength +
                 ", \n\tisOn=          " + isOn +
                 "\n}";
