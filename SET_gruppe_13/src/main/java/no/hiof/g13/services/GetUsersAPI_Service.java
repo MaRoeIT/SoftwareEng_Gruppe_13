@@ -25,42 +25,4 @@ public class GetUsersAPI_Service {
         getUsersLoginAPI.getUsers(app);
     }
 
-    public GetUserResponseDTO getUserById(int userId) throws ServiceException {
-        try {
-            User user = getUsersLoginAPI_port.getUserById(userId);
-            if(user == null) {
-                throw new UserNotFoundException("User not found");
-            }
-            return GetUserResponseDTO.fromDomain(user);
-        }
-        catch (Exception e) {
-            throw new ServiceException("Failed to fetch user", e);
-        }
-    }
-
-    public GetUserResponseDTO getUserByEmail(String email) throws ServiceException {
-        try {
-            User user = getUsersLoginAPI_port.getUserByEmail(email);
-            if(user == null) {
-                throw new UserNotFoundException("User not found");
-            }
-            return GetUserResponseDTO.fromDomain(user);
-        }
-        catch (Exception e) {
-            throw new ServiceException("Failed to fetch user", e);
-        }
-    }
-
-    public List<GetUserResponseDTO> getAllUsers() throws ServiceException {
-        try {
-            return getUsersLoginAPI_port.getAllUsers().stream().map(GetUserResponseDTO::fromDomain).collect(Collectors.toList());
-        }
-        catch (Exception e) {
-            throw new ServiceException("Failed to fetch users", e);
-        }
-    }
-
-    public void getUsers(Javalin app) {
-        getUsersLoginAPI.getUsers(app);
-    }
 }

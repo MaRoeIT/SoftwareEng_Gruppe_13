@@ -19,7 +19,6 @@ public class Main {
                     corsRule.exposeHeader("*");
                 });
             });
-            ;
             javalinConfig.staticFiles.add(staticFileConfig -> {
                 staticFileConfig.hostedPath = "/";
                 staticFileConfig.directory = "/html"; // Point to the 'html' folder in 'resources'

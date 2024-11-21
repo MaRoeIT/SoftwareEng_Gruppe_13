@@ -14,6 +14,21 @@ public class ProductDetailsDTO {
     private String ean;
     private String avhengigAv;
 
+    public ProductDetailsDTO() {
+    }
+
+    public ProductDetailsDTO(int produktId, String bucketlink, String kategori, String navn, String description, String modell, int garantiMåneder, String ean, String avhengigAv) {
+        this.produktId = produktId;
+        this.bucketlink = bucketlink;
+        this.kategori = kategori;
+        this.navn = navn;
+        this.description = description;
+        this.modell = modell;
+        this.garantiMåneder = garantiMåneder;
+        this.ean = ean;
+        this.avhengigAv = avhengigAv;
+    }
+
     // Getters and setters
     public int getProduktId() {
         return produktId;

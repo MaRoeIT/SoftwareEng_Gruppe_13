@@ -6,6 +6,16 @@ public class ProductImage {
     private String kategori;
     private String navn;
 
+    public ProductImage() {
+
+    }
+
+    public ProductImage(int produktId, String bucketlink, String kategori, String navn) {
+        this.produktId = produktId;
+        this.bucketlink = bucketlink;
+        this.kategori = kategori;
+        this.navn = navn;
+    }
     // Getters and setters
     public int getProduktId() {
         return produktId;
