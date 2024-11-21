@@ -286,7 +286,20 @@ footer a p {
     transform: translateY(-50%); /* Centers the box vertically */
 }
 
-
+.install-button {
+    display: inline-block;
+    background-color: yellow;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px 40px; /* Adjust padding as necessary */
+    margin: 0 auto;
+    width: fit-content;
+    border-radius: 5px; /* Optional: Adds rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%); /* Centers the box vertically */
+}
 
 
 /*MAIN*/
