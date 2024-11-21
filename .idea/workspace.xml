@@ -8,17 +8,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/Server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/Server/ClientHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/Server/DeviceServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/Server/DeviceServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/ServerStart.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/ServerStart.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/adapters/ChangeDeviceLightUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/adapters/ChangeDeviceLightUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/adapters/UpdateConnectionIDUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/adapters/UpdateConnectionIDUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/adapters/GUIOutAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/adapters/GUIOutAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/adapters/MyProductsOutAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/adapters/MyProductsOutAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/models/IOTDevice.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/models/IOTDevice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/models/product/IOTSmartLight.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/models/product/IOTSmartLight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/ports/in/ConnectionIDPort.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/ports/in/ConnectionIDPort.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/ports/out/DeviceDataSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/ports/out/DeviceDataSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/ports/out/GetMyProductsPort.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/src/main/java/no/hiof/g13/ports/out/GetMyProductsPort.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/adapters/IsNewDeviceUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/adapters/IsNewDeviceUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/interfaces/MockIOTDevice.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/interfaces/MockIOTDevice.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockSmartLight/MockIOTSmartLight.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockSmartLight/MockIOTSmartLight.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockSmartLight/MockSocketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockSmartLight/MockSocketHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/runningTest2.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/runningTest2.java" afterDir="false" />
@@ -82,6 +74,9 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Client1.executor": "Run",
+    "Application.Client2.executor": "Run",
+    "Application.Client3.executor": "Run",
     "Application.Main.executor": "Run",
     "Application.MockIOTSmartLightTests.executor": "Run",
     "Application.ServerStart.executor": "Run",
@@ -129,10 +124,37 @@
     </key>
   </component>
   <component name="RunManager" selected="Compound.ServerClientTest">
+    <configuration name="Client1" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-21" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="runningTest2" />
+      <module name="tests" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Client2" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-21" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="runningTest2" />
+      <module name="tests" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Client3" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-21" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="runningTest2" />
+      <module name="tests" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ServerStart" type="Application" factoryName="Application">
       <option name="ALTERNATIVE_JRE_PATH" value="openjdk-21" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="ServerStart" />
+      <option name="MAIN_CLASS_NAME" value="Server.DeviceServer" />
       <module name="deviceServer" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -147,28 +169,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="runningTest2" type="Application" factoryName="Application">
-      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-21" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="runningTest2" />
-      <module name="tests" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="RunTestMockIOT" type="CompoundRunConfigurationType">
+      <toRun name="Client1" type="Application" />
       <toRun name="runningTest" type="Application" />
-      <toRun name="runningTest2" type="Application" />
       <method v="2" />
     </configuration>
     <configuration name="ServerClientTest" type="CompoundRunConfigurationType">
+      <toRun name="Client1" type="Application" />
+      <toRun name="Client2" type="Application" />
+      <toRun name="Client3" type="Application" />
       <toRun name="ServerStart" type="Application" />
-      <toRun name="runningTest2" type="Application" />
       <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Application.runningTest" />
-      <item itemvalue="Application.runningTest2" />
+      <item itemvalue="Application.Client1" />
+      <item itemvalue="Application.Client2" />
+      <item itemvalue="Application.Client3" />
       <item itemvalue="Application.ServerStart" />
       <item itemvalue="Compound.ServerClientTest" />
       <item itemvalue="Compound.RunTestMockIOT" />
@@ -202,7 +219,7 @@
       <workItem from="1731508518532" duration="7134000" />
       <workItem from="1731575069035" duration="3094000" />
       <workItem from="1731770533184" duration="17757000" />
-      <workItem from="1731954616981" duration="51283000" />
+      <workItem from="1731954616981" duration="76323000" />
     </task>
     <servers />
   </component>

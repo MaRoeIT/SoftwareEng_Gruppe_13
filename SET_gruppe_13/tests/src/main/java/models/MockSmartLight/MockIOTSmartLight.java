@@ -1,6 +1,7 @@
 package models.MockSmartLight;
 
 import java.awt.*;
+import java.io.IOException;
 import java.net.*;
 import java.util.concurrent.TimeUnit;
 
@@ -33,15 +34,18 @@ public class MockIOTSmartLight implements MockIOTDevice {
     }
 
     @Override
-    public void connect() {
-        this.socketHandler = new MockSocketHandler("localhost", getPort());
+    public void connect() throws IOException {
+        this.socket = new Socket("localHost", port);
+        this.socketHandler = new MockSocketHandler(socket, deviceID);
         out.println("Device connected");
 
-        socketHandler.receiveData();
+        socketHandler.sendData("I am connected");
 
         out.println("Got here");
 
-        socketHandler.sendDeviceID(getDeviceID());
+        socketHandler.listenForData();
+
+        /*
 
         while (true){
             if (socketHandler.isNewData()){
@@ -55,7 +59,7 @@ public class MockIOTSmartLight implements MockIOTDevice {
             catch (InterruptedException e){
                 out.println(e.getMessage());
             }
-        }
+        }*/
 
         /*
         try(socket = new Socket("localhost", 4444)){
@@ -126,13 +130,14 @@ public class MockIOTSmartLight implements MockIOTDevice {
         //connected = false;
     }
 
+
     @Override
     public void getStatus(){
-        if (!socketHandler.getSocket().isClosed()) {
-            out.println("Connected");
+        if (socketHandler.getSocket().isConnected()) {
+            out.println("The device is Connected");
         }
         else {
-            out.println("Disconnected");
+            out.println("The device is Disconnected");
         }
         out.println("\n" + this);
     }
@@ -157,7 +162,7 @@ public class MockIOTSmartLight implements MockIOTDevice {
         else {
             return "Cannot receive data. Device is not connected";
         }
-    }
+    }/*
 
     public void updateLightSettings(){
         setLightSettings(socketHandler.getLastReceivedDTO().getLightPattern(),
@@ -168,7 +173,7 @@ public class MockIOTSmartLight implements MockIOTDevice {
 
     public void sendLightSettings(){
         socketHandler.sendData(new ChangeLightDTO(this.lightPattern, this.color, this.lightStrength));
-    }
+    }*/
 
     public Socket getSocket() {
         return socket;

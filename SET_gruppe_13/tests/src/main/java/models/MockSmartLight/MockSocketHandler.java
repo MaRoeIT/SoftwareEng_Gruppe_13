@@ -2,31 +2,83 @@ package models.MockSmartLight;
 
 import no.hiof.g13.DTO.ChangeLightDTO;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 
 public class MockSocketHandler {
     private Socket socket;
-    private ObjectOutputStream output;
-    private ObjectInputStream input;
+    private BufferedWriter output;
+    private BufferedReader input;
+    private String deviceID;
 
     private ChangeLightDTO lastReceivedDTO;
     private boolean newData = false;
 
-    public MockSocketHandler(String host, int port) {
+    public MockSocketHandler(Socket socket, String deviceID) {
         try {
-            this.socket = new Socket(host, port);
-            this.output = new ObjectOutputStream(socket.getOutputStream());
-            this.input = new ObjectInputStream(socket.getInputStream());
-            socket.setKeepAlive(true);
+            this.socket = socket;
+            this.output = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            this.input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            this.deviceID = deviceID;
         }
         catch (IOException e){
-            System.out.println("I/O error: " + e.getMessage());
+            closeConnection();
         }
     }
 
+    public void sendData(String data){
+        try{
+            output.write(deviceID);
+            output.newLine();
+            output.flush();
+
+            output.write("Device: " + deviceID + " sent");
+            output.newLine();
+            output.write(data);
+            output.newLine();
+            output.flush();
+
+        }
+        catch (IOException e){
+            closeConnection();
+        }
+    }
+
+    public void listenForData(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String dataFromServer;
+
+                while (socket.isConnected()){
+                    try {
+                        dataFromServer = input.readLine();
+                        System.out.println("Data recieved: " + dataFromServer);
+                    } catch (IOException e) {
+                        closeConnection();
+                    }
+                }
+            }
+        }).start();
+    }
+
+    public void closeConnection(){
+        try{
+            if (output != null){
+                output.close();
+            }
+            if (input != null){
+                input.close();
+            }
+            if (socket != null){
+                socket.close();
+            }
+        }
+        catch (IOException e){
+            System.out.println("Something went wrong closing connection: " + e.getMessage());
+        }
+    }
+    /*
     public void sendData(ChangeLightDTO smartLightDTO){
         try {
             output.writeObject(smartLightDTO);
@@ -74,7 +126,7 @@ public class MockSocketHandler {
         catch (IOException e){
             System.out.println("Error closing connection: " + e.getMessage());
         }
-    }
+    }*/
 
     public Socket getSocket() {
         return socket;
@@ -84,19 +136,19 @@ public class MockSocketHandler {
         this.socket = socket;
     }
 
-    public ObjectOutputStream getOutput() {
+    public BufferedWriter getOutput() {
         return output;
     }
 
-    public void setOutput(ObjectOutputStream output) {
+    public void setOutput(BufferedWriter output) {
         this.output = output;
     }
 
-    public ObjectInputStream getInput() {
+    public BufferedReader getInput() {
         return input;
     }
 
-    public void setInput(ObjectInputStream input) {
+    public void setInput(BufferedReader input) {
         this.input = input;
     }
 

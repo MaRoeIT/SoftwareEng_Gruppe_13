@@ -33,6 +33,7 @@ public class ClientHandler implements Runnable {
             this.deviceID = input.readLine();
             clientHandlers.add(this);
             sendData("The device " + deviceID + " connected successfully.");
+            
         }
         catch (IOException e){
             closeConnection(socket, output, input);
@@ -43,10 +44,16 @@ public class ClientHandler implements Runnable {
         Gson gson = new Gson();
         String data;
 
-        while (socket.isConnected()){
+        while (!socket.isClosed()){
             try{
                 data = input.readLine();
-                System.out.println(data);
+
+                if (data == null){
+                    closeConnection(socket, output, input);
+                }
+                else {
+                    System.out.println(data);
+                }
             }
             catch (IOException e){
                 closeConnection(socket, output, input);
@@ -130,7 +137,7 @@ public class ClientHandler implements Runnable {
                     System.out.println("got device id");
                     String deviceID = (String) input.readObject();
                     System.out.println(deviceID);
-                    IsNewDeviceUseCase isNewDeviceUseCase = new IsNewDeviceUseCase(deviceServer);
+                    IsNewDeviceUseCase isNewDeviceUseCase = new IsNewDeviceUseCase();
                     if (isNewDeviceUseCase.isNewDevice(deviceID)){
                         //Create new IOT device adapter
                         break;
@@ -159,5 +166,21 @@ public class ClientHandler implements Runnable {
 
     public void setSocket(Socket socket) {
         this.socket = socket;
+    }
+
+    public String getDeviceID() {
+        return deviceID;
+    }
+
+    public void setDeviceID(String deviceID) {
+        this.deviceID = deviceID;
+    }
+
+    public static ArrayList<ClientHandler> getClientHandlers() {
+        return clientHandlers;
+    }
+
+    public static void setClientHandlers(ArrayList<ClientHandler> clientHandlers) {
+        ClientHandler.clientHandlers = clientHandlers;
     }
 }

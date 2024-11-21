@@ -9,11 +9,14 @@ import no.hiof.g13.interfaces.GenericDeviceDTO;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class DeviceServer{
     private ServerSocket serverSocket;
+    private ClientHandler clientHandler;
     Map<Integer, ClientHandler> clientList = new HashMap<>();
     private Integer clientID = 0;
 
@@ -26,11 +29,12 @@ public class DeviceServer{
             while (!serverSocket.isClosed()){
                 Socket socket = serverSocket.accept();
                 System.out.println("A new device has connected");
-                ClientHandler clientHandler = new ClientHandler(socket);
+                clientHandler = new ClientHandler(socket);
 
                 Thread thread = new Thread(clientHandler);
                 thread.start();
             }
+
 
         }
         catch (IOException e){
@@ -50,10 +54,84 @@ public class DeviceServer{
         }
     }
 
+    public void userInput(){
+        Scanner scanner = new Scanner(System.in);
+        String userInput;
+
+        while (!serverSocket.isClosed()){
+            userInput = scanner.nextLine();
+            switch (userInput){
+                case "getDeviceIDs":
+                    int i = 0;
+                    for (ClientHandler handler: ClientHandler.getClientHandlers()){
+                        System.out.println("Connected device " + i + " Have deviceID: " + handler.getDeviceID());
+                        i++;
+                    }
+                case "send":
+                    System.out.println("What do you want to send: ");
+                    userInput = scanner.nextLine();
+                    System.out.println("To what device (deviceID): ");
+                    String deviceID = scanner.nextLine();
+                    for (ClientHandler handler: ClientHandler.getClientHandlers()){
+                        if (handler.getDeviceID().equals(deviceID)){
+                            handler.sendData(userInput);
+                            System.out.println("Data sent");
+                        }
+                        else {
+                            System.out.println("That is not a valid deviceID");
+                        }
+                    }
+                default:
+                    System.out.println("That is not an accepted command");
+
+            }
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(9999);
         DeviceServer server = new DeviceServer(serverSocket);
+        TerminalCommandsHandler terminalCommandsHandler = new TerminalCommandsHandler(server);
+        Thread thread = new Thread(terminalCommandsHandler);
+        thread.start();
         server.startServer();
+
+
+        /*
+        while (!serverSocket.isClosed()){
+            Scanner scanner = new Scanner(System.in);
+            String userInput;
+
+            userInput = scanner.nextLine();
+            switch (userInput){
+                case "g":
+                case "getDeviceIDs":
+                    int i = 0;
+                    for (ClientHandler handler: ClientHandler.getClientHandlers()){
+                        System.out.println("Connection " + i + " has deviceID: " + handler.getDeviceID());
+                        i++;
+                    }
+                    break;
+                case "s":
+                case "send":
+                    System.out.println("Write what to send: ");
+                    userInput = scanner.nextLine();
+                    System.out.println("To what device (deviceID)? ");
+                    String deviceID = scanner.nextLine();
+                    for (ClientHandler handler: ClientHandler.getClientHandlers()){
+                        if (handler.getDeviceID().equals(deviceID)){
+                            handler.sendData(userInput);
+                            System.out.println("Data sent");
+                        }
+                        else {
+                            System.out.println("Couldn't find that device");
+                        }
+                    }
+                    break;
+                default:
+                    System.out.println("That is not an accepted command");
+            }
+        }*/
     }
 
     /*
@@ -114,4 +192,20 @@ public class DeviceServer{
             System.out.println(ID);
         }
     }*/
+
+    public ServerSocket getServerSocket() {
+        return serverSocket;
+    }
+
+    public void setServerSocket(ServerSocket serverSocket) {
+        this.serverSocket = serverSocket;
+    }
+
+    public ClientHandler getClientHandler() {
+        return clientHandler;
+    }
+
+    public void setClientHandler(ClientHandler clientHandler) {
+        this.clientHandler = clientHandler;
+    }
 }

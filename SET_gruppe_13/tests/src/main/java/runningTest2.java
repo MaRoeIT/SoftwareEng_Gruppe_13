@@ -1,13 +1,17 @@
 import models.MockSmartLight.MockIOTSmartLight;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class runningTest2 {
-    public static void main(String[] args) {
-        MockIOTSmartLight device = new MockIOTSmartLight("123");
-
+    public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
         String userInput;
+
+        System.out.println("Select deviceID: ");
+        String deviceID = scanner.nextLine();
+
+        MockIOTSmartLight device = new MockIOTSmartLight(deviceID);
 
         System.out.println("Starting values");
         System.out.println(device);
@@ -17,9 +21,7 @@ public class runningTest2 {
             userInput = scanner.nextLine();
             switch (userInput){
                 case "connect":
-                    Thread connectionThread = new Thread(device::connect);
-
-                    connectionThread.start();
+                    device.connect();
                     break;
                 case "disconnect":
                     device.disconnect();

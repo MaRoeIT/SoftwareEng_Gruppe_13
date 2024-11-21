@@ -9,8 +9,9 @@ import Server.DeviceServer;
 public class ChangeDeviceLightUseCase implements DeviceDataSender {
     private DeviceServer server;
     @Override
-    public void sendData(ChangeLightDTO dto, int deviceID) {
+    public void sendData(ChangeLightDTO dto, int deviceID) {/*
         getServer().sendDataToClient(dto,deviceID);
+        */
     }
 
     public DeviceServer getServer() {

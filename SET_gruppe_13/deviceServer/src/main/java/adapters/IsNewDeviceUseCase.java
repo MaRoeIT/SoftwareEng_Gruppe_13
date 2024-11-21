@@ -12,11 +12,9 @@ import java.util.Optional;
 
 public class IsNewDeviceUseCase implements GetMyProductsPort {
     private MyProducts myProducts;
-    private final DeviceServer server;
     private IOTDevice iotDevice;
 
-    public IsNewDeviceUseCase(DeviceServer server){
-        this.server = server;
+    public IsNewDeviceUseCase(){
     }
     @Override
     public ArrayList<IOTDevice> getMyProductList(MyProducts myProducts) {
@@ -43,10 +41,6 @@ public class IsNewDeviceUseCase implements GetMyProductsPort {
 
     public MyProducts getMyProducts() {
         return myProducts;
-    }
-
-    public DeviceServer getServer() {
-        return server;
     }
 
     public IOTDevice getIotDevice() {
