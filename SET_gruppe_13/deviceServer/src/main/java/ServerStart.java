@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class ServerStart {
+    /*
     public static void main(String[] args) {
         DeviceServer server = new DeviceServer();
         ChangeLightDTO dto = new ChangeLightDTO("wave", Color.pink, 100);
@@ -54,5 +55,5 @@ public class ServerStart {
                     System.out.println("Dto changed and ready to send: ");
             }
         }
-    }
+    }*/
 }
