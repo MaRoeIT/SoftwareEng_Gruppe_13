@@ -1,15 +1,8 @@
 package Server;
 
-import no.hiof.g13.DTO.ChangeLightDTO;
-import adapters.IsNewDeviceUseCase;
-import adapters.UpdateConnectionIDUseCase;
-import interfaces.GenericDevice;
-import no.hiof.g13.interfaces.GenericDeviceDTO;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;

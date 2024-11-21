@@ -1,20 +1,17 @@
 package Server;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
+import adapters.SendSignalUseCase;
 import com.google.gson.Gson;
-import netscape.javascript.JSObject;
 import no.hiof.g13.DTO.ChangeLightDTO;
-import adapters.IsNewDeviceUseCase;
-import adapters.UpdateConnectionIDUseCase;
-import interfaces.GenericDevice;
+import no.hiof.g13.adapters.IsNewDeviceUseCase;
 import no.hiof.g13.interfaces.GenericDeviceDTO;
+import no.hiof.g13.models.IOTDevice;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
 
 public class ClientHandler implements Runnable {
     public static ArrayList<ClientHandler> clientHandlers = new ArrayList<>();
@@ -33,7 +30,9 @@ public class ClientHandler implements Runnable {
             this.deviceID = input.readLine();
             clientHandlers.add(this);
             sendData("The device " + deviceID + " connected successfully.");
-            
+            //TODO:Send signal to core need my products
+            new SendSignalUseCase().sendSignal(20);
+            isNewProduct(IsNewDeviceUseCase.getMyProducts());
         }
         catch (IOException e){
             closeConnection(socket, output, input);
@@ -127,37 +126,15 @@ public class ClientHandler implements Runnable {
         }
     }
 
-    public void receieveDeviceID(){
-        try(ObjectInputStream input = new ObjectInputStream(socket.getInputStream())){
-            System.out.println("i am inside receive");
-            while (true){
-                String signal = (String) input.readObject();
-                System.out.println("Here is the signal: " + signal);
-                if ("DEVICE_ID".equals(signal)){
-                    System.out.println("got device id");
-                    String deviceID = (String) input.readObject();
-                    System.out.println(deviceID);
-                    IsNewDeviceUseCase isNewDeviceUseCase = new IsNewDeviceUseCase();
-                    if (isNewDeviceUseCase.isNewDevice(deviceID)){
-                        //Create new IOT device adapter
-                        break;
-                    } else if (!isNewDeviceUseCase.isNewDevice(deviceID)) {
-                        new UpdateConnectionIDUseCase(isNewDeviceUseCase.getIotDevice());
-                        break;
-                    }
-                    else {
-                        System.out.println("Something went wrong");
-                        break;
-                    }
-                }
+    public void isNewProduct(ArrayList<IOTDevice> myProducts){
+        for (IOTDevice device:myProducts){
+            if (device.getDeviceID().equals(deviceID)){
+                System.out.println("This device exsists in the list");
+                break;
             }
+            //TODO:Create new iot device and update myproducts in core
+        }
 
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public Socket getSocket() {

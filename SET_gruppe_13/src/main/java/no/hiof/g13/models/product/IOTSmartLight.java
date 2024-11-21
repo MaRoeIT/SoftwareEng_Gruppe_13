@@ -31,7 +31,6 @@ public class IOTSmartLight extends IOTHomeDevice {
     private String lightPattern;
     private Color color;
     private int lightStrength;
-    private final DeviceDataSender deviceDataSender;
 
     public IOTSmartLight(String name, String deviceID, String producer,
                         String modell, boolean wifi, int weight, HashMap<String, Integer> size,
@@ -44,7 +43,10 @@ public class IOTSmartLight extends IOTHomeDevice {
         this.color = color;
         this.power = false;
         this.lightStrength = lightStrength;
-        this.deviceDataSender = deviceDataSender;
+    }
+
+    public IOTSmartLight(String name, String deviceID, String producer, String modell, boolean wifi, int weight, HashMap<String, Integer> size, int batteryLevel) {
+        super(name, deviceID, producer, modell, wifi, weight, size, batteryLevel);
     }
 
     /**
@@ -96,8 +98,5 @@ public class IOTSmartLight extends IOTHomeDevice {
         this.lightStrength = lightStrength;
     }
 
-    public void sendLightSettings(){
-        deviceDataSender.sendData(new ChangeLightDTO(getLightPattern(), getColor(), getLightStrength()), getConnectionID());
-    }
 
 }
