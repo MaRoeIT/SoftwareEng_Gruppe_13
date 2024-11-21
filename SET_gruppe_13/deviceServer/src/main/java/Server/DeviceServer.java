@@ -1,5 +1,11 @@
 package Server;
 
+import DTO.ChangeLightDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+
+import java.awt.*;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -12,6 +18,7 @@ public class DeviceServer{
     private ClientHandler clientHandler;
     Map<Integer, ClientHandler> clientList = new HashMap<>();
     private Integer clientID = 0;
+
 
     public DeviceServer(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
@@ -47,41 +54,8 @@ public class DeviceServer{
         }
     }
 
-    public void userInput(){
-        Scanner scanner = new Scanner(System.in);
-        String userInput;
-
-        while (!serverSocket.isClosed()){
-            userInput = scanner.nextLine();
-            switch (userInput){
-                case "getDeviceIDs":
-                    int i = 0;
-                    for (ClientHandler handler: ClientHandler.getClientHandlers()){
-                        System.out.println("Connected device " + i + " Have deviceID: " + handler.getDeviceID());
-                        i++;
-                    }
-                case "send":
-                    System.out.println("What do you want to send: ");
-                    userInput = scanner.nextLine();
-                    System.out.println("To what device (deviceID): ");
-                    String deviceID = scanner.nextLine();
-                    for (ClientHandler handler: ClientHandler.getClientHandlers()){
-                        if (handler.getDeviceID().equals(deviceID)){
-                            handler.sendData(userInput);
-                            System.out.println("Data sent");
-                        }
-                        else {
-                            System.out.println("That is not a valid deviceID");
-                        }
-                    }
-                default:
-                    System.out.println("That is not an accepted command");
-
-            }
-        }
-    }
-
     public static void main(String[] args) throws IOException {
+
         ServerSocket serverSocket = new ServerSocket(9999);
         DeviceServer server = new DeviceServer(serverSocket);
         TerminalCommandsHandler terminalCommandsHandler = new TerminalCommandsHandler(server);
@@ -201,4 +175,5 @@ public class DeviceServer{
     public void setClientHandler(ClientHandler clientHandler) {
         this.clientHandler = clientHandler;
     }
+
 }

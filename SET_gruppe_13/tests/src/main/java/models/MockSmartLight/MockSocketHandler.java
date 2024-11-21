@@ -1,6 +1,8 @@
 package models.MockSmartLight;
 
-import no.hiof.g13.DTO.ChangeLightDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import netscape.javascript.JSObject;
+import DTO.ChangeLightDTO;
 
 import java.io.*;
 import java.net.Socket;
@@ -53,6 +55,25 @@ public class MockSocketHandler {
                 while (socket.isConnected()){
                     try {
                         dataFromServer = input.readLine();
+                        if (dataFromServer.equals("JSON")){
+                            StringBuilder stringBuilder = new StringBuilder();
+                            String line;
+                            while (input.ready()){
+                                line = input.readLine();
+                                stringBuilder.append(line).append(System.lineSeparator());
+                            }
+                            String content = stringBuilder.toString();
+                            ObjectMapper objectMapper = new ObjectMapper();
+                            System.out.println("how are u doing " + content);
+                            try {
+
+                                ChangeLightDTO changeLightDTO = objectMapper.readValue(content,ChangeLightDTO.class);
+                                System.out.println(changeLightDTO);
+                            }catch (IOException e){
+                                System.out.println("Something went wrong");
+                                e.printStackTrace();
+                            }
+                        }
                         System.out.println("Data recieved: " + dataFromServer);
                     } catch (IOException e) {
                         closeConnection();

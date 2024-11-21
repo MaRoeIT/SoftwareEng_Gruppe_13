@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class runningTest {
     public static void main(String[] args) {
         MockServer server = new MockServer();
-        ChangeLightDTO dto = new ChangeLightDTO("wave", Color.pink, 100);
+        ChangeLightDTO dto = new ChangeLightDTO("wave", 222222222, 100);
         Scanner scanner = new Scanner(System.in);
         String userInput;
 
@@ -49,7 +49,7 @@ public class runningTest {
                     System.out.println("Write new light strength: ");
                     int lightStrength = scanner.nextInt();
 
-                    dto.setAllVariables(lightPattern, color, lightStrength);
+                    dto.setAllVariables(lightPattern, color.getRGB(), lightStrength);
                     System.out.println("Dto changed and ready to send: ");
             }
         }

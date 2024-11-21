@@ -1,9 +1,23 @@
 package Server;
 
+import DTO.ChangeLightDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class TerminalCommandsHandler implements Runnable {
     private DeviceServer server;
+    private Map<String, Color> colorMap = Map.ofEntries(
+            Map.entry("red", Color.RED),
+            Map.entry("green", Color.GREEN),
+            Map.entry("blue", Color.BLUE),
+            Map.entry("yellow", Color.YELLOW),
+            Map.entry("white", Color.WHITE));
 
     public TerminalCommandsHandler(DeviceServer server){
         this.server = server;
@@ -41,6 +55,35 @@ public class TerminalCommandsHandler implements Runnable {
                         System.out.println("That is not a valid deviceID");
                     }
                     break;
+                case "cl":
+                case "changeLight":
+                    System.out.println("What device do you wan't to change your light on (deviceID): ");
+                    userInput = scanner.nextLine();
+                    System.out.println("Choose Light pattern (Solid, wave, pulse, rain): ");
+                    String lightPattern = scanner.nextLine();
+                    System.out.println("Choose a color (red, green, blue, yellow, white): ");
+                    Color color = getColorMap().get(scanner.nextLine());
+                    System.out.println("Choose a light strength %: ");
+                    int lightStrength = scanner.nextInt();
+                    ChangeLightDTO changeLightDTO =  new ChangeLightDTO(lightPattern, color.getRGB(), lightStrength);
+                    for (ClientHandler handler: ClientHandler.getClientHandlers()){
+                        if (handler.getDeviceID().equals(userInput)){
+                            ObjectWriter objectMapper = new ObjectMapper().writer().withDefaultPrettyPrinter();
+                            String json;
+                            try {
+                                json = objectMapper.writeValueAsString(changeLightDTO);
+                            } catch (JsonProcessingException e) {
+                                throw new RuntimeException(e);
+                            }
+                            handler.sendData("JSON");
+                            handler.sendData(json);
+                            System.out.println("Data sent");
+                        }
+                        else {
+                            System.out.println("That is not a valid deviceID");
+                        }
+                    }
+                    break;
                 default:
                     System.out.println("That is not an accepted command");
                     break;
@@ -49,4 +92,11 @@ public class TerminalCommandsHandler implements Runnable {
         }
     }
 
+    public Map<String, Color> getColorMap() {
+        return colorMap;
+    }
+
+    public void setColorMap(Map<String, Color> colorMap) {
+        this.colorMap = colorMap;
+    }
 }

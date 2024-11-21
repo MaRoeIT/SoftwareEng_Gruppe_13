@@ -40,7 +40,6 @@ public class ClientHandler implements Runnable {
     }
 
     public void run(){
-        Gson gson = new Gson();
         String data;
 
         while (!socket.isClosed()){

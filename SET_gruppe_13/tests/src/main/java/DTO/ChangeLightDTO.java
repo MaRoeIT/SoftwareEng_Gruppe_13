@@ -1,5 +1,6 @@
 package DTO;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import interfaces.GenericDevice;
 
 import java.awt.*;
@@ -7,12 +8,19 @@ import java.io.Serializable;
 
 public class ChangeLightDTO implements GenericDevice, Serializable {
     private String lightPattern;
-    private Color color;
+    private int rgb;
     private int lightStrength;
 
-    public ChangeLightDTO(String lightPattern, Color color, int lightStrength) {
+    public ChangeLightDTO(){
+
+    }
+
+    public ChangeLightDTO(
+            @JsonProperty("lightPattern") String lightPattern,
+            @JsonProperty("rgb") int rgb,
+            @JsonProperty("lightStrength") int lightStrength) {
         this.lightPattern = lightPattern;
-        this.color = color;
+        this.rgb = rgb;
         this.lightStrength = lightStrength;
     }
 
@@ -20,7 +28,7 @@ public class ChangeLightDTO implements GenericDevice, Serializable {
     public String toString() {
         return "SendSmartLightDTO{" +
                 "lightPattern='" + lightPattern + '\'' +
-                ", color=" + color +
+                ", rgb=" + rgb +
                 ", lightStrength=" + lightStrength +
                 '}';
     }
@@ -33,12 +41,12 @@ public class ChangeLightDTO implements GenericDevice, Serializable {
         this.lightPattern = lightPattern;
     }
 
-    public Color getColor() {
-        return color;
+    public int getRgb() {
+        return rgb;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
+    public void setRgb(int rgb) {
+        this.rgb = rgb;
     }
 
     public int getLightStrength() {
@@ -49,9 +57,9 @@ public class ChangeLightDTO implements GenericDevice, Serializable {
         this.lightStrength = lightStrength;
     }
 
-    public void setAllVariables(String lightPattern, Color color, int lightStrength){
+    public void setAllVariables(String lightPattern, int rgb, int lightStrength){
         this.lightPattern = lightPattern;
-        this.color = color;
+        this.rgb = rgb;
         this.lightStrength = lightStrength;
     }
 }
