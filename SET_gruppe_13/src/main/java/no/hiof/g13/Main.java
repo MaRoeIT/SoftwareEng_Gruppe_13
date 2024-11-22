@@ -14,8 +14,7 @@ import no.hiof.g13.services.GetProductsAPI_Service;
 public class Main {
     public static void main(String[] args) {
         Javalin app = Javalin.create(javalinConfig -> {
-            javalinConfig.staticFiles.enableWebjars();
-            javalinConfig.vue.vueInstanceNameInJs = "app";
+
         }).start();
 
         UserRepositoryPort userRepositoryPort = new UserAdapter();
