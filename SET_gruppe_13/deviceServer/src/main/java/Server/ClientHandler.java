@@ -1,17 +1,12 @@
 package Server;
 
 import adapters.SendSignalUseCase;
-import com.google.gson.Gson;
-import no.hiof.g13.DTO.ChangeLightDTO;
 import no.hiof.g13.adapters.IsNewDeviceUseCase;
-import no.hiof.g13.interfaces.GenericDeviceDTO;
 import no.hiof.g13.models.IOTDevice;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 public class ClientHandler implements Runnable {
     public static ArrayList<ClientHandler> clientHandlers = new ArrayList<>();
@@ -19,8 +14,6 @@ public class ClientHandler implements Runnable {
     private BufferedWriter output;
     private BufferedReader input;
     private String deviceID;
-    private DeviceServer deviceServer;
-    private BlockingQueue<GenericDeviceDTO> sendDataQueue = new LinkedBlockingQueue<>();
 
     public ClientHandler(Socket socket){
         try{
@@ -30,7 +23,6 @@ public class ClientHandler implements Runnable {
             this.deviceID = input.readLine();
             clientHandlers.add(this);
             sendData("The device " + deviceID + " connected successfully.");
-            //TODO:Send signal to core need my products
             new SendSignalUseCase().sendSignal(20);
             isNewProduct(IsNewDeviceUseCase.getMyProducts());
         }
@@ -58,24 +50,6 @@ public class ClientHandler implements Runnable {
                 break;
             }
         }
-        /*
-        try (ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream())) {
-
-            try{
-                while (true){
-                    GenericDeviceDTO data = sendDataQueue.take();
-                    output.writeObject("DATA_INCOMING");
-                    System.out.println("data incomming");
-                    output.writeObject(data);
-                }
-            }
-            catch (InterruptedException | NullPointerException | ClassCastException | IllegalArgumentException e){
-                System.out.println(e.getMessage());
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
     }
 
     public void sendData(String data){
@@ -111,37 +85,24 @@ public class ClientHandler implements Runnable {
             }
         }
         catch (IOException e){
+            //TODO:Better exception handling
             System.out.println("Something went wrong closing connection: " + e.getMessage());
         }
     }
 
-    public void sendDataToQueue(ChangeLightDTO data){
-        try {
-            sendDataQueue.put(data);
-            System.out.println("Data sent to queue");
-        }
-        catch (InterruptedException | NullPointerException | ClassCastException | IllegalArgumentException e){
-            System.out.println(e.getMessage());
-        }
-    }
-
     public void isNewProduct(ArrayList<IOTDevice> myProducts){
+        boolean newDevice = false;
         for (IOTDevice device:myProducts){
             if (device.getDeviceID().equals(deviceID)){
-                System.out.println("This device exsists in the list");
+                System.out.println("The device " + deviceID + " has reconnected");
+                newDevice = true;
                 break;
             }
-            //TODO:Create new iot device and update myproducts in core
         }
-
-    }
-
-    public Socket getSocket() {
-        return socket;
-    }
-
-    public void setSocket(Socket socket) {
-        this.socket = socket;
+        if (!newDevice){
+            System.out.println("New device connected, adding device to your products");
+            //TODO:Create new IOTDevice and update MyProducts in core
+        }
     }
 
     public String getDeviceID() {

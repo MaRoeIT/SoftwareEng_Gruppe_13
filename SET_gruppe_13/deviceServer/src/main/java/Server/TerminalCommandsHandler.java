@@ -1,23 +1,21 @@
 package Server;
 
-import DTO.ChangeLightDTO;
+import no.hiof.g13.DTO.ChangeLightDTO;
 import adapters.SendSignalUseCase;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import no.hiof.g13.adapters.GetLightSettingsUseCase;
-import no.hiof.g13.adapters.IsNewDeviceUseCase;
 import no.hiof.g13.models.IOTDevice;
 import no.hiof.g13.models.product.IOTSmartLight;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 
 public class TerminalCommandsHandler implements Runnable {
-    private DeviceServer server;
+    private final DeviceServer server;
     private Map<String, Color> colorMap = Map.ofEntries(
             Map.entry("red", Color.RED),
             Map.entry("green", Color.GREEN),
@@ -65,12 +63,16 @@ public class TerminalCommandsHandler implements Runnable {
                 case "changeLight":
                     System.out.println("What device do you wan't to change your light on (deviceID): ");
                     userInput = scanner.nextLine();
+
                     System.out.println("Choose Light pattern (Solid, wave, pulse, rain): ");
                     String lightPattern = scanner.nextLine();
+
                     System.out.println("Choose a color (red, green, blue, yellow, white): ");
                     int rgb = getColorMap().get(scanner.nextLine()).getRGB();
+
                     System.out.println("Choose a light strength %: ");
                     int lightStrength = scanner.nextInt();
+
                     ChangeLightDTO changeLightDTO =  new ChangeLightDTO(lightPattern, rgb, lightStrength);
                     for (ClientHandler handler: ClientHandler.getClientHandlers()){
                         if (handler.getDeviceID().equals(userInput)){
@@ -85,35 +87,32 @@ public class TerminalCommandsHandler implements Runnable {
                             handler.sendData(json);
                             System.out.println("Data sent");
                         }
-                        else {
-                            System.out.println("That is not a valid deviceID");
-                        }
                     }
                     break;
                 case "on":
                 case "turnOn":
                     System.out.println("What device do you wan't to turn on (deviceID): ");
                     userInput = scanner.nextLine();
+
                     for (ClientHandler handler: ClientHandler.getClientHandlers()){
                         if (handler.getDeviceID().equals(userInput)){
                             handler.sendData("1");
                             System.out.println("Data sent");
                             break;
                         }
-                        System.out.println("That is not a valid deviceID");
                     }
                     break;
                 case "off":
                 case "turnOff":
                     System.out.println("What device do you wan't to turn off (deviceID): ");
                     userInput = scanner.nextLine();
+
                     for (ClientHandler handler: ClientHandler.getClientHandlers()){
                         if (handler.getDeviceID().equals(userInput)){
                             handler.sendData("2");
                             System.out.println("Data sent");
                             break;
                         }
-                        System.out.println("That is not a valid deviceID");
                     }
                     break;
                 case "lc":
@@ -126,7 +125,6 @@ public class TerminalCommandsHandler implements Runnable {
                 default:
                     System.out.println("That is not an accepted command");
                     break;
-
             }
         }
     }
@@ -134,10 +132,10 @@ public class TerminalCommandsHandler implements Runnable {
     public void getLightSettings(ArrayList<IOTDevice> devices, String deviceID){
         for (IOTDevice device: devices){
             if (device.getDeviceID().equals(deviceID)){
-                if (device instanceof IOTSmartLight){
-                    IOTSmartLight iotSmartLight = (IOTSmartLight) device;
+                if (device instanceof IOTSmartLight iotSmartLight){
                     ChangeLightDTO changeLightDTO = new ChangeLightDTO(iotSmartLight.getLightPattern(),
                             iotSmartLight.getColor().getRGB(), iotSmartLight.getLightStrength());
+
                     ObjectWriter objectMapper = new ObjectMapper().writer().withDefaultPrettyPrinter();
                     String json;
                     try {

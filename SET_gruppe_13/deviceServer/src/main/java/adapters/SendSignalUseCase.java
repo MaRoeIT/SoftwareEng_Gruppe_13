@@ -3,6 +3,9 @@ package adapters;
 import no.hiof.g13.ports.in.ServerSignalPort;
 import no.hiof.g13.SignalListener;
 
+/**
+ * 
+ */
 public class SendSignalUseCase implements ServerSignalPort {
     private final SignalListener signalListener;
 

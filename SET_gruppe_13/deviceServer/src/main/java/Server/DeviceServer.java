@@ -1,24 +1,12 @@
 package Server;
 
-import DTO.ChangeLightDTO;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-
-import java.awt.*;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
 
 public class DeviceServer{
     private ServerSocket serverSocket;
     private ClientHandler clientHandler;
-    Map<Integer, ClientHandler> clientList = new HashMap<>();
-    private Integer clientID = 0;
-
 
     public DeviceServer(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
@@ -28,17 +16,16 @@ public class DeviceServer{
         try{
             while (!serverSocket.isClosed()){
                 Socket socket = serverSocket.accept();
-                System.out.println("A new device has connected");
+                System.out.println("A device has connected");
                 clientHandler = new ClientHandler(socket);
 
                 Thread thread = new Thread(clientHandler);
                 thread.start();
             }
-
-
         }
         catch (IOException e){
             System.out.println("I/O failed at start server: " + e.getMessage());
+            closeServerSockets();
         }
     }
 
@@ -62,103 +49,7 @@ public class DeviceServer{
         Thread thread = new Thread(terminalCommandsHandler);
         thread.start();
         server.startServer();
-
-
-        /*
-        while (!serverSocket.isClosed()){
-            Scanner scanner = new Scanner(System.in);
-            String userInput;
-
-            userInput = scanner.nextLine();
-            switch (userInput){
-                case "g":
-                case "getDeviceIDs":
-                    int i = 0;
-                    for (ClientHandler handler: ClientHandler.getClientHandlers()){
-                        System.out.println("Connection " + i + " has deviceID: " + handler.getDeviceID());
-                        i++;
-                    }
-                    break;
-                case "s":
-                case "send":
-                    System.out.println("Write what to send: ");
-                    userInput = scanner.nextLine();
-                    System.out.println("To what device (deviceID)? ");
-                    String deviceID = scanner.nextLine();
-                    for (ClientHandler handler: ClientHandler.getClientHandlers()){
-                        if (handler.getDeviceID().equals(deviceID)){
-                            handler.sendData(userInput);
-                            System.out.println("Data sent");
-                        }
-                        else {
-                            System.out.println("Couldn't find that device");
-                        }
-                    }
-                    break;
-                default:
-                    System.out.println("That is not an accepted command");
-            }
-        }*/
     }
-
-    /*
-
-    @Override
-    public void run(){
-        listen();
-    }
-
-    public void listen() {
-        try (ServerSocket serverSocket = new ServerSocket(0)) {
-            System.out.println("Server is listening on port: " + serverSocket.getLocalPort());
-            while (true) {
-                Socket socket = serverSocket.accept();
-                System.out.println("New client connected");
-
-                ClientHandler clientHandler = new ClientHandler(socket, this);
-
-                //clientHandler.receieveDeviceID();
-
-                clientList.put(getClientID(), clientHandler);
-                updateClientID();
-                clientHandler.start();
-            }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void sendDataToClient(ChangeLightDTO data, Integer clientID){
-        clientList.get(clientID).sendDataToQueue(data);
-    }
-
-    public Integer getClientID() {
-        return clientID;
-    }
-
-    public void setClientID(Integer clientID) {
-        this.clientID = clientID;
-    }
-
-    public void updateClientID(){
-        //Change this so that it Updates core every time the ID's are updated
-        this.clientID = this.clientID + 1;
-    }
-
-    public Map<Integer, ClientHandler> getClientList() {
-        return clientList;
-    }
-
-    public void setClientList(Map<Integer, ClientHandler> clientList) {
-        this.clientList = clientList;
-    }
-
-    public void printClientListID(){
-        for (Integer ID : clientList.keySet()){
-            System.out.println(ID);
-        }
-    }*/
 
     public ServerSocket getServerSocket() {
         return serverSocket;
