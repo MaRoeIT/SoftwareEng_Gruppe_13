@@ -6,14 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="43f8d6f9-e05a-4cc4-9027-5e97656203ba" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/DTO/ChangeLightDTO.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/Server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/Server/ClientHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/Server/DeviceServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/Server/DeviceServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/Server/TerminalCommandsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/Server/TerminalCommandsHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/ServerStart.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/adapters/ChangeDeviceLightUseCase.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/adapters/SendSignalUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/adapters/SendSignalUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/adapters/UpdateConnectionIDUseCase.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/interfaces/GenericDevice.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -224,7 +221,7 @@
       <workItem from="1731575069035" duration="3094000" />
       <workItem from="1731770533184" duration="17757000" />
       <workItem from="1731954616981" duration="104945000" />
-      <workItem from="1732224464037" duration="9579000" />
+      <workItem from="1732224464037" duration="12757000" />
     </task>
     <servers />
   </component>

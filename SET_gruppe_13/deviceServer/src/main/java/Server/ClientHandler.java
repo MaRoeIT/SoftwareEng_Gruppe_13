@@ -8,13 +8,26 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/**
+ * Handles the connection through sockets for each individual connection to the server
+ *
+ * Handles everything that happens when a device connects to the server and uses threads through the runnable interface.
+ * This does so the server can hold up connection with multiple devices at once and have control over witch connection
+ * is tied to witch device.
+ */
 public class ClientHandler implements Runnable {
+    //static list that keep tabs on all the connections, closed connections are removed from the list.
     public static ArrayList<ClientHandler> clientHandlers = new ArrayList<>();
     private Socket socket;
     private BufferedWriter output;
     private BufferedReader input;
     private String deviceID;
 
+    /**
+     * The constructor saves the socket and create output and input streams. it also checks when there is a new connection
+     * if the device exists or not in MyProducts in the core.
+     * @param socket
+     */
     public ClientHandler(Socket socket){
         try{
             this.socket = socket;
@@ -31,6 +44,10 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    /**
+     * Starts a thread when clientHandler.start() is called.
+     * It loops as long as connection is open and listens to the input stream.
+     */
     public void run(){
         String data;
 
@@ -52,18 +69,18 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    /**
+     * Sends a String to a device that is connected to this socket.
+     * @param data
+     */
     public void sendData(String data){
-        for (ClientHandler clientHandler:clientHandlers){
-            try{
-                if (clientHandler.deviceID.equals(deviceID)){
-                    clientHandler.output.write(data);
-                    clientHandler.output.newLine();
-                    clientHandler.output.flush();
-                }
-            }
-            catch (IOException e){
-                closeConnection(socket, output, input);
-            }
+        try{
+            this.output.write(data);
+            this.output.newLine();
+            this.output.flush();
+        }
+        catch (IOException e){
+            closeConnection(socket, output, input);
         }
     }
 
@@ -71,6 +88,12 @@ public class ClientHandler implements Runnable {
         clientHandlers.remove(this);
     }
 
+    /**
+     * closes connection first to output stream then input stream and finally the socket
+     * @param socket
+     * @param output
+     * @param input
+     */
     public void closeConnection(Socket socket, BufferedWriter output, BufferedReader input){
         removeClientHandler();
         try{
@@ -90,6 +113,10 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    /**
+     * Checks if a device is new for this user or if it already exists in its product list
+     * @param myProducts
+     */
     public void isNewProduct(ArrayList<IOTDevice> myProducts){
         boolean newDevice = false;
         for (IOTDevice device:myProducts){

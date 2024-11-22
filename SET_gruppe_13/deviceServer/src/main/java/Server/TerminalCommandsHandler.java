@@ -14,8 +14,14 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * A class for controlling the terminal commands. It runs on threads through the interface runnable and will run even
+ * when other work is done by the program.
+ */
 public class TerminalCommandsHandler implements Runnable {
     private final DeviceServer server;
+    //A map that contains some colors, this is so the user won't need to enter rgb values. In the future the program
+    //will handle interaction through the frontend where there will be a color picker that fikses the rgb values.
     private Map<String, Color> colorMap = Map.ofEntries(
             Map.entry("red", Color.RED),
             Map.entry("green", Color.GREEN),
@@ -27,6 +33,16 @@ public class TerminalCommandsHandler implements Runnable {
         this.server = server;
     }
 
+    /**
+     * Runs all the commands for the terminal version of this program.
+     * Commands:
+     * g or getDeviceIDs: shows all the connected devices ID's (for selecting what device to use other commands on)
+     * s or send: Sends a user input string to the device selected
+     * cl or changeLight: changes the light settings of the chosen device, the user selects the values from terminal.
+     * on or turnOn: Turns the device on if it isn't already on
+     * off or turnOff: Turns the device off if it isn't already off
+     * lc or lightSettingsFromCore: Changes the light settings of the device based on what the cores device settings are
+     */
     @Override
     public void run() {
         Scanner scanner = new Scanner(System.in);
@@ -129,6 +145,12 @@ public class TerminalCommandsHandler implements Runnable {
         }
     }
 
+    /**
+     * Deals with the MyProducts list from the core and then sends it over to the device. Needs to get
+     * ArrayList<IOTDevice> devices from the core. It uses jackson to transform a dto object over the socket to the device
+     * @param devices
+     * @param deviceID
+     */
     public void getLightSettings(ArrayList<IOTDevice> devices, String deviceID){
         for (IOTDevice device: devices){
             if (device.getDeviceID().equals(deviceID)){
