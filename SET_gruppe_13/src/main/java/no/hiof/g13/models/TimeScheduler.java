@@ -5,6 +5,16 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 
+/**
+ * Class to make schedules for the IOTDevice so the IOT device can run even on times when your not home.
+ * Example:
+ * <pr>
+ * TimeScheduler vacumCleanerSchedule = new TimeSchedule();
+ *
+ * vacumCleanerSchedule.addScheduledRun(new DayTime(1,13,30), new DayTime(1, 14, 30))
+ * </pr>
+ * This will make it have a schedule for the first day in the week from 13:30 to 14:30
+ */
 public class TimeScheduler {
 
     private ArrayList<DayTime> startTime = new ArrayList<>();

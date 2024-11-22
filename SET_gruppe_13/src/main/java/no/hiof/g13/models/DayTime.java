@@ -1,5 +1,9 @@
 package no.hiof.g13.models;
 
+/**
+ * A class to make a custom datatype object for use with the TimeScheduler. Holds the data for a specific day
+ * so you can use it to create a start and stop time on the TimeScheduler.
+ */
 public class DayTime {
     private int day;
     private int hour;

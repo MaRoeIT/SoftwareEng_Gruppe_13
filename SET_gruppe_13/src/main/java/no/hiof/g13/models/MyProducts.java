@@ -6,11 +6,11 @@ import java.util.Objects;
 
 /**
  * Handles the users collection of IOT products currently installed.
- *
+ * <p>
  * The class is responsible for adding and removal of IOTDevices from it's list of devices.
- *
+ * <p>
  * This class is reliant on communicating with a persistent storage, the class needs to get this data to work properly.
- *
+ * <p>
  * Example usage:
  * MyProducts myProducts = new MyProducts();
  * myProducts.addProducts(IOTDevice1, IOTDevice2, ...);

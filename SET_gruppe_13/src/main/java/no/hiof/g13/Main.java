@@ -10,6 +10,10 @@ import no.hiof.g13.services.GetUsersAPI_Service;
 import java.awt.*;
 import java.net.URI;
 
+/**
+ * Runs the frontend through javalin
+ * TODO:Write more about this class
+ */
 public class Main {
     public static void main(String[] args) {
         Javalin app = Javalin.create(javalinConfig -> {

@@ -30,7 +30,8 @@ public class IOTSmartLight extends IOTHomeDevice {
 
     public IOTSmartLight(String name, String deviceID, String producer,
                         String modell, boolean wifi, int weight, HashMap<String, Integer> size,
-                        int batteryLevel, int energyUsage, String lightPattern, Color color, int lightStrength) {
+                        int batteryLevel, int energyUsage, String lightPattern, Color color,
+                         int lightStrength) {
         
         super(name, deviceID, producer, modell, wifi, weight, size, batteryLevel);
         this.energyUsage = energyUsage;
@@ -38,6 +39,10 @@ public class IOTSmartLight extends IOTHomeDevice {
         this.color = color;
         this.power = false;
         this.lightStrength = lightStrength;
+    }
+
+    public IOTSmartLight(String name, String deviceID, String producer, String modell, boolean wifi, int weight, HashMap<String, Integer> size, int batteryLevel) {
+        super(name, deviceID, producer, modell, wifi, weight, size, batteryLevel);
     }
 
     /**
@@ -88,4 +93,6 @@ public class IOTSmartLight extends IOTHomeDevice {
     public void setLightStrength(int lightStrength) {
         this.lightStrength = lightStrength;
     }
+
+
 }

@@ -1,18 +1,21 @@
 package no.hiof.g13.models;
 
-//Generell klasse som inneholder all basisinformasjon generelt om IOT enheter.
+/**
+ * General class containing general properties of IOTDevices.
+ * Will be changed out for more flexibility.
+ */
 public abstract class IOTDevice {
+    //TODO:Change structure to mix of interface and dependency injection
 
     protected String name;
     protected String deviceID;
     protected String producer;
     protected float weight;
-    //Bruker enheten wifi eller ikke til å koble til.
     protected boolean wifi;
     protected String modell;
     protected boolean power;
+    protected Integer connectionID;
 
-    //konstruktør
     public IOTDevice(String name, String deviceID, String producer, int weight, boolean wifi, String modell){
         this.name = name;
         this.deviceID = deviceID;
@@ -72,5 +75,13 @@ public abstract class IOTDevice {
 
     public void setModell(String modell) {
         this.modell = modell;
+    }
+
+    public Integer getConnectionID() {
+        return connectionID;
+    }
+
+    public void setConnectionID(Integer connectionID) {
+        this.connectionID = connectionID;
     }
 }
