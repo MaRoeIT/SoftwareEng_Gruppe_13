@@ -46,102 +46,139 @@ public class TerminalCommandsHandler implements Runnable {
     @Override
     public void run() {
         Scanner scanner = new Scanner(System.in);
-        String userInput;
 
         while (!server.getServerSocket().isClosed()){
             System.out.println("Write a command: ");
-            userInput = scanner.nextLine();
+            String userInput = scanner.nextLine().trim();
             switch (userInput){
                 case "g":
                 case "getDeviceIDs":
-                    int i = 0;
-                    for (ClientHandler handler: ClientHandler.getClientHandlers()){
-                        System.out.println("Connected device " + i + " Have deviceID: " + handler.getDeviceID());
-                        i++;
-                    }
+                    handleGetDeviceIDs();
                     break;
                 case "s":
                 case "send":
-                    System.out.println("What do you want to send: ");
-                    userInput = scanner.nextLine();
-                    System.out.println("To what device (deviceID): ");
-                    String deviceID = scanner.nextLine();
-                    for (ClientHandler handler: ClientHandler.getClientHandlers()){
-                        if (handler.getDeviceID().equals(deviceID)){
-                            handler.sendData(userInput);
-                            System.out.println("Data sent");
-                            break;
-                        }
-                        System.out.println("That is not a valid deviceID");
-                    }
+                    handleSend(scanner);
                     break;
                 case "cl":
                 case "changeLight":
-                    System.out.println("What device do you wan't to change your light on (deviceID): ");
-                    userInput = scanner.nextLine();
-
-                    System.out.println("Choose Light pattern (Solid, wave, pulse, rain): ");
-                    String lightPattern = scanner.nextLine();
-
-                    System.out.println("Choose a color (red, green, blue, yellow, white): ");
-                    int rgb = getColorMap().get(scanner.nextLine()).getRGB();
-
-                    System.out.println("Choose a light strength %: ");
-                    int lightStrength = scanner.nextInt();
-
-                    ChangeLightDTO changeLightDTO =  new ChangeLightDTO(lightPattern, rgb, lightStrength);
-                    for (ClientHandler handler: ClientHandler.getClientHandlers()){
-                        if (handler.getDeviceID().equals(userInput)){
-                            ObjectWriter objectMapper = new ObjectMapper().writer().withDefaultPrettyPrinter();
-                            String json;
-                            try {
-                                json = objectMapper.writeValueAsString(changeLightDTO);
-                            } catch (JsonProcessingException e) {
-                                throw new RuntimeException(e);
-                            }
-                            handler.sendData("JSON");
-                            handler.sendData(json);
-                            System.out.println("Data sent");
-                        }
-                    }
+                    handleChangeLight(scanner);
                     break;
                 case "on":
                 case "turnOn":
-                    System.out.println("What device do you wan't to turn on (deviceID): ");
-                    userInput = scanner.nextLine();
-
-                    for (ClientHandler handler: ClientHandler.getClientHandlers()){
-                        if (handler.getDeviceID().equals(userInput)){
-                            handler.sendData("1");
-                            System.out.println("Data sent");
-                            break;
-                        }
-                    }
+                    handleTurnOn(scanner);
                     break;
                 case "off":
                 case "turnOff":
-                    System.out.println("What device do you wan't to turn off (deviceID): ");
-                    userInput = scanner.nextLine();
-
-                    for (ClientHandler handler: ClientHandler.getClientHandlers()){
-                        if (handler.getDeviceID().equals(userInput)){
-                            handler.sendData("2");
-                            System.out.println("Data sent");
-                            break;
-                        }
-                    }
+                    handleTurnOff(scanner);
                     break;
                 case "lc":
                 case "lightSettingFromCore":
-                    System.out.println("What device do you wan't to change your light on (deviceID): ");
-                    userInput = scanner.nextLine();
-                    new SendSignalUseCase().sendSignal(30);
-                    getLightSettings(GetLightSettingsUseCase.getMyProducts(), userInput);
+                    handleLightSettingsFromCore(scanner);
                     break;
                 default:
                     System.out.println("That is not an accepted command");
                     break;
             }
+        }
+    }
+
+    public void handleGetDeviceIDs(){
+        int i = 0;
+        for (ClientHandler handler: ClientHandler.getClientHandlers()){
+            System.out.println("Connected device " + i + " Have deviceID: " + handler.getDeviceID());
+            i++;
+        }
+    }
+
+    public void handleSend(Scanner scanner){
+        System.out.println("What do you want to send: ");
+        String message = scanner.nextLine();
+
+        System.out.println("To what device (deviceID): ");
+        String deviceID = scanner.nextLine();
+
+        boolean validateDevice = false;
+
+        for (ClientHandler handler: ClientHandler.getClientHandlers()){
+            if (handler.getDeviceID().equals(deviceID)){
+                handler.sendData(message);
+                System.out.println("Data sent");
+                validateDevice = true;
+                break;
+            }
+            System.out.println("That is not a valid deviceID");
+        }
+        if (!validateDevice){
+            System.out.println("That is not a valid deviceID, try again");
+            handleSend(scanner);
+        }
+    }
+
+    public void handleChangeLight(Scanner scanner){
+        System.out.println("What device do you wan't to change your light on (deviceID): ");
+        String deviceID = scanner.nextLine();
+
+        System.out.println("Choose Light pattern (Solid, wave, pulse, rain): ");
+        String lightPattern = scanner.nextLine();
+
+        System.out.println("Choose a color (red, green, blue, yellow, white): ");
+        int rgb = getColorMap().get(scanner.nextLine()).getRGB();
+
+        System.out.println("Choose a light strength %: ");
+        int lightStrength = scanner.nextInt();
+        scanner.nextLine();
+
+        ChangeLightDTO changeLightDTO =  new ChangeLightDTO(lightPattern, rgb, lightStrength);
+        sendChangeLightDTO(deviceID, changeLightDTO);
+    }
+
+    public void handleTurnOn(Scanner scanner){
+        System.out.println("What device do you want to turn on (deviceID): ");
+        String deviceID = scanner.nextLine();
+        sendCommandToDevice(deviceID, "1");
+    }
+
+    public void handleTurnOff(Scanner scanner){
+        System.out.println("What device do you wan't to turn off (deviceID): ");
+        String deviceID = scanner.nextLine();
+        sendCommandToDevice(deviceID, "2");
+    }
+
+    public void handleLightSettingsFromCore(Scanner scanner){
+        System.out.println("What device do you want to change your light on (deviceID): ");
+        String deviceID = scanner.nextLine();
+        new SendSignalUseCase().sendSignal(30);
+        getLightSettings(GetLightSettingsUseCase.getMyProducts(), deviceID);
+    }
+
+    public void sendChangeLightDTO(String deviceID, ChangeLightDTO changeLightDTO){
+        ObjectWriter objectMapper = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        try {
+            String json = objectMapper.writeValueAsString(changeLightDTO);
+            for (ClientHandler handler: ClientHandler.getClientHandlers()){
+                if (handler.getDeviceID().equals(deviceID)){
+                    handler.sendData("JSON");
+                    handler.sendData(json);
+                    System.out.println("Data sent");
+                }
+            }
+        }catch (JsonProcessingException e){
+            System.err.println("Failed to serialize ChangeLightDTO: " + e.getMessage());
+        }
+    }
+
+    public void sendCommandToDevice(String deviceID, String command){
+        boolean validateDevice = false;
+        for (ClientHandler handler: ClientHandler.getClientHandlers()){
+            if (handler.getDeviceID().equals(deviceID)){
+                handler.sendData(command);
+                System.out.println("Data sent");
+                validateDevice = true;
+                break;
+            }
+        }
+        if (!validateDevice){
+            System.out.println("This is not a valid deviceID");
         }
     }
 
@@ -153,37 +190,15 @@ public class TerminalCommandsHandler implements Runnable {
      */
     public void getLightSettings(ArrayList<IOTDevice> devices, String deviceID){
         for (IOTDevice device: devices){
-            if (device.getDeviceID().equals(deviceID)){
-                if (device instanceof IOTSmartLight iotSmartLight){
-                    ChangeLightDTO changeLightDTO = new ChangeLightDTO(iotSmartLight.getLightPattern(),
-                            iotSmartLight.getColor().getRGB(), iotSmartLight.getLightStrength());
-
-                    ObjectWriter objectMapper = new ObjectMapper().writer().withDefaultPrettyPrinter();
-                    String json;
-                    try {
-                        json = objectMapper.writeValueAsString(changeLightDTO);
-                    } catch (JsonProcessingException e) {
-                        throw new RuntimeException(e);
-                    }
-                    for (ClientHandler handler: ClientHandler.getClientHandlers()){
-                        if (handler.getDeviceID().equals(deviceID)){
-                            handler.sendData("JSON");
-                            handler.sendData(json);
-                            System.out.println("Data sent");
-                        }
-                    }
-
-                }
-
+            if (device.getDeviceID().equals(deviceID) && device instanceof IOTSmartLight iotSmartLight){
+                ChangeLightDTO changeLightDTO = new ChangeLightDTO(iotSmartLight.getLightPattern(),
+                        iotSmartLight.getColor().getRGB(), iotSmartLight.getLightStrength());
+                sendChangeLightDTO(deviceID, changeLightDTO);
             }
         }
     }
 
     public Map<String, Color> getColorMap() {
         return colorMap;
-    }
-
-    public void setColorMap(Map<String, Color> colorMap) {
-        this.colorMap = colorMap;
     }
 }
