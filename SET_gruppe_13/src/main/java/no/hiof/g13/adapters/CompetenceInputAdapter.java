@@ -1,7 +1,7 @@
 package no.hiof.g13.adapters;
 
 import no.hiof.g13.models.Question;
-import no.hiof.g13.ports.out.CompetenceInputPort;
+import no.hiof.g13.ports.CompetenceInputPort;
 
 public class CompetenceInputAdapter implements CompetenceInputPort {
 

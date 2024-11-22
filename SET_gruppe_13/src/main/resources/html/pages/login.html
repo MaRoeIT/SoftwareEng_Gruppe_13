@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../css/style.css" type="text/css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+  <header class="grid-header">
+    <nav id="mobile-nav">
+      <a href="../../index.html"><img src="../ressurser/logo1.jpg" id="header-logo" alt="header-logo"></a>
+      <ul>
+        <li><a href="../index.html" id="current-page" style="color: black;">Produkter</a></li>
+        <li><a href="about.html#contact-form" style="color: black;">Kontakt oss</a></li>
+        <li><a href="about.html" style="color: black;">Om oss</a></li>
+        <li><a href="login.html" id="contact-btn" style="color: black;">Logg inn</a></li>
+      </ul>
+    </nav>
+  </header>
+<div class="container mt-5 justify-content-center">
+  <h2>Logg inn</h2>
+  <form id="loginForm">
+    <div class="mb-3">
+      <label for="epost" class="form-label">Epost:</label>
+      <input type="email" id="epost" name="epost" required class="form-control" />
+    </div>
+    <div class="mb-3">
+      <label for="passord" class="form-label">Passord:</label>
+      <input type="password" id="passord" name="passord" required class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Logg inn</button>
+    <a class="btn btn-primary" href="signup.html">Ny Bruker</a>
+  </form>
+  <div class="mt-3" id="loginMessage"></div>
+
+  <div>
+    <h2>Login detaljer</h2>
+    <h3>Epost: john.doe@example.com</h3>
+    <h3>Passord: password123</h3>
+    <h3>Epost: jane.smith@example.com</h3>
+    <h3>Passord: password456</h3>
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('loginForm');
+    const loginMessage = document.querySelector("#loginMessage");
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const epost = document.getElementById('epost').value;
+      const passord = document.getElementById('passord').value;
+      let userId = -1;
+
+      try {
+        const response = await fetch('/api/authenticate/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          credentials: 'include',
+          body: JSON.stringify({ epost: epost, passord: passord })
+        });
+
+        // First check if the response is ok
+        if (!response.ok) {
+            const errorData = await response.json();
+            loginMessage.textContent = errorData.error || 'Login failed';
+            return;
+        }
+
+        const result = await response.json();
+
+        console.log(result);
+
+        if (result.isAuthenticated && result.userId) {
+          loginMessage.textContent = 'Innlogging vellykket! Laster profil...';
+          userId = result.userId;
+          setTimeout(() => {
+            window.location = `/pages/user.html?id=${result.userId}`;
+          }, 3000);
+        } else {
+          loginMessage.textContent = 'Kunne ikke logge inn. Sjekk at du har skrevet riktig.';
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        loginMessage.textContent = 'En feil oppstod. Vennligst prøv igjen.';
+      }
+    });
+  });
+</script>
+</body>
+</html>

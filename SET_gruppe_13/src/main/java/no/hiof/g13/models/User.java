@@ -4,17 +4,34 @@ public class User {
     private int bruker_id;
     private String fornavn;
     private String etternavn;
-    private int status_id;
+    private Integer status_id;
     private String mobil;
     private String epost;
     private String passord;
     private Address address;
-    private int userLevel;
+    private Integer userLevel;
 
     public User(){
     }
+    
+    public User(int bruker_id, String epost, String passord) {
+        this.bruker_id = bruker_id;
+        this.epost = epost;
+        this.passord = passord;
+    }
 
-    public User(int bruker_id, String fornavn, String etternavn, int status_id, String mobil, String epost, String passord, Address address, int userLevel) {
+    public User(String fornavn, String etternavn, Integer status_id, String mobil, String epost, String passord, Address address, Integer userLevel) {
+        this.fornavn = fornavn;
+        this.etternavn = etternavn;
+        this.status_id = status_id;
+        this.mobil = mobil;
+        this.epost = epost;
+        this.passord = passord;
+        this.address = address;
+        this.userLevel = userLevel;
+    }
+
+    public User(int bruker_id, String fornavn, String etternavn, Integer status_id, String mobil, String epost, String passord, Address address, Integer userLevel) {
         this.bruker_id = bruker_id;
         this.fornavn = fornavn;
         this.etternavn = etternavn;
@@ -25,6 +42,7 @@ public class User {
         this.address = address;
         this.userLevel = userLevel;
     }
+
 
     public int getBruker_id() {
         return bruker_id;
@@ -50,11 +68,11 @@ public class User {
         this.etternavn = etternavn;
     }
 
-    public int getStatus_id() {
+    public Integer getStatus_id() {
         return status_id;
     }
 
-    public void setStatus_id(int status_id) {
+    public void setStatus_id(Integer status_id) {
         this.status_id = status_id;
     }
 
@@ -90,11 +108,11 @@ public class User {
         this.address = address;
     }
 
-    public int getUserLevel() {
+    public Integer getUserLevel() {
         return this.userLevel;
     }
 
-    public void setUserLevel(int userLevel) {
+    public void setUserLevel(Integer userLevel) {
         this.userLevel = userLevel;
     }
 }

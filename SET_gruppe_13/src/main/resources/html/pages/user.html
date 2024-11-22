@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My profile</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/style.css" type="text/css">
+</head>
+<body>
+  <header>
+    <header class="grid-header">
+      <nav id="mobile-nav">
+        <a href="../../index.html"><img src="../ressurser/logo1.jpg" id="header-logo" alt="header-logo"></a>
+        <ul>
+            <li><a href="../index.html" id="current-page" style="color: black;">Produkter</a></li>
+            <li><a href="about.html#contact-form" style="color: black;">Kontakt oss</a></li>
+            <li><a href="about.html" style="color: black;">Om oss</a></li>
+            <li><a href="login.html" id="contact-btn" style="color: black;">Logg inn</a></li>
+        </ul>
+    </nav>
+    </header>
+  </header>
+  <main>
+    <div class="user_profile row">
+      <div class="col-sm-12 col-md-6">
+        <h1>Brukerprofil</h1>
+        <p id="name">Navn: </p>
+        <p id="email">E-post: </p>
+        <p id="mobile">Tel: </p>
+        <p id="adresse">Adresse: </p>
+        <p id="postnummer">Postkode: </p>
+        <a type="button" class="btn btn-primary logout" onclick="logout()">Logg ut</a>
+      </div>
+
+      <div class="col-sm-12 col-md-6">
+        <h2>Mine IOT produkter</h2>
+        <h3 id="loadingProd">Laster mine produkter...</h3>
+        <div id="myProducts"></div>
+      </div>
+    </div>
+  </main>
+</body>
+<script src="../js/user.js"></script>
+</html>

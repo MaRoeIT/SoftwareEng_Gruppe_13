@@ -45,7 +45,7 @@ public class UserDTOTests {
     @MethodSource("userData")
     @DisplayName("Domain to DTO should map correctly")
     void toDTOMapsCorrectly(int brukerId, String fornavn, String etternavn, int statusId,
-                                      String mobil, String epost, String passord, Address address, int userLevel) {
+                            String mobil, String epost, String passord, Address address, int userLevel) {
         // Arrange
         User user = new User();
         user.setBruker_id(brukerId);
@@ -77,29 +77,29 @@ public class UserDTOTests {
     private static Stream<Arguments> userData() {
         return Stream.of(
 
-            // Normal use
-            Arguments.of(1, "Kjell-Magne", "Larsen", 1,
-                    "+4712345678", "kjellmal@hiof.no", "drossap1234",
-                    new Address(1, "Fjellveien 15", "1607 Fredrikstad"), 1),
+                // Normal use
+                Arguments.of(1, "Kjell-Magne", "Larsen", 1,
+                        "+4712345678", "kjellmal@hiof.no", "drossap1234",
+                        new Address(1, "Fjellveien 15", "1607 Fredrikstad"), 1),
 
-            // Normal use 2
-            Arguments.of(2, "Ola", "Normann", 1,
-                    "+4798765432", "ola.normann@hiof.no", "passord321",
-                    new Address(2, "Jernbanegata 8", "0562 OSLO"), 2),
-            // Empty strings
-            Arguments.of(3, "", "", 1,
-                    "", "", "",
-                    new Address(3, "", ""), 1),
+                // Normal use 2
+                Arguments.of(2, "Ola", "Normann", 1,
+                        "+4798765432", "ola.normann@hiof.no", "passord321",
+                        new Address(2, "Jernbanegata 8", "0562 OSLO"), 2),
+                // Empty strings
+                Arguments.of(3, "", "", 1,
+                        "", "", "",
+                        new Address(3, "", ""), 1),
 
-            // Special nordic characters
-            Arguments.of(4, "Æla", "Normånn", 1,
-                    "+4798765432", "æla.normånn@hiof.no", "åæÆÆØÅØå123",
-                    new Address(2, "JÄnbanegata 8", "0562 ÅSLØ"), 1),
+                // Special nordic characters
+                Arguments.of(4, "Æla", "Normånn", 1,
+                        "+4798765432", "æla.normånn@hiof.no", "åæÆÆØÅØå123",
+                        new Address(2, "JÄnbanegata 8", "0562 ÅSLØ"), 1),
 
-            // One or few characters only strings
-            Arguments.of(5, "A", "B", 2,
-                    "1", "æ.@h.no", "æ",
-                    new Address(4, "R 8", "1234 F"), 3)
+                // One or few characters only strings
+                Arguments.of(5, "A", "B", 2,
+                        "1", "æ.@h.no", "æ",
+                        new Address(4, "R 8", "1234 F"), 3)
         );
     }
 

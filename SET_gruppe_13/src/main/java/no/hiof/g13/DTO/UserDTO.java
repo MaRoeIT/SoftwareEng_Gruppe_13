@@ -36,8 +36,8 @@ public class UserDTO {
 
     public static UserDTO userToDTO(User user) {
         return new UserDTO(
-           user.getBruker_id(), user.getFornavn(), user.getEtternavn(), user.getStatus_id(), user.getMobil(),
-           user.getEpost(), user.getPassord(), user.getAddress(), user.getUserLevel()
+                user.getBruker_id(), user.getFornavn(), user.getEtternavn(), user.getStatus_id(), user.getMobil(),
+                user.getEpost(), user.getPassord(), user.getAddress(), user.getUserLevel()
         );
     }
 
