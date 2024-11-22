@@ -5,6 +5,6 @@ import no.hiof.g13.models.IOTDevice;
 import java.util.ArrayList;
 
 public interface MyProductsSendPort {
-    //interface metode som skal brukes til å sende my produkt sin arrayliste over iot enheter
+    //method ment for sending myProducts out of the core
     void sendMyProductList(ArrayList<IOTDevice> myProducts);
 }

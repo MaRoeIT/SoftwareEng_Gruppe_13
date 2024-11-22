@@ -30,7 +30,7 @@ public class SendSignalUseCase implements ServerSignalPort {
      */
     @Override
     public void sendSignal(int signal) {
-        signalListener.reciveSignal(signal);
+        signalListener.receiveSignal(signal);
         System.out.println("Signal sent from adapter " + signal);
     }
 }

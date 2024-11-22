@@ -15,7 +15,6 @@ public class IsNewDeviceUseCase implements MyProductsSendPort {
 
     @Override
     public void sendMyProductList(ArrayList<IOTDevice> myProducts) {
-        System.out.println("The list recived " + myProducts);
         IsNewDeviceUseCase.myProducts = myProducts;
     }
 

@@ -4,37 +4,43 @@ import no.hiof.g13.adapters.GetLightSettingsUseCase;
 import no.hiof.g13.adapters.IsNewDeviceUseCase;
 import no.hiof.g13.models.MyProducts;
 import no.hiof.g13.models.product.IOTSmartLight;
-import no.hiof.g13.ports.in.ServerSignalPort;
-import no.hiof.g13.ports.out.MyProductsSendPort;
 import no.hiof.g13.services.MyProductsService;
 
 import java.awt.*;
 import java.util.HashMap;
-import java.util.Map;
 
-public class SignalListener implements Runnable {
+/**
+ * A class that listens for specific signals from the server, and performs different types of tasks based on the signal
+ * given.
+ */
+public class SignalListener {
+    //TODO:Make more signals with more functionality
+    private static final int SIGNAL_NEW_DEVICE = 20;
+    private static final int SIGNAL_GET_LIGHT_SETTINGS = 30;
+
     private int signal;
 
     public SignalListener() {
     }
 
+    /**
+     * Sends MyProduct list to different adapters based on incoming signal
+     */
+    public void sendMyProducts(){
+        MyProducts myProducts = generateDummyData();
 
-
-    @Override
-    public void run() {
-        while (true){
-            if (getSignal() == 20){
-                System.out.println("Send the goddamn signal man");
-                break;
-            } else if (getSignal() != 0) {
-                System.out.println("Something is atleast happening");
-                break;
-            }
+        if (this.signal == SIGNAL_NEW_DEVICE){
+            new MyProductsService(new IsNewDeviceUseCase()).sendMyProducts(myProducts);
+        }
+        if (this.signal == SIGNAL_GET_LIGHT_SETTINGS){
+            new MyProductsService(new GetLightSettingsUseCase()).sendMyProducts(myProducts);
         }
     }
 
-    public void sendMyProducts(){
-        HashMap<String, Integer> size = new HashMap<String, Integer>();
+    private MyProducts generateDummyData(){
+        //Generating some dummy data to test against for the integrationtest with the server and client
+        //TODO:Get an actuall MyProduct list generated from the database.
+        HashMap<String, Integer> size = new HashMap<>();
         size.put("Height", 20);
 
         IOTSmartLight device1 = new IOTSmartLight("Carl", "1", "Calistan","Carl xyz",true,50, size, 100);
@@ -60,17 +66,12 @@ public class SignalListener implements Runnable {
 
         MyProducts myProducts = new MyProducts();
         myProducts.addProducts(device1,device2,device3,device4);
-        if (this.signal == 20){
-            new MyProductsService(new IsNewDeviceUseCase()).sendMyProducts(myProducts);
-        }
-        if (this.signal == 30){
-            new MyProductsService(new GetLightSettingsUseCase()).sendMyProducts(myProducts);
-        }
+
+        return myProducts;
     }
 
-    public void reciveSignal(int signal) {
+    public void receiveSignal(int signal) {
         setSignal(signal);
-        System.out.println("The signal has ben set " + getSignal());
         sendMyProducts();
     }
 
@@ -80,6 +81,5 @@ public class SignalListener implements Runnable {
 
     public synchronized void setSignal(int signal) {
         this.signal = signal;
-        System.out.println("Now it should be more set than ever");
     }
 }

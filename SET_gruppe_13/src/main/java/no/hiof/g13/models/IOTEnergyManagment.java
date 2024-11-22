@@ -2,7 +2,11 @@ package no.hiof.g13.models;
 
 import java.util.HashMap;
 
+/**
+ * General grouping of IOTDevices. Contains properties tied to energy management.
+ */
 abstract class IOTEnergyManagment extends IOTDevice {
+    //TODO:Look into making it a dependency injection
     protected int frequencies;
     protected int voltage;
     //Hashmap som inneholder den største mengden watt og ampere som enheten tåler

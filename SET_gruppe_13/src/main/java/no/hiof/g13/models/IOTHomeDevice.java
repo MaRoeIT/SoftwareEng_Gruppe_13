@@ -3,17 +3,19 @@ package no.hiof.g13.models;
 
 import java.util.HashMap;
 
-//Overklasse for hjemme IOT enheter, inneholder gennerelle egenskaper for IOT enheter
+/**
+ * General group class for all IOT devices that is for the home market, things like
+ * housecleaner, StockSmart and smart lights
+ */
 public abstract class IOTHomeDevice extends IOTDevice{
-    //Hashmap for å sette dimensioner for produktet, bredde høyde og vidde.
+    //Hashmap to set up dimensions for the device
     protected HashMap<String, Integer> size = new HashMap<String, Integer>() {{
         put("height", 0);
         put("lenght", 0);
         put("width", 0);
     }};
-    //Holder batteri nivået til enheten
     protected int batteryLevel;
-    //konstruktør
+
     public IOTHomeDevice(String name, String deviceID, String producer,
                         String modell, boolean wifi,int weight,HashMap<String, Integer> size,
                         int batteryLevel) {
@@ -22,7 +24,7 @@ public abstract class IOTHomeDevice extends IOTDevice{
         this.batteryLevel = batteryLevel;
     }
 
-    //Metode som returnerer en array med enten høyde, lengde, vidde eller alle 3
+    //Method that return height, length, width or all tree based on response from the user.
     public int[] getSize(String kake){
         int[] sizeHolder = new int[3];
         switch (kake){

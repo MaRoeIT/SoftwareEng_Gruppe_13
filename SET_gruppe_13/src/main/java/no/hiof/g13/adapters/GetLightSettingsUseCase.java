@@ -13,7 +13,6 @@ public class GetLightSettingsUseCase implements MyProductsSendPort {
 
     @Override
     public void sendMyProductList(ArrayList<IOTDevice> myProducts) {
-        System.out.println("The list recived " + myProducts);
         GetLightSettingsUseCase.myProducts = myProducts;
     }
 

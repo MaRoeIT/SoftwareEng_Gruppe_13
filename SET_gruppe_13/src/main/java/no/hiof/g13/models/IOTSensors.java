@@ -2,6 +2,10 @@ package no.hiof.g13.models;
 
 import java.util.HashMap;
 
+/**
+ * IOT group class for sensors. These are more industry like sensor and not home-market sensors witch falls under
+ * IOTHomeDevices.
+ */
 abstract class IOTSensors extends IOTDevice {
     protected float accurecy;
     protected int minimumOperatingTemp;
