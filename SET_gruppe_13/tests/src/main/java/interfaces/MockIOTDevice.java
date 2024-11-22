@@ -8,5 +8,4 @@ public interface MockIOTDevice {
     void disconnect();
     void getStatus();
     void sendData(String data);
-    String receiveData();
 }

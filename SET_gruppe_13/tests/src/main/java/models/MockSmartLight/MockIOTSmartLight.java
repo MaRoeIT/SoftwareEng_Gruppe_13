@@ -4,18 +4,25 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.*;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
-import no.hiof.g13.DTO.ChangeLightDTO;
 import interfaces.MockIOTDevice;
 
 import static java.lang.System.out;
 
+/**
+ * This is a class that is used to test connectivity and functionality, it is supposed to resemble a very simple IOT
+ * device.
+ */
 public class MockIOTSmartLight implements MockIOTDevice {
-    private boolean connected = false;
-    private String lastReceivedData = "";
+    //A boolean that is thread safe, the atomic boolean takes care of problems of concurrent threads trying to edit
+    //The same variable. Read more on https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/package-summary.html
+    private final AtomicBoolean connected = new AtomicBoolean(false);
     private Socket socket;
     private MockSocketHandler socketHandler;
 
+    //These are supposed to be allocated based on the users products but for this mvp we focus on only changing some
+    //of the settings and information.
     private String name = "Govee LED light";
     private String deviceID;
     private String producer = "Govee";
@@ -27,121 +34,65 @@ public class MockIOTSmartLight implements MockIOTDevice {
     private int lightStrength;
     private boolean isOn = false;
 
-    private int port = 9999;
+    //since we have had troubles with programs claiming ports we work on we let this variable be changable
+    //if we had the opportunity to claim a port this would be final
+    private static int port = 9999;
+
+    private static final int LOW_BATTERY_WARNING_LEVEL = 15;
+    private static final int CRITICAL_BATTERY_WARNING_LEVEL = 5;
 
     public MockIOTSmartLight(String deviceID) {
         this.deviceID = deviceID;
     }
 
+    /**
+     * Connects this device with the server trough sockets. it creates the MockSocketHandler that handles the socket
+     * interactions.
+     * @throws IOException
+     */
     @Override
     public void connect() throws IOException {
         this.socket = new Socket("localHost", port);
         this.socketHandler = new MockSocketHandler(socket, deviceID, this);
+        connected.set(true);
         out.println("Device connected");
 
         socketHandler.sendData("I am connected");
 
-        out.println("Got here");
-
         socketHandler.listenForData();
 
-        while(this.batteryLevel >= 0){
-            this.batteryLevel--;
-            try {
-                TimeUnit.MILLISECONDS.sleep(300);
-            }catch (InterruptedException e){
-                out.println("Sleep was interupted: " + e.getMessage());
-            }
-            if (this.batteryLevel == 5){
-                socketHandler.sendData("Device only have 5% power left, Charge it now");
-            } else if (this.batteryLevel == 15) {
-                socketHandler.sendData("Device only have 15% power left, we recommend charging");
-            }
-        }
-
-        /*
-
-        while (true){
-            if (socketHandler.isNewData()){
-                updateLightSettings();
-                socketHandler.setNewData(false);
-            }
-            //needs a delay to work, the delay can go down to exactly 77 milliseconds before it won't run properly
-            try {
-                TimeUnit.SECONDS.sleep(1);
-            }
-            catch (InterruptedException e){
-                out.println(e.getMessage());
-            }
-        }*/
-
-        /*
-        try(socket = new Socket("localhost", 4444)){
-            OutputStream output = socket.getOutputStream();
-            PrintWriter writer = new PrintWriter(output, true);
-
-            ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
-
-            connected = true;
-            out.println("Device connected.");
-
-            writer.println("Hello, Server");
-            while (connected){
-                keepConnectionAlive(writer);
-
-                try {
-                    String signal = (String) input.readObject();
-                    if ("DATA_INCOMING".equals(signal)){
-                        out.println("Data incoming");
-                        SendSmartLightDTO testClass = (SendSmartLightDTO) input.readObject();
-                        out.println("Received object from server: " + testClass);
-                        this.lightPattern = testClass.getLightPattern();
-                        this.color = testClass.getColor();
-                        this.lightStrength = testClass.getLightStrength();
-                        out.println("Changes done to color = " + this.color + " lightPattern = " + this.lightPattern);
-                    }
-                }
-                catch (ClassNotFoundException e){
-                    out.println("No data yet: " + e.getMessage());
-                }
-
-
-            }
-        }
-        catch (UnknownHostException e){
-            out.println("Server not found: " + e.getMessage());
-        }
-        catch (IOException e){
-            out.println("I/O error: " + e.getMessage());
-        }
-        */
+        monitorBatteryLevel();
     }
 
-    /*
-    public void keepConnectionAlive(PrintWriter writer) {
-        new Thread(() -> {
+    /**
+     * Sends out warnings when the battery level of the device hits low and critical.
+     */
+    private void monitorBatteryLevel(){
+        while(batteryLevel >= 0){
+            this.batteryLevel--;
             try {
-                while (true) {
-                    writer.println(200);
-                    Thread.sleep(5000);
-                }
+                TimeUnit.MILLISECONDS.sleep(700);
+            }catch (InterruptedException e){
+                System.err.println("Sleep was interrupted: " + e.getMessage());
             }
-            catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+            if (batteryLevel == CRITICAL_BATTERY_WARNING_LEVEL){
+                socketHandler.sendData("CRITICAL BATTERY LEVEL! Device only have 5% power left");
+            } else if (batteryLevel == LOW_BATTERY_WARNING_LEVEL) {
+                socketHandler.sendData("Low on battery, Device only have 15% power left, we recommend charging it");
             }
-        }).start();
-    }*/
+        }
+    }
 
     @Override
     public void disconnect() {
         try {
             socketHandler.closeConnection();
+            connected.set(false);
             out.println("Device disconnected.");
         }
         catch (NullPointerException e){
-            out.println("The device haven't been connected and couldn't be disconnected\n" + e.getMessage());
+            System.err.println("The device haven't been connected and couldn't be disconnected\nError message: " + e.getMessage());
         }
-        //connected = false;
     }
 
 
@@ -158,36 +109,13 @@ public class MockIOTSmartLight implements MockIOTDevice {
 
     @Override
     public void sendData(String data) {
-        if (connected){
-            out.println("Sending data: " + data);
-            lastReceivedData = data;
+        if (connected.get()){
+            socketHandler.sendData(data);
         }
         else {
             out.println("Cannot send data. Device is not connected");
         }
     }
-
-    @Override
-    public String receiveData() {
-        if (connected){
-            out.println("Receiving data...");
-            return lastReceivedData;
-        }
-        else {
-            return "Cannot receive data. Device is not connected";
-        }
-    }/*
-
-    public void updateLightSettings(){
-        setLightSettings(socketHandler.getLastReceivedDTO().getLightPattern(),
-                socketHandler.getLastReceivedDTO().getColor(),
-                socketHandler.getLastReceivedDTO().getLightStrength());
-        out.println("The light settings are updated");
-    }
-
-    public void sendLightSettings(){
-        socketHandler.sendData(new ChangeLightDTO(this.lightPattern, this.color, this.lightStrength));
-    }*/
 
     public Socket getSocket() {
         return socket;
@@ -229,10 +157,6 @@ public class MockIOTSmartLight implements MockIOTDevice {
 
     public String getDeviceID() {
         return deviceID;
-    }
-
-    public int getPort() {
-        return port;
     }
 
     public void setPort(int port) {

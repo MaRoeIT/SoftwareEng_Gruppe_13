@@ -1,11 +1,15 @@
 package DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import interfaces.GenericDevice;
 
 import java.io.Serializable;
 
-public class ChangeLightDTO implements GenericDevice, Serializable {
+/**
+ * DTO for storing and sending only variables connected to light settings.
+ * Will use the core DTO when the bug is fixed but for now this one is needed for receiving ChangeLightDTO through
+ * socket
+ */
+public class ChangeLightDTO implements Serializable {
     private String lightPattern;
     private int rgb;
     private int lightStrength;
@@ -16,6 +20,7 @@ public class ChangeLightDTO implements GenericDevice, Serializable {
 
     public ChangeLightDTO(
             @JsonProperty("lightPattern") String lightPattern,
+            //TODO:Fix bug where rgb requires to be attached to color
             @JsonProperty("color") int rgb,
             @JsonProperty("lightStrength") int lightStrength) {
         this.lightPattern = lightPattern;

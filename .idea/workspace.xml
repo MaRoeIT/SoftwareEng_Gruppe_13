@@ -6,7 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="43f8d6f9-e05a-4cc4-9027-5e97656203ba" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/Server/TerminalCommandsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/deviceServer/src/main/java/Server/TerminalCommandsHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/DTO/ChangeLightDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/DTO/ChangeLightDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/interfaces/MockIOTDevice.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/interfaces/MockIOTDevice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockServer/MockClientHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockServer/MockServer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockSmartLight/MockIOTSmartLight.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockSmartLight/MockIOTSmartLight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockSmartLight/MockSocketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/models/MockSmartLight/MockSocketHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/runningTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/runningTest2.java" beforeDir="false" afterPath="$PROJECT_DIR$/SET_gruppe_13/tests/src/main/java/StartClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SET_gruppe_13/tests/src/test/java/MockIOTSmartLightTests.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +52,7 @@
         <option value="UML Class" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -95,6 +104,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "git-widget-placeholder": "Test__module",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
@@ -113,8 +124,15 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="models" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="models.MockSmartLight" />
+      <recent name="" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="main.java.no.hiof.g13.DTO" />
@@ -125,7 +143,7 @@
     <configuration name="Client1" type="Application" factoryName="Application">
       <option name="ALTERNATIVE_JRE_PATH" value="openjdk-21" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="runningTest2" />
+      <option name="MAIN_CLASS_NAME" value="StartClient" />
       <module name="tests" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -134,7 +152,7 @@
     <configuration name="Client2" type="Application" factoryName="Application">
       <option name="ALTERNATIVE_JRE_PATH" value="openjdk-21" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="runningTest2" />
+      <option name="MAIN_CLASS_NAME" value="StartClient" />
       <module name="tests" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -143,7 +161,7 @@
     <configuration name="Client3" type="Application" factoryName="Application">
       <option name="ALTERNATIVE_JRE_PATH" value="openjdk-21" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="runningTest2" />
+      <option name="MAIN_CLASS_NAME" value="StartClient" />
       <module name="tests" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -217,7 +235,7 @@
       <workItem from="1731575069035" duration="3094000" />
       <workItem from="1731770533184" duration="17757000" />
       <workItem from="1731954616981" duration="104945000" />
-      <workItem from="1732224464037" duration="14885000" />
+      <workItem from="1732224464037" duration="22131000" />
     </task>
     <servers />
   </component>
